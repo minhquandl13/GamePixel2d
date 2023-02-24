@@ -49,29 +49,32 @@ public class Player extends Entity {
 
     public void update() {
 
-        if (keyH.upPressed == true) {
-            direction = "up";
-            y -= speed;
-        } else if (keyH.downPressed == true) {
-            direction = "down";
-            y += speed;
-        } else if (keyH.leftPressed == true) {
-            direction = "left";
-            x -= speed;
-        } else if (keyH.rightPressed == true) {
-            direction = "right";
-            x += speed;
-        }
-
-        // image change in every 10 frames
-        spritesCounter++;
-        if (spritesCounter > 10) {
-            if (spriteNumber == 1) {
-                spriteNumber = 2;
-            } else if (spriteNumber == 2) {
-                spriteNumber = 1;
+        if (keyH.upPressed == true || keyH.downPressed == true ||
+                keyH.leftPressed == true || keyH.rightPressed == true) {
+            if (keyH.upPressed == true) {
+                direction = "up";
+                y -= speed;
+            } else if (keyH.downPressed == true) {
+                direction = "down";
+                y += speed;
+            } else if (keyH.leftPressed == true) {
+                direction = "left";
+                x -= speed;
+            } else if (keyH.rightPressed == true) {
+                direction = "right";
+                x += speed;
             }
-            spritesCounter = 0;
+
+            // image change in every 10 frames
+            spritesCounter++;
+            if (spritesCounter > 12) {
+                if (spriteNumber == 1) {
+                    spriteNumber = 2;
+                } else if (spriteNumber == 2) {
+                    spriteNumber = 1;
+                }
+                spritesCounter = 0;
+            }
         }
     }
 
@@ -114,8 +117,6 @@ public class Player extends Entity {
                 break;
         }
         g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
-
-        
     }
 
 }
