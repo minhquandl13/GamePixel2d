@@ -1,0 +1,912 @@
+1
+00:00:00,560 --> 00:00:07,839
+last time we loaded the character sprites
+
+3
+00:00:05,279 --> 00:00:16,240
+and implemented a simple animation system so we can control our player character
+
+6
+00:00:12,559 --> 00:00:18,720
+now let's draw some background tiles 
+
+7
+00:00:16,240 --> 00:00:27,599
+by the way, we don't need these variables anymore since we took care of the player movement in Player class
+
+10
+00:00:25,039 --> 00:00:27,599
+so you can delete this
+
+11
+00:00:27,760 --> 00:00:37,760
+so first we need some background tile images
+
+13
+00:00:33,840 --> 00:00:41,280
+so i prepared three tiles
+
+14
+00:00:37,760 --> 00:00:45,840
+we will add more tiles later but for now three tiles should be enough
+
+16
+00:00:43,040 --> 00:00:50,559
+so inside of this resource package let's create another package
+
+18
+00:00:48,079 --> 00:00:53,039
+i'm gonna name this "tiles"
+
+20
+00:00:54,399 --> 00:01:04,399
+and we're gonna copy these tile images to the tiles package
+
+24
+00:01:07,360 --> 00:01:15,920
+and then from this source folder we're gonna create another package
+
+27
+00:01:17,680 --> 00:01:27,560
+and inside of this tile package, create a class called Tile
+
+31
+00:01:28,560 --> 00:01:37,600
+and this is a class which represents a single tile
+
+33
+00:01:34,079 --> 00:01:38,840
+and for now we add two elements 
+
+34
+00:01:37,600 --> 00:01:42,159
+the one is...
+
+38
+00:01:47,119 --> 00:01:51,680
+and the other one is...
+
+43
+00:02:01,759 --> 00:02:07,439
+so this class is okay for now
+
+44
+00:02:04,320 --> 00:02:10,959
+now let's create another class
+
+45
+00:02:07,439 --> 00:02:13,120
+inside of this tile package
+
+46
+00:02:10,959 --> 00:02:17,280
+i'm gonna name this TileManager
+
+49
+00:02:17,360 --> 00:02:24,239
+in this class, first we're gonna use GamePanel
+
+52
+00:02:24,239 --> 00:02:30,000
+and also this Tile class
+
+55
+00:02:30,000 --> 00:02:37,840
+we create this Tile as an alley and name this "tile"
+
+57
+00:02:38,319 --> 00:02:44,319
+import GamePanel
+
+58
+00:02:40,480 --> 00:02:46,879
+then let's create a constructor
+
+60
+00:02:46,879 --> 00:02:53,200
+and we're gonna get GamePanel as "gp"
+
+64
+00:02:58,800 --> 00:03:06,080
+also we're gonna set the size of this Tile array
+
+67
+00:03:06,080 --> 00:03:11,360
+i'm gonna choose 10 for now 
+
+68
+00:03:10,319 --> 00:03:16,319
+this means we're going to create 10 kinds of tiles
+
+70
+00:03:13,120 --> 00:03:22,000
+so like a glass tile, a water tile, a wall tile...
+
+72
+00:03:19,440 --> 00:03:31,120
+if we need more then we can always change this number to like 15 or 20
+
+75
+00:03:27,599 --> 00:03:35,200
+but i think 10 is enough
+
+76
+00:03:31,120 --> 00:03:39,120
+then create a method
+
+78
+00:03:41,040 --> 00:03:48,480
+and we're gonna call this method from this constructor
+
+81
+00:03:48,720 --> 00:03:54,560
+kind of similar to the Player class
+
+82
+00:03:51,920 --> 00:04:01,840
+so we're gonna load these tile images in this getTileImage method 
+
+84
+00:03:58,319 --> 00:04:01,840
+so again, try and catch
+
+88
+00:04:14,560 --> 00:04:22,400
+and here so we're gonna instantiate this Tile array
+
+101
+00:04:46,880 --> 00:04:53,280
+and then type a file path
+
+103
+00:04:50,080 --> 00:04:58,000
+so the file path will be... since these are inside of this tiles package so...
+
+108
+00:05:03,520 --> 00:05:12,240
+so we created this BufferedImage inside of this Tile class
+
+111
+00:05:10,720 --> 00:05:20,240
+we're gonna put this tile file image into this BufferedImage
+
+114
+00:05:17,520 --> 00:05:24,639
+let's copy this and paste
+
+119
+00:05:28,560 --> 00:05:36,840
+and the tile[1] will be wall
+
+121
+00:05:33,360 --> 00:05:42,160
+and the tile[2] will be water
+
+123
+00:05:39,759 --> 00:05:44,479
+instantiation is done
+
+124
+00:05:42,160 --> 00:05:54,560
+and we create a draw method inside of this TileManager too
+
+132
+00:06:00,479 --> 00:06:06,639
+import
+
+133
+00:06:02,720 --> 00:06:09,919
+so let's draw a tile for testing
+
+134
+00:06:06,639 --> 00:06:11,440
+so to draw a tile, type like this 
+
+139
+00:06:17,520 --> 00:06:24,639
+so first a BufferedImage
+
+141
+00:06:20,400 --> 00:06:25,759
+so let's draw this grass tile
+
+144
+00:06:27,280 --> 00:06:34,560
+and then x and y, so 0 and 0
+
+146
+00:06:32,160 --> 00:06:44,000
+and width and height, so gp.tileSize and gp.tileSize
+
+149
+00:06:38,639 --> 00:06:46,479
+and the ImageObserver is null
+
+151
+00:06:46,720 --> 00:06:52,639
+and now let's go to this GamePanel class
+
+153
+00:06:52,639 --> 00:07:00,840
+instantiate this TileManager
+
+160
+00:07:06,319 --> 00:07:14,160
+and pass this GamePanel class
+
+163
+00:07:14,160 --> 00:07:22,880
+then inside of this paintComponent we're gonna type...
+
+167
+00:07:22,880 --> 00:07:30,400
+so we're gonna call this draw method inside of the TileManager
+
+170
+00:07:28,639 --> 00:07:38,560
+and make sure to type this line before this "player.draw(g2)"
+
+173
+00:07:35,440 --> 00:07:43,919
+so it's like a layer. in this case we draw tiles first, then player
+
+175
+00:07:41,680 --> 00:07:55,360
+if it's opposite, background tiles will hide player character so we cannot see player character
+
+179
+00:07:51,120 --> 00:07:58,840
+so make sure to draw tiles before player
+
+180
+00:07:55,360 --> 00:07:58,840
+let's check this
+
+181
+00:07:58,960 --> 00:08:04,800
+yeah okay
+
+182
+00:08:00,879 --> 00:08:06,879
+so our first tile is displayed
+
+183
+00:08:04,800 --> 00:08:09,599
+so let's draw some more tiles
+
+184
+00:08:06,879 --> 00:08:13,120
+so go back to this TileManager class
+
+185
+00:08:09,599 --> 00:08:16,479
+let's copy this and paste it
+
+187
+00:08:15,039 --> 00:08:24,960
+draw a wall tile and a water tile
+
+190
+00:08:20,960 --> 00:08:29,840
+but we have to change this x and y otherwise it's just overwrite
+
+192
+00:08:28,160 --> 00:08:34,560
+so let's add a tile size to x
+
+195
+00:08:34,560 --> 00:08:46,480
+and add tile size again so 48 plus 48 will be 96
+
+198
+00:08:44,080 --> 00:08:49,279
+okay let's check this
+
+199
+00:08:46,480 --> 00:08:56,560
+alright. so we have drawn a grass tile, a wall tile, and a water tile
+
+204
+00:08:56,560 --> 00:09:01,640
+like this, we can draw tiles on the screen
+
+207
+00:09:14,560 --> 00:09:17,680
+so let's check this
+
+208
+00:09:18,800 --> 00:09:21,360
+alright
+
+210
+00:09:23,519 --> 00:09:33,200
+i just created 5 tiles horizontally, 5 tiles vertically
+
+213
+00:09:30,720 --> 00:09:34,399
+that's what i typed
+
+214
+00:09:33,200 --> 00:09:44,320
+but obviously this is not the efficient way of typing or drawing
+
+218
+00:09:41,279 --> 00:09:46,160
+it's just too much typing
+
+219
+00:09:44,320 --> 00:09:53,279
+so we need more efficient tile drawing system
+
+221
+00:09:50,560 --> 00:09:57,120
+so let's not do this
+
+222
+00:09:53,279 --> 00:10:00,399
+instead, we will create a while loop
+
+223
+00:09:57,120 --> 00:10:06,399
+and kind of automate the process so we can avoid a lot of typing
+
+225
+00:10:02,959 --> 00:10:08,720
+first create some variables
+
+235
+00:10:25,839 --> 00:10:30,800
+then create a while loop
+
+237
+00:10:30,880 --> 00:10:41,920
+so this loop continues if col is smaller than gp.max...
+
+241
+00:10:39,839 --> 00:10:43,120
+oh okay
+
+242
+00:10:41,920 --> 00:10:46,640
+ah sorry
+
+243
+00:10:43,120 --> 00:10:50,480
+we need to change these variables to "public"
+
+253
+00:11:02,959 --> 00:11:08,680
+and also this integer row is smaller than...
+
+258
+00:11:14,399 --> 00:11:20,959
+so inside of this loop we're gonna draw tiles
+
+262
+00:11:23,040 --> 00:11:29,839
+so for now let's draw a grass tile
+
+268
+00:11:36,399 --> 00:11:41,120
+these are variables
+
+271
+00:11:46,560 --> 00:11:48,959
+okay
+
+272
+00:11:48,079 --> 00:11:53,600
+first, col is 0 and row is 0 
+
+274
+00:11:51,519 --> 00:11:56,639
+and x is 0 and y is 0
+
+275
+00:11:53,600 --> 00:12:00,399
+basically this is 0:0
+
+276
+00:11:56,639 --> 00:12:02,720
+so it's gonna draw a tile at 0:0
+
+277
+00:12:00,399 --> 00:12:02,720
+here
+
+278
+00:12:02,959 --> 00:12:09,920
+after that we're gonna increase this col by 1
+
+280
+00:12:08,240 --> 00:12:12,560
+and then we're going to increase this x
+
+288
+00:12:30,240 --> 00:12:36,720
+so we increase this col one by one 
+
+289
+00:12:33,360 --> 00:12:43,120
+and if this hits this maxScreenCol which is 16
+
+291
+00:12:39,360 --> 00:12:49,120
+then we're gonna reset this col and also reset this x
+
+293
+00:12:46,720 --> 00:12:54,639
+and then increase this row by 1
+
+295
+00:12:50,720 --> 00:12:56,160
+and also increase this y position
+
+299
+00:13:02,880 --> 00:13:08,880
+okay i think. let's check this
+
+301
+00:13:11,200 --> 00:13:20,160
+so we have succeeded to place tiles on the whole screen
+
+304
+00:13:16,800 --> 00:13:22,320
+but we are only using the grass tile
+
+305
+00:13:20,160 --> 00:13:27,519
+so to render an actual map, we create a map data first
+
+307
+00:13:26,560 --> 00:13:34,399
+then let this loop read the data
+
+309
+00:13:30,480 --> 00:13:38,480
+and to store this map data we use a text file
+
+311
+00:13:35,600 --> 00:13:44,560
+it's a simple method but also pretty popular and effective method as well
+
+313
+00:13:41,839 --> 00:13:50,000
+so first open this notepad
+
+315
+00:13:47,199 --> 00:13:51,279
+and then we're gonna type...
+
+320
+00:14:00,399 --> 00:14:10,399
+and we're gonna copy this and paste 11 times
+
+323
+00:14:10,399 --> 00:14:18,720
+so a single line has 16 zeros and it has 12 lines
+
+325
+00:14:16,800 --> 00:14:24,320
+and each number represents a tile
+
+327
+00:14:20,880 --> 00:14:33,040
+so this is a 16x12 tile map which is the same size as our screen
+
+329
+00:14:28,000 --> 00:14:38,320
+and this 0 means tile number so it's a grass tile
+
+331
+00:14:35,920 --> 00:14:42,800
+so if you want to place a wall tile you just need to change this to 1
+
+334
+00:14:42,839 --> 00:14:52,160
+and if we want to place a water tile, change the number to 2
+
+338
+00:14:52,160 --> 00:14:57,639
+let me create a sample map real quick
+
+340
+00:15:08,480 --> 00:15:13,839
+something like this
+
+341
+00:15:10,000 --> 00:15:13,839
+now let's save the file
+
+342
+00:15:14,320 --> 00:15:23,040
+i'm gonna name this just "map01.txt"
+
+346
+00:15:24,839 --> 00:15:31,440
+then inside of this res folder, create another package
+
+349
+00:15:32,560 --> 00:15:37,920
+i'm going to name this "maps"
+
+351
+00:15:38,800 --> 00:15:46,240
+where's the file?
+
+354
+00:15:46,240 --> 00:15:54,600
+okay so we're gonna copy this map file to this "maps" folder
+
+358
+00:15:54,880 --> 00:16:03,839
+so we got this map data file so let's load this data
+
+360
+00:16:01,440 --> 00:16:06,839
+first, create a variable
+
+367
+00:16:13,920 --> 00:16:20,959
+and this is going to be an array
+
+369
+00:16:18,480 --> 00:16:27,839
+and inside of this constructor we're gonna instantiate this mapTileNum
+
+373
+00:16:29,839 --> 00:16:33,600
+and the size is...
+
+379
+00:16:42,160 --> 00:16:54,959
+so basically we're gonna put all these numbers to this mapTileNum array
+
+383
+00:16:52,800 --> 00:16:59,519
+so to do that, we're gonna create another method
+
+388
+00:17:04,559 --> 00:17:08,240
+so another try and catch
+
+389
+00:17:10,400 --> 00:17:15,120
+this time just "Exception e"
+
+392
+00:17:20,720 --> 00:17:26,480
+we're gonna use this InputStream class
+
+397
+00:17:31,120 --> 00:17:41,520
+and here we're gonna type the file path of this text file
+
+406
+00:17:49,840 --> 00:17:55,360
+and import this InputStream
+
+421
+00:18:16,160 --> 00:18:21,280
+import this
+
+423
+00:18:19,440 --> 00:18:23,520
+and also this
+
+426
+00:18:23,520 --> 00:18:33,840
+so we used this InputStream to import this text file
+
+428
+00:18:30,960 --> 00:18:42,400
+and we're gonna use this BufferedReader to read the content of this text file
+
+431
+00:18:39,039 --> 00:18:45,760
+it's just a format to read this text file
+
+433
+00:18:43,520 --> 00:18:53,520
+and after this, again we're going to create an integer "col"
+
+436
+00:18:49,600 --> 00:18:57,440
+start from 0 and integer row, start from 0
+
+438
+00:18:54,960 --> 00:18:59,760
+and while loop again
+
+441
+00:19:03,840 --> 00:19:08,559
+so smaller than maxScreenColl 
+
+442
+00:19:07,360 --> 00:19:19,280
+and also row is smaller than gp.maxScreenRow
+
+447
+00:19:17,039 --> 00:19:22,840
+inside of this while loop we're gonna read this text file
+
+449
+00:19:21,919 --> 00:19:30,080
+and maxScreenCol or maxScreenRow is the limit of this loop
+
+451
+00:19:26,720 --> 00:19:35,360
+because it has no data beyond that boundary
+
+459
+00:19:46,160 --> 00:19:51,600
+so this BufferedReader can read text files
+
+460
+00:19:48,400 --> 00:20:02,000
+and this readLine means it's gonna read a single line
+
+463
+00:19:57,440 --> 00:20:05,679
+and put it into this String "line"
+
+464
+00:20:02,000 --> 00:20:14,559
+and once we read the line, we enter another while loop
+
+477
+00:20:31,600 --> 00:20:40,000
+and double quotations and a space
+
+479
+00:20:36,799 --> 00:20:43,600
+so what we are doing here is,
+
+480
+00:20:40,000 --> 00:20:49,840
+from the line we just read, we're gonna get these numbers one by one
+
+483
+00:20:49,840 --> 00:20:56,320
+and put them into this alley
+
+485
+00:20:55,200 --> 00:21:03,480
+and then we're gonna create this integer variable and name this "num"
+
+493
+00:21:13,840 --> 00:21:20,159
+and the index is "col"
+
+494
+00:21:17,840 --> 00:21:27,760
+so basically we are changing this from String to Integer
+
+496
+00:21:23,600 --> 00:21:31,679
+this readLine only get the data as String
+
+497
+00:21:27,760 --> 00:21:37,919
+and we split this line and this is also String 
+
+499
+00:21:35,039 --> 00:21:41,120
+so we need to change this from String to Integer
+
+500
+00:21:37,919 --> 00:21:43,360
+so we can use them as a number
+
+502
+00:21:42,320 --> 00:21:49,120
+then we're gonna use this mapTileNum integer
+
+508
+00:21:54,080 --> 00:21:57,679
+the index is col and row
+
+511
+00:21:59,280 --> 00:22:04,960
+after this we're gonna increase this col by 1
+
+513
+00:22:03,760 --> 00:22:13,720
+and then if this col hits the maxScreenCol
+
+525
+00:22:28,559 --> 00:22:37,679
+finally we're gonna close this BufferedReader because we're not gonna use this
+
+528
+00:22:34,559 --> 00:22:43,039
+so basically we're gonna scan this text file line by line
+
+530
+00:22:41,200 --> 00:22:48,799
+so first this line and divide it to each number
+
+532
+00:22:44,480 --> 00:22:54,880
+and get them to the mapTileNum
+
+534
+00:22:51,520 --> 00:22:57,200
+and once finish this line then 
+
+535
+00:22:54,880 --> 00:23:00,080
+go to the next line and the next...
+
+537
+00:23:00,080 --> 00:23:04,000
+until this loop is over
+
+538
+00:23:04,480 --> 00:23:11,840
+so now we should be able to load this map data
+
+540
+00:23:10,320 --> 00:23:19,360
+so let's draw the loaded map data
+
+542
+00:23:15,760 --> 00:23:20,159
+we just need to arrange this while loop a little bit
+
+543
+00:23:19,360 --> 00:23:28,480
+instead of this fixed image, first we delete this 
+
+545
+00:23:24,000 --> 00:23:31,280
+and also i think we're gonna create an integer
+
+553
+00:23:41,360 --> 00:23:46,000
+so again we start from 0
+
+556
+00:23:47,360 --> 00:23:57,360
+we're gonna extract a number from this mapTileNum and get this as a tile number
+
+559
+00:23:55,840 --> 00:24:00,720
+then we're gonna draw an image
+
+563
+00:24:02,799 --> 00:24:12,720
+so this is gonna work as an index of this Tile array
+
+569
+00:24:15,600 --> 00:24:23,360
+so if we get the number 0 from this
+
+572
+00:24:20,799 --> 00:24:26,799
+it's gonna draw a grass tile 
+
+573
+00:24:23,360 --> 00:24:28,960
+and if we get 1 from this alley then
+
+574
+00:24:26,799 --> 00:24:31,679
+it's gonna draw a wall tile
+
+575
+00:24:28,960 --> 00:24:33,440
+if it was 2 then it's gonna draw a water tile
+
+576
+00:24:31,679 --> 00:24:41,919
+so everything is stored inside of this mapTileNum array
+
+580
+00:24:39,600 --> 00:24:44,400
+now this should be okay so let's check this
+
+582
+00:24:45,360 --> 00:24:48,240
+oops
+
+583
+00:24:46,400 --> 00:24:50,480
+why
+
+584
+00:24:48,240 --> 00:24:50,480
+ah
+
+585
+00:24:50,559 --> 00:25:02,400
+okay we didn't call this load map method
+
+589
+00:25:02,799 --> 00:25:06,240
+this should be okay
+
+590
+00:25:04,320 --> 00:25:07,279
+let's check
+
+591
+00:25:06,240 --> 00:25:09,120
+alright
+
+594
+00:25:10,720 --> 00:25:18,080
+so we succeeded to draw a map file
+
+596
+00:25:23,840 --> 00:25:26,880
+looks nice i think
+
+597
+00:25:27,360 --> 00:25:34,000
+also i just remembered one more thing
+
+600
+00:25:34,000 --> 00:25:41,279
+yeah this is just fine but...
+
+602
+00:25:37,760 --> 00:25:48,400
+probably it would be better if we just pass a String here
+
+606
+00:25:46,559 --> 00:25:55,440
+we're gonna pass this path information from here and get it as a String
+
+613
+00:26:02,559 --> 00:26:05,440
+and put it here
+
+614
+00:26:04,240 --> 00:26:14,000
+because maybe you will create a different map later
+
+618
+00:26:11,200 --> 00:26:16,480
+so map02, map03 map04...
+
+619
+00:26:14,000 --> 00:26:20,960
+and whenever you want to load a different map
+
+621
+00:26:18,480 --> 00:26:25,360
+you just need to call this loadMap and type the file path here
+
+623
+00:26:23,520 --> 00:26:27,840
+so you don't have to create another loadMap method
+
+627
+00:26:34,159 --> 00:26:42,159
+anyway we have succeeded to load our map file and draw the tiles on the screen
+
+630
+00:26:43,039 --> 00:26:49,440
+but still it's a small map
+
+631
+00:26:45,520 --> 00:26:54,159
+it's only as large as a single screen
+
+633
+00:26:52,960 --> 00:27:05,360
+so next time we will create a world map that we will actually use it in our game
+
+636
+00:27:00,080 --> 00:27:14,880
+and implement a game camera so the background tiles change according to the player character's movement
+
+640
+00:27:12,480 --> 00:27:17,880
+thanks for watching and until next time
+
+642
+00:27:21,090 --> 00:27:27,760
+[Music]
+
