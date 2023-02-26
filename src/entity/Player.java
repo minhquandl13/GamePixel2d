@@ -15,6 +15,7 @@ public class Player extends Entity {
 
     public final int screenX;
     public final int screenY;
+    private int hasKey = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -27,6 +28,8 @@ public class Player extends Entity {
         solidArea = new Rectangle(0, 0, gp.tileSize, gp.tileSize);
         solidArea.x = 8;
         solidArea.y = 16;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
         solidArea.width = 32;
         solidArea.height = 32;
 
@@ -62,33 +65,34 @@ public class Player extends Entity {
 
     public void update() {
 
-        if (keyH.upPressed == true || keyH.downPressed == true ||
-                keyH.leftPressed == true || keyH.rightPressed == true) {
-            if (keyH.upPressed == true) {
+        if (keyH.upPressed || keyH.downPressed ||
+                keyH.leftPressed || keyH.rightPressed) {
+            if (keyH.upPressed) {
                 direction = "up";
-            } else if (keyH.downPressed == true) {
+            } else if (keyH.downPressed) {
                 direction = "down";
-            } else if (keyH.leftPressed == true) {
+            } else if (keyH.leftPressed) {
                 direction = "left";
-            } else if (keyH.rightPressed == true) {
+            } else if (keyH.rightPressed) {
                 direction = "right";
             }
 
-            //   CHECK TILE COLLISION
+            // CHECK TILE COLLISION
             collisionOn = false;
             gp.getcChecker().checkTile(this);
+
+            // CHECK OBJECT COLLISION
+            int objIndex = gp.getcChecker().checkObject(this, true);
+            pickUpObject(objIndex);
 
             // IF COLLISION IS FALSE, PLAYER CAN MOVE
             if (!collisionOn) {
 
                 switch (direction) {
-                    case "up": worldY -= speed; break;
-
-                    case "down": worldY += speed; break;
-
-                    case "left": worldX -= speed; break;
-
-                    case "right": worldX += speed; break;
+                    case "up" -> worldY -= speed;
+                    case "down" -> worldY += speed;
+                    case "left" -> worldX -= speed;
+                    case "right" -> worldX += speed;
                 }
             }
 
@@ -105,43 +109,66 @@ public class Player extends Entity {
         }
     }
 
+    public void pickUpObject(int i) {
+
+        if (i != 999) {
+
+            String objectName = gp.obj[i].name;
+
+            switch (objectName) {
+                case "Key" -> {
+                    gp.obj[i] = null;
+                    hasKey++;
+                    System.out.println("Key: " + hasKey);
+                }
+                case "Door" -> {
+                    if (hasKey > 0) {
+                        gp.obj[i] = null;
+                        hasKey--;
+                    }
+                    System.out.println("Key: " + hasKey);
+                }
+            }
+        }
+    }
+
     public void draw(Graphics2D g2) {
 
         BufferedImage image = null;
 
         switch (direction) {
-            case "up":
+            case "up" -> {
                 if (spriteNumber == 1) {
                     image = up1;
                 }
                 if (spriteNumber == 2) {
                     image = up2;
                 }
-                break;
-            case "down":
+            }
+            case "down" -> {
                 if (spriteNumber == 1) {
                     image = down1;
                 }
                 if (spriteNumber == 2) {
                     image = down2;
                 }
-                break;
-            case "left":
+            }
+            case "left" -> {
                 if (spriteNumber == 1) {
                     image = left1;
                 }
                 if (spriteNumber == 2) {
                     image = left2;
                 }
-                break;
-            case "right":
+            }
+            case "right" -> {
                 if (spriteNumber == 1) {
                     image = right1;
                 }
                 if (spriteNumber == 2) {
                     image = right2;
                 }
-                break;
+            }
         }
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }

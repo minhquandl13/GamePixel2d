@@ -1,6 +1,7 @@
 package main;
 
 import entity.Player;
+import object.SuperObject;
 import tile.TileManager;
 
 import javax.swing.*;
@@ -25,13 +26,17 @@ public class GamePanel extends JPanel implements Runnable {
     public final int worldHeight = tileSize * maxWorldRow;
 
     // FPS
-    int FPS = 60;
+    private int FPS = 60;
 
     protected TileManager tileM = new TileManager(this);
     protected KeyHandler keyH = new KeyHandler();
     protected Thread gameThread;
     private CollisionChecker cChecker = new CollisionChecker(this);
+    public AssetSetter aSetter = new AssetSetter(this);
     public Player player = new Player(this, keyH);
+
+    // TODO: quan - range over Exception
+    public SuperObject obj[] = new SuperObject[10]; // 10 = slot object like items
 
 
     public GamePanel() {
@@ -43,6 +48,10 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
     }
 
+    public void setupGame() {
+
+        aSetter.setObject();
+    }
     public void startGameThread() {
 
         gameThread = new Thread(this);
@@ -125,8 +134,17 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2 = (Graphics2D) g;
 
+        // TILE
         tileM.draw(g2);
 
+        // OBJECT
+        for (SuperObject superObject : obj) {
+            if (superObject != null) {
+                superObject.draw(g2, this);
+            }
+        }
+
+        // PLAYER
         player.draw(g2);
 
         g2.dispose();
