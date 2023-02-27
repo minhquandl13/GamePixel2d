@@ -114,8 +114,9 @@ public class Player extends Entity {
             switch (objectName) {
                 case "Key" -> {
                     gp.playSE(COIN_MUSIC);
-                    gp.obj[i] = null;
                     hasKey++;
+                    gp.obj[i] = null;
+                    gp.ui.showMessage("You got a key!");
                 }
                 case "Door" -> {
                     gp.playSE(UNLOCK_MUSIC);
