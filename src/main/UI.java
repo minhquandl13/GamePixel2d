@@ -91,6 +91,11 @@ public class UI {
             playTime += (double) 1 / 60;
             g2.drawString("Time: " + decimalFormat.format(playTime), gp.tileSize * 11, KEY_POSITION_Y);
 
+
+
+
+
+            
             // MESSAGE
             if (messageOn) {
                 g2.setFont(g2.getFont().deriveFont(30F));
