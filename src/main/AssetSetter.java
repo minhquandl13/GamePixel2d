@@ -1,6 +1,5 @@
 package main;
 
-import object.OBJ_Boots;
 import object.OBJ_Chest;
 import object.OBJ_Door;
 import object.OBJ_Key;
@@ -32,11 +31,6 @@ public class AssetSetter {
     //region Chest const
     private final int CHEST_X = 10;
     private final int CHEST_Y = 7;
-    //endregion
-
-    //region Chest const
-    private final int BOOTS_X = 37;
-    private final int BOOTS_Y = 42;
     //endregion
 
     public AssetSetter(GamePanel gp) {
@@ -80,12 +74,6 @@ public class AssetSetter {
         gp.obj[6] = new OBJ_Chest();
         gp.obj[6].worldX = CHEST_X * gp.tileSize;
         gp.obj[6].worldY = CHEST_Y * gp.tileSize;
-        //endregion
-
-        //region Boots object
-        gp.obj[7] = new OBJ_Boots();
-        gp.obj[7].worldX = BOOTS_X * gp.tileSize;
-        gp.obj[7].worldY = BOOTS_Y * gp.tileSize;
         //endregion
     }
 }

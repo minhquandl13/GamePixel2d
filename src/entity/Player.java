@@ -15,10 +15,6 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY;
     private int hasKey = 0;
-    private final int COIN_MUSIC = 1;
-    private final int POWER_MUSIC = 2;
-    private final int UNLOCK_MUSIC = 3;
-    private final int FANFARE_MUSIC = 4;
 
 
 
@@ -122,22 +118,16 @@ public class Player extends Entity {
 
             switch (objectName) {
                 case "Key" -> {
-                    gp.playSE(COIN_MUSIC);
                     gp.obj[i] = null;
                     hasKey++;
-
+                    System.out.println("Key: " + hasKey);
                 }
                 case "Door" -> {
                     if (hasKey > 0) {
-                        gp.playSE(UNLOCK_MUSIC);
                         gp.obj[i] = null;
                         hasKey--;
                     }
-                }
-                case "Boots" -> {
-                    gp.playSE(POWER_MUSIC);
-                    speed += 1;
-                    gp.obj[i] = null;
+                    System.out.println("Key: " + hasKey);
                 }
             }
         }
