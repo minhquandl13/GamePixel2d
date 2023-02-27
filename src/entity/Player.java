@@ -9,7 +9,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Player extends Entity {
-
     public GamePanel gp;
     public KeyHandler keyH;
     public final int screenX;
@@ -42,7 +41,6 @@ public class Player extends Entity {
     }
 
     public void setDefaultValues() {
-
         worldX = gp.tileSize * 23;
         worldY = gp.tileSize * 21;
         speed = 4;
@@ -50,9 +48,7 @@ public class Player extends Entity {
     }
 
     public void getPlayerImage() {
-
         try {
-
             up1 = ImageIO.read(getClass().getResourceAsStream("/Player/Walking sprites/boy_up_1.png"));
             up2 = ImageIO.read(getClass().getResourceAsStream("/Player/Walking sprites/boy_up_2.png"));
             down1 = ImageIO.read(getClass().getResourceAsStream("/Player/Walking sprites/boy_down_1.png"));
@@ -61,16 +57,14 @@ public class Player extends Entity {
             left2 = ImageIO.read(getClass().getResourceAsStream("/Player/Walking sprites/boy_left_2.png"));
             right1 = ImageIO.read(getClass().getResourceAsStream("/Player/Walking sprites/boy_right_1.png"));
             right2 = ImageIO.read(getClass().getResourceAsStream("/Player/Walking sprites/boy_right_2.png"));
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void update() {
-
-        if (keyH.upPressed || keyH.downPressed ||
-                keyH.leftPressed || keyH.rightPressed) {
+        if (keyH.upPressed || keyH.downPressed
+                || keyH.leftPressed || keyH.rightPressed) {
             if (keyH.upPressed) {
                 direction = "up";
             } else if (keyH.downPressed) {
@@ -91,7 +85,6 @@ public class Player extends Entity {
 
             // IF COLLISION IS FALSE, PLAYER CAN MOVE
             if (!collisionOn) {
-
                 switch (direction) {
                     case "up" -> worldY -= speed;
                     case "down" -> worldY += speed;
@@ -108,15 +101,14 @@ public class Player extends Entity {
                 } else if (spriteNumber == 2) {
                     spriteNumber = 1;
                 }
+
                 spritesCounter = 0;
             }
         }
     }
 
     public void pickUpObject(int i) {
-
         if (i != 999) {
-
             String objectName = gp.obj[i].name;
 
             switch (objectName) {
@@ -143,7 +135,6 @@ public class Player extends Entity {
     }
 
     public void draw(Graphics2D g2) {
-
         BufferedImage image = null;
 
         switch (direction) {
