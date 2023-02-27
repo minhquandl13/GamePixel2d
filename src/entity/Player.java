@@ -2,6 +2,7 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
+import main.Sound;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -10,12 +11,18 @@ import java.io.IOException;
 
 public class Player extends Entity {
 
-    GamePanel gp;
-    KeyHandler keyH;
-
+    public GamePanel gp;
+    public KeyHandler keyH;
     public final int screenX;
     public final int screenY;
     private int hasKey = 0;
+
+    private final int COIN_MUSIC = 1;
+    private final int POWER_MUSIC = 2;
+    private final int UNLOCK_MUSIC = 3;
+    private final int FANFARE_MUSIC = 4;
+
+
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -117,16 +124,23 @@ public class Player extends Entity {
 
             switch (objectName) {
                 case "Key" -> {
+                    gp.playSE(COIN_MUSIC);
                     gp.obj[i] = null;
                     hasKey++;
                     System.out.println("Key: " + hasKey);
                 }
                 case "Door" -> {
                     if (hasKey > 0) {
+                        gp.playSE(UNLOCK_MUSIC);
                         gp.obj[i] = null;
                         hasKey--;
                     }
                     System.out.println("Key: " + hasKey);
+                }
+                case "Boots" -> {
+                    gp.playSE(POWER_MUSIC);
+                    speed += 1;
+                    gp.obj[i] = null;
                 }
             }
         }
@@ -173,6 +187,9 @@ public class Player extends Entity {
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 
+    public int getHasKeyValue() {
+        return this.hasKey;
+    }
 }
 
 
