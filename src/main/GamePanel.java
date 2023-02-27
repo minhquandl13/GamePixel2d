@@ -28,9 +28,15 @@ public class GamePanel extends JPanel implements Runnable {
 
     protected TileManager tileM = new TileManager(this);
     protected KeyHandler keyH = new KeyHandler();
-    protected Thread gameThread;
+    protected Sound soundEffect = new Sound();
+    protected Sound music = new Sound();
+
     private CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
+    public UI ui = new UI(this);
+    protected Thread gameThread;
+
+    // ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
 
     // TODO: quan - range over Exception
@@ -49,6 +55,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() {
 
         aSetter.setObject();
+        playMusic(music.BACKGROUND_MUSIC);
     }
     public void startGameThread() {
 
@@ -145,10 +152,28 @@ public class GamePanel extends JPanel implements Runnable {
         // PLAYER
         player.draw(g2);
 
+        // UI
+        ui.draw(g2);
+
         g2.dispose();
     }
 
     public CollisionChecker getcChecker() {
         return cChecker;
+    }
+
+    public void playMusic(int i) {
+        music.setFile(i);
+        music.play();
+        music.loop();
+    }
+
+    public void stopMusic() {
+        music.stop();
+    }
+
+    public void playSE(int i) {
+        soundEffect.setFile(i);
+        soundEffect.play();
     }
 }
