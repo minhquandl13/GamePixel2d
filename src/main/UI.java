@@ -9,6 +9,7 @@ public class UI {
     public GamePanel gp;
     public Font arial_40;
     public BufferedImage keyImage;
+    private int messageCounter = 0;
 
     public UI(GamePanel gp) {
         this.gp = gp;
@@ -24,6 +25,11 @@ public class UI {
         g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
         g2.drawString("x " + gp.player.getHasKey(), 74, 65);
 
+        messageCounter++;
+
+        if (messageCounter > 120) {
+            messageCounter = 0;
+        }
     }
 
 }
