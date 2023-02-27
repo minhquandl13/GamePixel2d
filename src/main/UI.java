@@ -6,7 +6,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class UI {
-
     public GamePanel gp;
     public Font arial_40;
     public BufferedImage keyImage;
@@ -20,7 +19,6 @@ public class UI {
     }
 
     public void draw(Graphics2D g2) {
-
         g2.setFont(arial_40);
         g2.setColor(Color.WHITE);
         g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);

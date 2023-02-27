@@ -10,11 +10,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class TileManager {
-
     public GamePanel gp;
     public Tile[] tile;
     public int mapTileNum[][];
-
     public TileManager(GamePanel gp) {
         this.gp = gp;
 
@@ -26,9 +24,7 @@ public class TileManager {
     }
 
     public void getTileImage() {
-
         try {
-
             tile[0] = new Tile();
             tile[0].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/Old version/grass.png"));
 
@@ -49,14 +45,12 @@ public class TileManager {
 
             tile[5] = new Tile();
             tile[5].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/Old version/sand.png"));
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void loadMap(String filePath) {
-
         try {
             InputStream is = getClass().getResourceAsStream(filePath);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -82,6 +76,7 @@ public class TileManager {
                     row++;
                 }
             }
+
             br.close();
         } catch (Exception e) {
 
@@ -89,10 +84,8 @@ public class TileManager {
     }
 
     public void draw(Graphics2D g2) {
-
         int worldCol = 0;
         int worldRow = 0;
-
 
         while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
 

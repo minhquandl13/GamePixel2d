@@ -6,7 +6,6 @@ import object.OBJ_Door;
 import object.OBJ_Key;
 
 public class AssetSetter {
-
     public GamePanel gp;
 
     //region Key const
