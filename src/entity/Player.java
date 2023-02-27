@@ -119,17 +119,25 @@ public class Player extends Entity {
                     gp.ui.showMessage("You got a key!");
                 }
                 case "Door" -> {
-                    gp.playSE(UNLOCK_MUSIC);
                     if (hasKey > 0) {
+                        gp.playSE(UNLOCK_MUSIC);
                         gp.obj[i] = null;
                         hasKey--;
+                        gp.ui.showMessage("You opened the door!");
+                    } else {
+                        gp.ui.showMessage("You need a key!");
                     }
                 }
                 case "Boots" -> {
                     gp.playSE(POWER_MUSIC);
                     speed += 1;
                     gp.obj[i] = null;
-                    System.out.println("Key: " + hasKey);
+                    gp.ui.showMessage("Speed up!");
+                }
+                case "Chest" -> {
+                    gp.ui.gameFinished = true;
+                    gp.stopMusic();
+                    gp.playSE(FANFARE_MUSIC);
                 }
             }
         }
