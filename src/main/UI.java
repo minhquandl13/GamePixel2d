@@ -17,7 +17,7 @@ public class UI {
 
         g2.setFont(arial_40);
         g2.setColor(Color.WHITE);
-        g2.drawString("Key = " + gp.player.getHasKeyValue(), 50, 50);
+        g2.drawString("Key = " + gp.player.getHasKey(), 50, 50);
 
     }
 

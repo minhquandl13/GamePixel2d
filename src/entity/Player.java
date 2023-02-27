@@ -10,12 +10,13 @@ import java.io.IOException;
 
 public class Player extends Entity {
 
-    GamePanel gp;
-    KeyHandler keyH;
-
+    public GamePanel gp;
+    public KeyHandler keyH;
     public final int screenX;
     public final int screenY;
     private int hasKey = 0;
+
+
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -173,6 +174,9 @@ public class Player extends Entity {
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 
+    public int getHasKey() {
+        return hasKey;
+    }
 }
 
 
