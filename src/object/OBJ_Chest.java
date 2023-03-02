@@ -13,4 +13,8 @@ public class OBJ_Chest extends SuperObject {
             e.printStackTrace();
         }
     }
+
+    public void draw() {
+        System.out.println("abc");
+    }
 }
