@@ -17,4 +17,8 @@ public class OBJ_Chest extends SuperObject {
     public void draw() {
         System.out.println("abc");
     }
+
+    public void abc() {
+
+    }
 }
