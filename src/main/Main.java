@@ -20,12 +20,4 @@ public class Main {
         gamePanel.setupGame();
         gamePanel.startGameThread();
     }
-
-    public void abc() {
-
-    }
-
-    public void abdd() {
-        
-    }
 }
