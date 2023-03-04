@@ -26,7 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
     private int FPS = 60;
 
     protected TileManager tileM = new TileManager(this);
-    protected KeyHandler keyH = new KeyHandler();
+    protected KeyHandler keyH = new KeyHandler(this);
     protected Sound soundEffect = new Sound();
     protected Sound music = new Sound();
 
@@ -41,6 +41,10 @@ public class GamePanel extends JPanel implements Runnable {
     // TODO: quan - range over Exception
     public SuperObject obj[] = new SuperObject[10]; // 10 = slot object like items
 
+    // GAME STATE
+    public int gameState;
+    public final int playState = 1;
+    public final int pauseState = 2;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -53,14 +57,15 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() {
         aSetter.setObject();
         playMusic(music.BACKGROUND_MUSIC);
+        stopMusic();
+        gameState = playState;
     }
+
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
 
     }
-
-
     // Sleep method
 //    public void run() {
 //
@@ -115,21 +120,33 @@ public class GamePanel extends JPanel implements Runnable {
                 drawCount++;
             }
 
-            if (timer >= 1000000000) {
-                System.out.println("FPS: " + drawCount);
-                drawCount = 0;
-                timer = 0;
-            }
+//            if (timer >= 1000000000) {
+//                System.out.println("FPS: " + drawCount);
+//                drawCount = 0;
+//                timer = 0;
+//            }
         }
     }
+
     public void update() {
-        player.update();
+        if (gameState == playState) {
+            player.update();
+        }
+        if (gameState == pauseState) {
+            // NOTHING
+        }
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g;
+
+        // DEBUG
+        long drawStart = 0;
+        if (keyH.checkDrawTime) {
+            drawStart = System.nanoTime();
+        }
 
         // TILE
         tileM.draw(g2);
@@ -147,6 +164,14 @@ public class GamePanel extends JPanel implements Runnable {
         // UI
         ui.draw(g2);
 
+        // DEBUG
+        if (keyH.checkDrawTime) {
+            long drawEnd = System.nanoTime();
+            long passed = drawEnd - drawStart;
+            g2.setColor(Color.WHITE);
+            g2.drawString("Draw Time: " + passed, 10, 400);
+            System.out.println("Draw Time: " + passed);
+        }
         g2.dispose();
     }
 
