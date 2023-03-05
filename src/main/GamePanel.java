@@ -1,5 +1,6 @@
 package main;
 
+import entity.Entity;
 import entity.Player;
 import object.SuperObject;
 import tile.TileManager;
@@ -40,6 +41,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // TODO: quan - range over Exception
     public SuperObject obj[] = new SuperObject[10]; // 10 = slot object like items
+    public Entity npc[] = new Entity[10];
 
     // GAME STATE
     public int gameState;
@@ -56,6 +58,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame() {
         aSetter.setObject();
+        aSetter.setNPC();
         playMusic(music.BACKGROUND_MUSIC);
         stopMusic();
         gameState = playState;
@@ -119,18 +122,19 @@ public class GamePanel extends JPanel implements Runnable {
                 delta--;
                 drawCount++;
             }
-
-//            if (timer >= 1000000000) {
-//                System.out.println("FPS: " + drawCount);
-//                drawCount = 0;
-//                timer = 0;
-//            }
         }
     }
 
     public void update() {
         if (gameState == playState) {
+            // PLAYER
             player.update();
+            // NPC
+            for (int i = 0; i < npc.length; i++) {
+                if (npc[i] != null) {
+                    npc[i].update();
+                }
+            }
         }
         if (gameState == pauseState) {
             // NOTHING
@@ -155,6 +159,13 @@ public class GamePanel extends JPanel implements Runnable {
         for (SuperObject superObject : obj) {
             if (superObject != null) {
                 superObject.draw(g2, this);
+            }
+        }
+
+        // NPC
+        for (int i = 0; i < npc.length; i++) {
+            if (npc[i] != null) {
+                npc[i].draw(g2);
             }
         }
 
