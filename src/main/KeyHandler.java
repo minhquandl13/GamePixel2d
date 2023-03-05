@@ -9,6 +9,7 @@ public class KeyHandler implements KeyListener {
     public boolean downPressed;
     public boolean leftPressed;
     public boolean rightPressed;
+    public boolean spacePressed;
     public boolean checkDrawTime = false;
 
     public KeyHandler(GamePanel gp) {
@@ -23,23 +24,25 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
-        if (code == KeyEvent.VK_W) {
-            upPressed = true;
-        }
-        if (code == KeyEvent.VK_S) {
-            downPressed = true;
-        }
-        if (code == KeyEvent.VK_A) {
-            leftPressed = true;
-        }
-        if (code == KeyEvent.VK_D) {
-            rightPressed = true;
-        }
-        if (code == KeyEvent.VK_ESCAPE) {
-            if (gp.gameState == gp.playState) {
+        // PLAY STATE
+        if(gp.gameState == gp.playState) {
+            if (code == KeyEvent.VK_W) {
+                upPressed = true;
+            }
+            if (code == KeyEvent.VK_S) {
+                downPressed = true;
+            }
+            if (code == KeyEvent.VK_A) {
+                leftPressed = true;
+            }
+            if (code == KeyEvent.VK_D) {
+                rightPressed = true;
+            }
+            if (code == KeyEvent.VK_ESCAPE) {
                 gp.gameState = gp.pauseState;
-            } else if (gp.gameState == gp.pauseState) {
-                gp.gameState = gp.playState;
+            }
+            if (code == KeyEvent.VK_SPACE) {
+                spacePressed = true;
             }
         }
 
@@ -47,8 +50,20 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_T) {
             if (!checkDrawTime) {
                 checkDrawTime = true;
-            } else if (checkDrawTime) {
+            } else {
                 checkDrawTime = false;
+            }
+        }
+        // PAUSE STATE
+        else if (gp.gameState == gp.pauseState) {
+            if (code == KeyEvent.VK_ESCAPE) {
+                gp.gameState = gp.playState;
+            }
+        }
+        // DIALOGUE STATE
+        else if (gp.gameState == gp.dialogueState) {
+            if (code == KeyEvent.VK_ENTER) {
+                gp.gameState = gp.playState;
             }
         }
     }
