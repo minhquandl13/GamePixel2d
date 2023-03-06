@@ -23,7 +23,7 @@ public class Entity {
     public BufferedImage left2;
     public BufferedImage right1;
     public BufferedImage right2;
-    public String direction;
+    public String direction= "down";
     public int spritesCounter = 0;
     public int spriteNumber = 1;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
@@ -36,6 +36,9 @@ public class Entity {
     //Character status
     public int maxLife;
     public int life;
+    public BufferedImage image, image2, image3;
+    public String name;
+    public boolean collision = false;
 
     public Entity(GamePanel gp) {
         this.gp = gp;
