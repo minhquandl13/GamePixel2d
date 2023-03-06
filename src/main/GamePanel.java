@@ -1,11 +1,15 @@
 package main;
 
+import entity.Entity;
 import entity.Player;
-import object.SuperObject;
 import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable {
     // SCREEN SETTINGS
@@ -26,21 +30,30 @@ public class GamePanel extends JPanel implements Runnable {
     private int FPS = 60;
 
     protected TileManager tileM = new TileManager(this);
-    protected KeyHandler keyH = new KeyHandler();
+    public KeyHandler keyH = new KeyHandler(this);
     protected Sound soundEffect = new Sound();
-    protected Sound music = new Sound();
-
+    public Sound music = new Sound();
     private CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
+    public EventHandler eHandler = new EventHandler(this);
     protected Thread gameThread;
 
     // ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
 
     // TODO: quan - range over Exception
-    public SuperObject obj[] = new SuperObject[10]; // 10 = slot object like items
+    public Entity obj[] = new Entity[10]; // 10 = slot object like items
+    public Entity npc[] = new Entity[10];
+    ArrayList<Entity> entityList = new ArrayList<>();
 
+
+    // GAME STATE
+    public int gameState;
+    public final int titleState = 0;
+    public final int playState = 1;
+    public final int pauseState = 2;
+    public final int dialogueState = 3;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -52,15 +65,16 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame() {
         aSetter.setObject();
-        playMusic(music.BACKGROUND_MUSIC);
+        aSetter.setNPC();
+//        playMusic(music.BACKGROUND_MUSIC);
+        gameState = titleState;
     }
+
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
 
     }
-
-
     // Sleep method
 //    public void run() {
 //
@@ -114,16 +128,23 @@ public class GamePanel extends JPanel implements Runnable {
                 delta--;
                 drawCount++;
             }
-
-            if (timer >= 1000000000) {
-                System.out.println("FPS: " + drawCount);
-                drawCount = 0;
-                timer = 0;
-            }
         }
     }
+
     public void update() {
-        player.update();
+        if (gameState == playState) {
+            // PLAYER
+            player.update();
+            // NPC
+            for (int i = 0; i < npc.length; i++) {
+                if (npc[i] != null) {
+                    npc[i].update();
+                }
+            }
+        }
+        if (gameState == pauseState) {
+            // NOTHING
+        }
     }
 
     public void paintComponent(Graphics g) {
@@ -131,22 +152,63 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2 = (Graphics2D) g;
 
-        // TILE
-        tileM.draw(g2);
-
-        // OBJECT
-        for (SuperObject superObject : obj) {
-            if (superObject != null) {
-                superObject.draw(g2, this);
-            }
+        // DEBUG
+        long drawStart = 0;
+        if (keyH.checkDrawTime) {
+            drawStart = System.nanoTime();
         }
 
-        // PLAYER
-        player.draw(g2);
+        // TILE SCREEN
+        if (gameState == titleState) {
+            ui.draw(g2);
+        }
+        // OTHERS
+        else {
+            // TILE
+            tileM.draw(g2);
+            // ADD ENTITY TO THE LIST
+            entityList.add(player);
+            for (int i = 0; i < npc.length; i++) {
+                if (npc[i] != null) {
+                    entityList.add(npc[i]);
+                }
+            }
+            for (int i = 0; i < obj.length; i++) {
+                if (obj[i] != null) {
+                    entityList.add(obj[i]);
+                }
+            }
+            //SORT
+            Collections.sort(entityList, new Comparator<Entity>() {
+                @Override
+                public int compare(Entity e1, Entity e2) {
+                    int result = Integer.compare(e1.worldY, e2.worldY);
 
-        // UI
-        ui.draw(g2);
+                    return result;
+                }
+            });
+            //DRAW ENTITY
+            for (int i = 0; i < entityList.size(); i++) {
+                entityList.get(i).draw(g2);
+            }
+            // EMPTY ENTITY
+            for (int i = 0; i < entityList.size(); i++) {
+                entityList.remove(i);
+            }
 
+            // UI
+            ui.draw(g2);
+        }
+
+
+        // DEBUG
+        if (keyH.checkDrawTime) {
+            long drawEnd = System.nanoTime();
+            long passed = drawEnd - drawStart;
+            g2.setColor(Color.WHITE);
+            g2.drawString("Draw Time: " + passed, 10, 400);
+            System.out.println("Draw Time: " + passed);
+        }
         g2.dispose();
     }
 

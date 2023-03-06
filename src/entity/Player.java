@@ -2,26 +2,25 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
+import main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Player extends Entity {
-    public GamePanel gp;
     public KeyHandler keyH;
     public final int screenX;
     public final int screenY;
-    private int hasKey = 0;
-
     private final int COIN_MUSIC = 1;
     private final int POWER_MUSIC = 2;
     private final int UNLOCK_MUSIC = 3;
     private final int FANFARE_MUSIC = 4;
 
     public Player(GamePanel gp, KeyHandler keyH) {
-        this.gp = gp;
+        super(gp);
         this.keyH = keyH;
 
         // Screen player position
@@ -45,21 +44,21 @@ public class Player extends Entity {
         worldY = gp.tileSize * 21;
         speed = 4;
         direction = "down";
+        //Player status
+        maxLife = 6;
+        life = maxLife;
+
     }
 
     public void getPlayerImage() {
-        try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/Player/Walking sprites/boy_up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/Player/Walking sprites/boy_up_2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/Player/Walking sprites/boy_down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/Player/Walking sprites/boy_down_2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/Player/Walking sprites/boy_left_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/Player/Walking sprites/boy_left_2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/Player/Walking sprites/boy_right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/Player/Walking sprites/boy_right_2.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        up1 = setup("/Player/Walking sprites/boy_up_1");
+        up2 = setup("/Player/Walking sprites/boy_up_2");
+        down1 = setup("/Player/Walking sprites/boy_down_1");
+        down2 = setup("/Player/Walking sprites/boy_down_2");
+        left1 = setup("/Player/Walking sprites/boy_left_1");
+        left2 = setup("/Player/Walking sprites/boy_left_2");
+        right1 = setup("/Player/Walking sprites/boy_right_1");
+        right2 = setup("/Player/Walking sprites/boy_right_2");
     }
 
     public void update() {
@@ -82,6 +81,13 @@ public class Player extends Entity {
             // CHECK OBJECT COLLISION
             int objIndex = gp.getcChecker().checkObject(this, true);
             pickUpObject(objIndex);
+
+            // CHECK NPC COLLISION
+            int npcIndex = gp.getcChecker().checkEntity(this, gp.npc);
+            interactNPC(npcIndex);
+            //CHECK EVENT
+            gp.eHandler.checkEvent();
+            gp.keyH.spacePressed = false;
 
             // IF COLLISION IS FALSE, PLAYER CAN MOVE
             if (!collisionOn) {
@@ -109,38 +115,18 @@ public class Player extends Entity {
 
     public void pickUpObject(int i) {
         if (i != 999) {
-            String objectName = gp.obj[i].name;
 
-            switch (objectName) {
-                case "Key" -> {
-                    gp.playSE(COIN_MUSIC);
-                    hasKey++;
-                    gp.obj[i] = null;
-                    gp.ui.showMessage("You got a key!");
-                }
-                case "Door" -> {
-                    if (hasKey > 0) {
-                        gp.playSE(UNLOCK_MUSIC);
-                        gp.obj[i] = null;
-                        hasKey--;
-                        gp.ui.showMessage("You opened the door!");
-                    } else {
-                        gp.ui.showMessage("You need a key!");
-                    }
-                }
-                case "Boots" -> {
-                    gp.playSE(POWER_MUSIC);
-                    speed += 1;
-                    gp.obj[i] = null;
-                    gp.ui.showMessage("Speed up!");
-                }
-                case "Chest" -> {
-                    gp.ui.gameFinished = true;
-                    gp.stopMusic();
-                    gp.playSE(FANFARE_MUSIC);
-                }
+        }
+    }
+
+    public void interactNPC(int i) {
+        if (i != 999) {
+            if (gp.keyH.spacePressed) {
+                gp.gameState = gp.dialogueState;
+                gp.npc[i].speak();
             }
         }
+
     }
 
     public void draw(Graphics2D g2) {
@@ -180,11 +166,7 @@ public class Player extends Entity {
                 }
             }
         }
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
-    }
-
-    public int getHasKey() {
-        return hasKey;
+        g2.drawImage(image, screenX, screenY, null);
     }
 }
 
