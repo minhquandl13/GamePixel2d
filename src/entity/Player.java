@@ -119,7 +119,7 @@ public class Player extends Entity {
         }
     }
 
-    public void  interactNPC(int i) {
+    public void interactNPC(int i) {
         if (i != 999) {
             if (gp.keyH.spacePressed) {
                 gp.gameState = gp.dialogueState;
