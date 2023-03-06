@@ -1,6 +1,10 @@
 package main;
 
+import object.OBJ_Heart;
+import object.SuperObject;
+
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -17,6 +21,7 @@ public class UI {
     public String currentDiaglog = "";
     public int commandNumber = 0;
     public int titleScreenState = 0; // 0: the first screen, 1: the second screen
+    BufferedImage heart_full,heart_half,heart_blank;
 
     public UI(GamePanel gp) {
         this.gp = gp;
@@ -32,6 +37,13 @@ public class UI {
         } catch (FontFormatException | IOException e) {
             throw new RuntimeException(e);
         }
+        // CREATE HUB OBJECT
+        SuperObject heart = new OBJ_Heart(gp);
+        heart_full= heart.image;
+        heart_half = heart.image2;
+        heart_blank = heart.image3;
+
+
     }
 
     public void showMessage(String text) {
@@ -52,18 +64,48 @@ public class UI {
         }
         // PLAY STATE
         if (gp.gameState == gp.playState) {
-            // Do playState stuff later
+        drawPlayerLife();
         }
         // PAUSE STATE
         if (gp.gameState == gp.pauseState) {
+            drawPlayerLife();
             drawPauseScreen();
+
         }
         // DIALOGUE STATE
         if (gp.gameState == gp.dialogueState) {
+            drawPlayerLife();
             drawDialogueScreen();
-        }
-    }
 
+        }
+
+    }
+public void drawPlayerLife(){
+        int x = gp.tileSize/2;
+        int y = gp.tileSize/2;
+        int i=0;
+        //Draw max life
+        while (i<gp.player.maxLife/2){
+            g2.drawImage(heart_blank,x,y,null);
+            i++;
+            x+= gp.tileSize;
+
+        }
+        //Reset
+     x = gp.tileSize/2;
+     y = gp.tileSize/2;
+     i=0;
+     //Draw Current Life
+    while (i<gp.player.life){
+        g2.drawImage(heart_half,x,y,null);
+        i++;
+        if(i <gp.player.life){
+            g2.drawImage(heart_full,x,y,null);
+        }
+        i++;
+        x += gp.tileSize;
+    }
+}
     public void drawTileScreen() {
         if (titleScreenState == 0) {
             g2.setColor(new Color(0, 0, 0));

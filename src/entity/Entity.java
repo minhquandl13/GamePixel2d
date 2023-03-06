@@ -33,6 +33,9 @@ public class Entity {
     public int actionLockCounter = 0;
     protected String[] dialogues = new String[50];
     protected int dialogueIndex = 0;
+    //Character status
+    public int maxLife;
+    public int life;
 
     public Entity(GamePanel gp) {
         this.gp = gp;
