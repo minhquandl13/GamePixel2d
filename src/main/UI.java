@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class UI {
+    public int test;
     public GamePanel gp;
     public Graphics2D g2;
     private Font maruMonica;
