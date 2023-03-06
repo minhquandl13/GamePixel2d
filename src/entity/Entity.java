@@ -23,7 +23,7 @@ public class Entity {
     public BufferedImage left2;
     public BufferedImage right1;
     public BufferedImage right2;
-    public String direction= "down";
+    public String direction = "down";
     public int spritesCounter = 0;
     public int spriteNumber = 1;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
