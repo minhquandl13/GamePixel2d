@@ -27,11 +27,11 @@ public class NPC_OldMan extends Entity {
     }
 
     public void setDialogue() {
-        dialogues[0] = "Hello, lad";
-        dialogues[1] = "So you've come to this island to\nfind the treasure?";
-        dialogues[2] = "I used to be a great wizard but now...\nI'm a bit too old for taking an\nadventure.";
-        dialogues[3] = "This place has 1 final boss so\n beware of him, his name QUOC\n DIRTY OLD MAN";
-        dialogues[4] = "Well, good luck on you";
+        dialogues[0] = "Hello, lad.";
+        dialogues[1] = "So you've come to this island to find the\ntreasure?";
+        dialogues[2] = "I used to be a great wizard but now...\nI'm a bit too old for taking an adventure.";
+        dialogues[3] = "This place has 1 final boss so beware of him,\nhis name QUOC DIRTY OLD MAN.";
+        dialogues[4] = "Well, good luck on you.";
     }
 
     public void setAction() {
@@ -57,7 +57,6 @@ public class NPC_OldMan extends Entity {
             actionLockCounter = 0;
         }
     }
-
     public void speak() {
         super.speak();
     }
