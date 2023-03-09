@@ -115,11 +115,7 @@ public class KeyHandler implements KeyListener {
 
         // DEBUG
         if (code == KeyEvent.VK_T) {
-            if (!checkDrawTime) {
-                checkDrawTime = true;
-            } else {
-                checkDrawTime = false;
-            }
+            checkDrawTime = !checkDrawTime;
         }
         // PAUSE STATE
         else if (gp.gameState == gp.pauseState) {

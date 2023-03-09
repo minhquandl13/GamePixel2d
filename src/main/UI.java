@@ -12,8 +12,8 @@ public class UI {
     public int test;
     public GamePanel gp;
     public Graphics2D g2;
-    private Font maruMonica;
-    private Font purisaB;
+    private final Font maruMonica;
+    private final Font purisaB;
     public int messageCounter = 0;
     public boolean messageOn = false;
     public boolean gameFinished = false;

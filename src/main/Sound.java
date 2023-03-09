@@ -9,7 +9,7 @@ public class Sound {
 
     public Clip clip;
     // TODO: quan - range over Exception
-    public URL soundURL[] = new URL[30];
+    public URL[] soundURL = new URL[30];
     public final int BACKGROUND_MUSIC = 0;
 
     public Sound() {

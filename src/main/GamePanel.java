@@ -27,13 +27,13 @@ public class GamePanel extends JPanel implements Runnable {
     public final int maxWorldRow = 50;
 
     // FPS
-    private int FPS = 60;
+    private final int FPS = 60;
 
     protected TileManager tileM = new TileManager(this);
     public KeyHandler keyH = new KeyHandler(this);
     protected Sound soundEffect = new Sound();
     public Sound music = new Sound();
-    private CollisionChecker cChecker = new CollisionChecker(this);
+    private final CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
     public EventHandler eHandler = new EventHandler(this);
