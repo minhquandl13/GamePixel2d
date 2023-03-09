@@ -48,7 +48,6 @@ public class GamePanel extends JPanel implements Runnable {
     public Entity[] monster = new Entity[20];
     ArrayList<Entity> entityList = new ArrayList<>();
 
-
     // GAME STATE
     public int gameState;
     public final int titleState = 0;
@@ -77,35 +76,6 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread.start();
 
     }
-    // Sleep method
-//    public void run() {
-//
-//        double drawInterval = 1000000000 / FPS;
-//        double nexDrawTime = System.nanoTime() + drawInterval; // 0,016666 seconds
-//
-//        while (gameThread != null) {
-//
-//            // 1 UPDATE: update information such as character position
-//            update();
-//            // 2 DRAW: draw the screen the updated information
-//            repaint();
-//
-//            try {
-//                double remainingTime = nexDrawTime - System.nanoTime();
-//                remainingTime = remainingTime / 1000000;
-//
-//                if (remainingTime < 0) {
-//                    remainingTime = 0;
-//                }
-//
-//                Thread.sleep((long) remainingTime);
-//
-//                nexDrawTime += drawInterval;
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
-//    }
 
     @Override
     // Delta method
@@ -146,7 +116,12 @@ public class GamePanel extends JPanel implements Runnable {
             // MONSTER
             for (int i = 0; i < monster.length; i++) {
                 if (monster[i] != null) {
-                    monster[i].update();
+                    if (monster[i].isAlive() && !monster[i].isDying()) {
+                        monster[i].update();
+                    }
+                    if (!monster[i].isAlive()) {
+                        monster[i] = null;
+                    }
                 }
             }
         }
