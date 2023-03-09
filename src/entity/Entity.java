@@ -11,10 +11,6 @@ import java.util.Objects;
 
 public class Entity {
     public GamePanel gp;
-    public int worldX;
-    public int worldY;
-    public int speed;
-
     public BufferedImage up1;
     public BufferedImage up2;
     public BufferedImage down1;
@@ -23,22 +19,43 @@ public class Entity {
     public BufferedImage left2;
     public BufferedImage right1;
     public BufferedImage right2;
-    public String direction = "down";
-    public int spritesCounter = 0;
-    public int spriteNumber = 1;
+    public BufferedImage attackUp1;
+    public BufferedImage attackUp2;
+    public BufferedImage attackDown1;
+    public BufferedImage attackDown2;
+    public BufferedImage attackLeft1;
+    public BufferedImage attackLeft2;
+    public BufferedImage attackRight1;
+    public BufferedImage attackRight2;
+    public BufferedImage image;
+    public BufferedImage image2;
+    public BufferedImage image3;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
     public int solidAreaDefaultX;
     public int solidAreaDefaultY;
-    public boolean collisionOn = false;
-    public int actionLockCounter = 0;
+    public boolean collision = false;
     protected String[] dialogues = new String[50];
+
+    // STATE
+    public int worldX;
+    public int worldY;
+    public String direction = "down";
+    public int spriteNumber = 1;
     protected int dialogueIndex = 0;
-    //Character status
+    public boolean collisionOn = false;
+    public boolean invincible = false;
+
+    // COUNTER
+    public int spritesCounter = 0;
+    public int actionLockCounter = 0;
+    public int invincibleCounter = 0;
+
+    // CHARACTER ATTRIBUTES
+    public int type; // 0 = Player, 1 = NPC, 2 = Monster
+    public String name;
     public int maxLife;
     public int life;
-    public BufferedImage image, image2, image3;
-    public String name;
-    public boolean collision = false;
+    public int speed;
 
     public Entity(GamePanel gp) {
         this.gp = gp;
@@ -76,7 +93,17 @@ public class Entity {
         collisionOn = false;
         gp.getcChecker().checkTile(this);
         gp.getcChecker().checkObject(this, false);
-        gp.getcChecker().checkPlayer(this);
+        gp.getcChecker().checkEntity(this, gp.npc);
+        gp.getcChecker().checkEntity(this, gp.monster);
+        boolean contactPlayer = gp.getcChecker().checkPlayer(this);
+
+        if (this.type == 2 && contactPlayer) {
+            if (!gp.player.invincible) {
+                // take damage
+                gp.player.life -= 1;
+                gp.player.invincible = true;
+            }
+        }
 
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
         if (!collisionOn) {

@@ -61,9 +61,21 @@ public class Player extends Entity {
         right2 = setup("/Player/Walking sprites/boy_right_2");
     }
 
+    public void getPlayerAttackImage() {
+        attackUp1 = setup("Player/Attacking sprites/boy_attack_up_1");
+        attackUp2 = setup("Player/Attacking sprites/boy_attack_up_2");
+        attackDown1 = setup("Player/Attacking sprites/boy_attack_down_1");
+        attackDown2 = setup("Player/Attacking sprites/boy_attack_down_2");
+        attackLeft1 = setup("Player/Attacking sprites/boy_attack_left_1");
+        attackLeft2 = setup("Player/Attacking sprites/boy_attack_left_2");
+        attackRight1 = setup("Player/Attacking sprites/boy_attack_right_1");
+        attackRight2 = setup("Player/Attacking sprites/boy_attack_right_2");
+    }
+
     public void update() {
         if (keyH.upPressed || keyH.downPressed
-                || keyH.leftPressed || keyH.rightPressed) {
+                || keyH.leftPressed || keyH.rightPressed
+                || keyH.spacePressed) {
             if (keyH.upPressed) {
                 direction = "up";
             } else if (keyH.downPressed) {
@@ -85,12 +97,16 @@ public class Player extends Entity {
             // CHECK NPC COLLISION
             int npcIndex = gp.getcChecker().checkEntity(this, gp.npc);
             interactNPC(npcIndex);
+
+            // CHECK MONSTER COLLISION
+            int monsterIndex = gp.getcChecker().checkEntity(this, gp.monster);
+            contacMonster(monsterIndex);
+
             //CHECK EVENT
             gp.eHandler.checkEvent();
-            gp.keyH.spacePressed = false;
 
             // IF COLLISION IS FALSE, PLAYER CAN MOVE
-            if (!collisionOn) {
+            if (!collisionOn && !keyH.spacePressed) {
                 switch (direction) {
                     case "up" -> worldY -= speed;
                     case "down" -> worldY += speed;
@@ -98,6 +114,8 @@ public class Player extends Entity {
                     case "right" -> worldX += speed;
                 }
             }
+
+            gp.keyH.spacePressed = false;
 
             // image change in every 10 frames
             spritesCounter++;
@@ -111,6 +129,16 @@ public class Player extends Entity {
                 spritesCounter = 0;
             }
         }
+
+        // This needs to be outside of key if statement!
+        if (invincible) {
+            invincibleCounter++;
+            if (invincibleCounter > 60) {
+                invincible = false;
+                invincibleCounter = 0;
+            }
+        }
+
     }
 
     public void pickUpObject(int i) {
@@ -126,7 +154,15 @@ public class Player extends Entity {
                 gp.npc[i].speak();
             }
         }
+    }
 
+    public void contacMonster(int i) {
+        if (i != 999) {
+            if (!invincible) {
+                life -= 1;
+                invincible = true;
+            }
+        }
     }
 
     public void draw(Graphics2D g2) {
@@ -166,7 +202,19 @@ public class Player extends Entity {
                 }
             }
         }
+
+        if (invincible) {
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+        }
         g2.drawImage(image, screenX, screenY, null);
+
+        // Reset Alpha
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+        // DEBUG
+//        g2.setFont(new Font("Arial", Font.PLAIN, 26));
+//        g2.setColor(Color.white);
+//        g2.drawString("Invincible" + invincibleCounter, 10, 400);
     }
 }
 
