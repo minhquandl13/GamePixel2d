@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class EventHandler {
     GamePanel gp;
-   EventRect eventRect [][];
+   EventRect[][] eventRect;
    int previousEventX,previousEventY;
    boolean canTouchEvent = true;
 
@@ -40,16 +40,16 @@ public class EventHandler {
             canTouchEvent = true;
 
         }
-        if (canTouchEvent== true){
-            if ( hit (27,16,"right")== true){
+        if (canTouchEvent){
+            if (hit(27, 16, "right")){
                 //event Happen
                 damagePit(27,16,gp.dialogueState);
             }
-            if ( hit (23,19,"any")== true){
+            if (hit(23, 19, "any")){
                 //event Happen
                 damagePit(23,19,gp.dialogueState);
             }
-            if ( hit(23,12,"up")== true){
+            if (hit(23, 12, "up")){
                 healingPool(23,12, gp.dialogueState);
             }
         }
@@ -74,7 +74,7 @@ public class EventHandler {
         gp.player.solidArea.y= gp.player.worldY + gp.player.solidArea.y;
         eventRect[col][row].x= col*gp.tileSize+ eventRect[col][row].x;
         eventRect[col][row].y= row*gp.tileSize+ eventRect[col][row].y;
-        if(gp.player.solidArea.intersects(eventRect[col][row]) && eventRect[col][row].eventDone== false){
+        if(gp.player.solidArea.intersects(eventRect[col][row]) && !eventRect[col][row].eventDone){
             if(gp.player.direction.contentEquals(reqDirection) ||  reqDirection.contentEquals("any")){
                 hit = true;
                 previousEventX = gp.player.worldX;
@@ -90,7 +90,7 @@ public class EventHandler {
         return hit;
     }
     public void healingPool (int co,int row, int gameState){
-        if (gp.keyH.spacePressed== true){
+        if (gp.keyH.spacePressed){
             gp.gameState = gameState;
             gp.ui.currentDiaglog= "You drink Water \n You have been heal";
             gp.player.life= gp.player.maxLife;
