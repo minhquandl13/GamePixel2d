@@ -46,21 +46,52 @@ public class Entity {
     public boolean collisionOn = false;
     public boolean invincible = false;
     protected boolean attacking = false;
-    protected boolean alive = true;
-    protected boolean dying = false;
+    public boolean alive = true;
+    public boolean dying = false;
+      boolean hpBarOn = false;
 
     // COUNTER
     public int spritesCounter = 0;
     public int actionLockCounter = 0;
     public int invincibleCounter = 0;
     public int dyingCounter = 0;
+    public int hpBarCounter = 0;
 
     // CHARACTER ATTRIBUTES
-    public int type; // 0 = Player, 1 = NPC, 2 = Monster
+
     public String name;
     public int maxLife;
     public int life;
     public int speed;
+    public int level;
+    public  int strength;
+    public int dexterity;
+     public int attack;
+     public int defense;
+     public int exp;
+      public  int nextLevelExp;
+      public int coin;
+      public  Entity currentWeapon;
+      public Entity currentShield;
+
+      // ITEM ATTRIBUTES
+    public int attackValue;
+    public int defenseValue;
+    public String description = "";
+
+    // TYPE
+    public int type; // 0 = Player, 1 = NPC, 2 = Monster
+    public  final  int type_player = 0;
+    public final  int type_npc = 1;
+    public final int type_monster = 2;
+    public final  int type_sword = 3;
+    public final int type_axe = 4;
+    public final int type_shield = 5;
+
+    public final int type_consumable = 6;
+
+
+
 
     public Entity(GamePanel gp) {
         this.gp = gp;
@@ -68,7 +99,9 @@ public class Entity {
 
     public void setAction() {
     }
+public  void damageReaction(){
 
+}
     public void speak() {
         if (dialogues[dialogueIndex] == null) {
             dialogueIndex = 0;
@@ -91,7 +124,7 @@ public class Entity {
             }
         }
     }
-
+    public void use(Entity entity){}
     public void update() {
         setAction();
 
@@ -102,10 +135,19 @@ public class Entity {
         gp.getcChecker().checkEntity(this, gp.monster);
         boolean contactPlayer = gp.getcChecker().checkPlayer(this);
 
-        if (this.type == 2 && contactPlayer) {
+        if (this.type == type_monster && contactPlayer ) {
             if (!gp.player.invincible) {
-                // take damage
-                gp.player.life -= 1;
+                // we can give damage
+                gp.playSE(6);
+
+                int damage = attack - gp.player.defense;
+                if(damage < 0){
+                    damage = 0;
+
+                }
+
+                gp.player.life -= damage;
+
                 gp.player.invincible = true;
             }
         }
@@ -184,16 +226,36 @@ public class Entity {
                     }
                 }
             }
+            // Monster HP bar
+            if(type == 2 && hpBarOn == true){
+                double oneScale = (double)gp.tileSize/maxLife;
+                double hpBarValue = oneScale*life;
 
-            if (invincible) {
-                changeAlpha(g2, 0.4f);
+                g2.setColor(new Color(35,35,35));
+                g2.fillRect(screenX-1,screenY-16,gp.tileSize+2,12);
+                g2.setColor(new Color(255,0,30));
+                g2.fillRect(screenX,screenY - 15 , (int)hpBarValue ,10);
+                hpBarCounter++;
+                if(hpBarCounter > 600){
+                    hpBarCounter =0;
+                    hpBarOn = false;
+
+                }
             }
-            changeAlpha(g2, 1f);
-            if (dying) {
+
+            if (invincible == true) {
+                hpBarOn = true;
+                hpBarCounter = 0;
+                changeAlpha(g2 ,0.4F);
+
+            }
+            if (dying == true) {
                 dyingAnimation(g2);
             }
 
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+
+            changeAlpha(g2 ,1F);
         }
     }
 
