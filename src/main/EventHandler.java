@@ -1,7 +1,5 @@
 package main;
 
-import java.awt.*;
-
 public class EventHandler {
     GamePanel gp;
    EventRect[][] eventRect;
@@ -61,6 +59,7 @@ public class EventHandler {
 
     public  void damagePit(int col,int row,int gameState) {
         gp.gameState= gameState;
+        gp.playSE(6);
         gp.ui.currentDiaglog="You fall into a bit";
         gp.player.life -=1;
       //  eventRect[col][row].eventDone= true;
@@ -92,8 +91,11 @@ public class EventHandler {
     public void healingPool (int co,int row, int gameState){
         if (gp.keyH.spacePressed){
             gp.gameState = gameState;
+            gp.player.attackCanceled = true;
+            gp.playSE(2);
             gp.ui.currentDiaglog= "You drink Water \n You have been heal";
             gp.player.life= gp.player.maxLife;
+            gp.aSetter.setMonster();
         }
     }
 /*    public void teleport ( int gameState){

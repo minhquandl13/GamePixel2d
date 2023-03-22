@@ -18,6 +18,11 @@ public class Sound {
         soundURL[2] = getClass().getResource("/Sound/powerup.wav");
         soundURL[3] = getClass().getResource("/Sound/unlock.wav");
         soundURL[4] = getClass().getResource("/Sound/fanfare.wav");
+        soundURL[5] = getClass().getResource("/Sound/hitmonster.wav");
+        soundURL[6] = getClass().getResource("/Sound/receivedamage.wav");
+        soundURL[7] = getClass().getResource("/Sound/swingweapon.wav");
+        soundURL[8] = getClass().getResource("/Sound/levelup.wav");
+        soundURL[9] = getClass().getResource("/Sound/cursor.wav");
     }
 
     public void setFile(int i) {
@@ -25,7 +30,7 @@ public class Sound {
             AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
             clip = AudioSystem.getClip();
             clip.open(ais);
-        } catch (Exception e) {
+        }catch (Exception e) {
 
         }
     }
@@ -35,10 +40,12 @@ public class Sound {
     }
 
     public void loop() {
-        clip.loop(clip.LOOP_CONTINUOUSLY);
+
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
     public void stop() {
+
         clip.stop();
     }
 }
