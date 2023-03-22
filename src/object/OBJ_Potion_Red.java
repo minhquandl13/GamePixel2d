@@ -6,7 +6,6 @@ import entity.Entity;
 public class OBJ_Potion_Red extends Entity {
     GamePanel gp;
     int value = 5;
-
     public OBJ_Potion_Red(GamePanel gp){
         super(gp);
 
@@ -15,8 +14,6 @@ public class OBJ_Potion_Red extends Entity {
         name = "Red Potion";
         down1 = setup("/Object/potion_red",gp.tileSize,gp.tileSize);
         description  = "[ Red Potion ]\nHeals your life by " + value + ".";
-
-
     }
 
     public  void use(Entity entity){
@@ -29,7 +26,4 @@ public class OBJ_Potion_Red extends Entity {
         }
         gp.playSE(2);
     }
-
-
-
 }

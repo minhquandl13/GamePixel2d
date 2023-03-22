@@ -89,10 +89,10 @@ public class CollisionChecker {
                     default -> throw new IllegalStateException("Unexpected value: " + entity.direction);
                 }
                 if (entity.solidArea.intersects(gp.obj[i].solidArea)) {
-                    if (gp.obj[i].collision == true) {
+                    if (gp.obj[i].collision) {
                         entity.collisionOn = true;
                     }
-                    if (player == true) {
+                    if (player) {
                         index = i;
                     }
                 }
