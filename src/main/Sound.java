@@ -30,7 +30,7 @@ public class Sound {
             AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
             clip = AudioSystem.getClip();
             clip.open(ais);
-        }catch (Exception e) {
+        } catch (Exception e) {
 
         }
     }
@@ -40,12 +40,10 @@ public class Sound {
     }
 
     public void loop() {
-
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
     public void stop() {
-
         clip.stop();
     }
 }

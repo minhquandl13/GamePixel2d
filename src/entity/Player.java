@@ -20,13 +20,13 @@ public class Player extends Entity {
     private final int FANFARE_MUSIC = 4;
 //    int standCounter = 0;
 
-public boolean attackCanceled = false;
-public ArrayList<Entity> inventory = new ArrayList<>();
-public final  int maxIventorySize = 20;
+    public boolean attackCanceled = false;
+    public ArrayList<Entity> inventory = new ArrayList<>();
+    public final int maxIventorySize = 20;
+
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
         this.keyH = keyH;
-
 
 
         // Screen player position
@@ -56,29 +56,27 @@ public final  int maxIventorySize = 20;
         speed = 4;
         direction = "down";
         //Player status
-        level =1;
+        level = 1;
         maxLife = 6;
         life = maxLife;
-        strength =1; // The more strength he has , the more damage he gives.
-        dexterity =1; // The more dexterity he has,the less  damage he receives.
-        exp =0;
-        nextLevelExp =5;
-        coin =0;
-        currentWeapon =new OBJ_Sword_Normal(gp);
+        strength = 1; // The more strength he has , the more damage he gives.
+        dexterity = 1; // The more dexterity he has,the less  damage he receives.
+        exp = 0;
+        nextLevelExp = 5;
+        coin = 0;
+        currentWeapon = new OBJ_Sword_Normal(gp);
         currentShield = new OBJ_Shield_Wood(gp);
         attack = getAttack(); // The total attack value is decided by strength and weapon
         defense = getDefense(); // The total defense value is decided by dexterity and shield
 
 
-
     }
-    public void setItems(){
+
+    public void setItems() {
 
         inventory.add(currentWeapon);
         inventory.add(currentShield);
         inventory.add(new OBJ_Key(gp));
-
-
 
 
     }
@@ -128,6 +126,7 @@ public final  int maxIventorySize = 20;
             attackRight2 = setup("/Player/Attacking sprites/boy_axe_right_2", gp.tileSize * 2, gp.tileSize);
         }
     }
+
     public void update() {
         if (attacking) {
             attacking();
@@ -173,8 +172,8 @@ public final  int maxIventorySize = 20;
                 }
             }
             if (keyH.spacePressed == true && attackCanceled == false) {
-            //    gp.playSE(7);
-                attacking = true ;
+                //    gp.playSE(7);
+                attacking = true;
                 spritesCounter = 0;
             }
             attackCanceled = false;
@@ -250,13 +249,12 @@ public final  int maxIventorySize = 20;
     public void pickUpObject(int i) {
         if (i != 999) {
             String text;
-            if(inventory.size() != maxIventorySize) {
+            if (inventory.size() != maxIventorySize) {
                 inventory.add(gp.obj[i]);
                 gp.playSE(1);
 
                 text = " Got a" + gp.obj[i].name + "!";
-            }
-            else{
+            } else {
                 text = "You cannot carry any  more !";
 
 
@@ -284,8 +282,8 @@ public final  int maxIventorySize = 20;
             if (!invincible) {
                 gp.playSE(6);
 
-                int damage =gp.monster[i].attack - defense;
-                if(damage < 0){
+                int damage = gp.monster[i].attack - defense;
+                if (damage < 0) {
                     damage = 0;
 
                 }
@@ -301,35 +299,35 @@ public final  int maxIventorySize = 20;
             if (gp.monster[i].invincible == false) {
                 gp.playSE(5);
 
-                int damage = attack- gp.monster[i].defense;
-                if(damage < 0){
+                int damage = attack - gp.monster[i].defense;
+                if (damage < 0) {
                     damage = 0;
 
                 }
 
 
-
                 gp.monster[i].life -= damage;
-                gp.ui.AddMessage(damage+ "damage!");
+                gp.ui.AddMessage(damage + "damage!");
                 gp.monster[i].invincible = true;
                 gp.monster[i].damageReaction();
 
                 if (gp.monster[i].life <= 0) {
                     gp.monster[i].dying = true;
                     gp.ui.AddMessage("Killed the " + gp.monster[i].name + "!");
-                    gp.ui.AddMessage("Exp + " + gp.monster[i].exp );
+                    gp.ui.AddMessage("Exp + " + gp.monster[i].exp);
                     exp += gp.monster[i].exp;
                     checkLevelUp();
                 }
             }
         }
     }
-    public  void checkLevelUp(){
-        if(exp >= nextLevelExp){
+
+    public void checkLevelUp() {
+        if (exp >= nextLevelExp) {
 
             level++;
-            nextLevelExp = nextLevelExp*2;
-            maxLife +=2;
+            nextLevelExp = nextLevelExp * 2;
+            maxLife += 2;
             strength++;
             dexterity++;
             attack = getAttack();
@@ -338,29 +336,30 @@ public final  int maxIventorySize = 20;
             gp.playSE(8);
             gp.gameState = gp.dialogueState;
             gp.ui.currentDiaglog = "You are level " + level + "now!\n"
-                    +"You feel stronger!";
+                    + "You feel stronger!";
 
 
         }
 
     }
-    public  void selectItem(){
+
+    public void selectItem() {
         int itemIndex = gp.ui.getItemIndexOnSlot();
-        if(itemIndex < inventory.size()){
+        if (itemIndex < inventory.size()) {
             Entity selectedItem = inventory.get(itemIndex);
-            if(selectedItem.type == type_sword || selectedItem.type == type_axe){
+            if (selectedItem.type == type_sword || selectedItem.type == type_axe) {
                 currentWeapon = selectedItem;
                 attack = getAttack();
                 getPlayerAttackImage();
             }
-            if(selectedItem.type == type_shield){
+            if (selectedItem.type == type_shield) {
                 currentShield = selectedItem;
                 defense = getDefense();
 
             }
-            if(selectedItem.type==type_consumable){
-               selectedItem.use(this);
-               inventory.remove(itemIndex);
+            if (selectedItem.type == type_consumable) {
+                selectedItem.use(this);
+                inventory.remove(itemIndex);
             }
         }
     }
@@ -448,12 +447,12 @@ public final  int maxIventorySize = 20;
         }
 
         if (invincible) {
-          g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER , 0.4f));
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
         }
         g2.drawImage(image, tempScreenX, tempScreenY, null);
 
         // Reset Alpha
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER , 1f));
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
     }
 }
 
