@@ -216,11 +216,12 @@ public class Player extends Entity {
             if (!gp.monster[i].invincible) {
                 gp.monster[i].life -= 1;
                 gp.monster[i].invincible = true;
-
-                if (gp.monster[i].life <= 0) {
-                    gp.monster[i].dying = true;
-                }
             }
+
+            if (gp.monster[i].life <= 0) {
+                gp.monster[i].dying = true;
+            }
+
         }
     }
 
@@ -310,6 +311,7 @@ public class Player extends Entity {
             changeAlpha(g2, 0.4f);
         }
         g2.drawImage(image, tempScreenX, tempScreenY, null);
+        g2.drawImage(image, screenX, screenY, null);
 
         // Reset Alpha
         changeAlpha(g2, 1f);
