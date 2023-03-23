@@ -56,12 +56,18 @@ public class Entity {
     public int invincibleCounter = 0;
     public int dyingCounter = 0;
     public int hpBarCounter = 0;
+    public int shotAvailableCounter = 0;
 
     // CHARACTER ATTRIBUTES
 
     public String name;
     public int maxLife;
     public int life;
+    public int maxMana;
+    public int mana;
+
+    public int ammo;
+
     public int speed;
     public int level;
     public int strength;
@@ -73,11 +79,14 @@ public class Entity {
     public int coin;
     public Entity currentWeapon;
     public Entity currentShield;
+    public Projectile projectile;
 
     // ITEM ATTRIBUTES
+    public int value;
     public int attackValue;
     public int defenseValue;
     public String description = "";
+    public int useCost;
 
     // TYPE
     public int type; // 0 = Player, 1 = NPC, 2 = Monster
@@ -87,8 +96,9 @@ public class Entity {
     public final int type_sword = 3;
     public final int type_axe = 4;
     public final int type_shield = 5;
-
     public final int type_consumable = 6;
+    public final int type_pickupOnly = 7;
+
 
 
     public Entity(GamePanel gp) {
@@ -128,6 +138,56 @@ public class Entity {
     public void use(Entity entity) {
     }
 
+    public void checkDrop(){
+
+    }
+    public void dropItem(Entity droppedItem){
+
+        for(int i = 0; i < gp.obj.length; i++){
+            if(gp.obj[i] == null){
+                gp.obj[i] = droppedItem;
+                gp.obj[i].worldX = worldX; //the dead monster's worldX
+                gp.obj[i].worldY = worldY;
+                break;
+            }
+        }
+    }
+
+    public Color getParticleColor(){
+        Color color = null;
+        return color;
+    }
+
+    public int getParticleSize(){
+        int size = 0; //6 pixels
+        return size;
+    }
+
+    public int getParticleSpeed(){
+        int speed = 0;
+        return speed;
+    }
+
+    public int getParticleMaxLife(){
+        int maxLife = 0;
+        return maxLife;
+    }
+
+    public void generateParticle(Entity generator, Entity target){
+        Color color = generator.getParticleColor();
+        int size = generator.getParticleSize();
+        int speed = generator.getParticleSpeed();
+        int maxLife = generator.getParticleMaxLife();
+
+        Particle p1 = new Particle(gp, generator, color, size, speed, maxLife, -2, -1);
+        Particle p2 = new Particle(gp, generator, color, size, speed, maxLife, 1, -1);
+        Particle p3 = new Particle(gp, generator, color, size, speed, maxLife, -2, 1);
+        Particle p4 = new Particle(gp, generator, color, size, speed, maxLife, 2, 1);
+        gp.particleList.add(p1);
+        gp.particleList.add(p2);
+        gp.particleList.add(p3);
+        gp.particleList.add(p4);
+    }
     public void update() {
         setAction();
 
@@ -136,23 +196,12 @@ public class Entity {
         gp.getcChecker().checkObject(this, false);
         gp.getcChecker().checkEntity(this, gp.npc);
         gp.getcChecker().checkEntity(this, gp.monster);
+        gp.getcChecker().checkEntity(this, gp.iTile);
         boolean contactPlayer = gp.getcChecker().checkPlayer(this);
 
         if (this.type == type_monster && contactPlayer) {
-            if (!gp.player.invincible) {
-                // we can give damage
-                gp.playSE(6);
 
-                int damage = attack - gp.player.defense;
-                if (damage < 0) {
-                    damage = 0;
-
-                }
-
-                gp.player.life -= damage;
-
-                gp.player.invincible = true;
-            }
+            damagePlayer(attack);
         }
 
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
@@ -184,8 +233,27 @@ public class Entity {
                 invincibleCounter = 0;
             }
         }
+        if (shotAvailableCounter < 30){
+            shotAvailableCounter++;
+        }
     }
 
+    public void damagePlayer(int attack){
+        if (!gp.player.invincible) {
+            // we can give damage
+            gp.playSE(6);
+
+            int damage = attack - gp.player.defense;
+            if (damage < 0) {
+                damage = 0;
+
+            }
+
+            gp.player.life -= damage;
+
+            gp.player.invincible = true;
+        }
+    }
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
@@ -256,7 +324,7 @@ public class Entity {
                 dyingAnimation(g2);
             }
 
-            g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            g2.drawImage(image, screenX, screenY,null);
 
             changeAlpha(g2, 1F);
         }
@@ -291,7 +359,6 @@ public class Entity {
             changeAlpha(g2, 1f);
         }
         if (dyingCounter > i * 8) {
-            dying = false;
             alive = false;
         }
     }

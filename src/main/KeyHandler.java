@@ -11,6 +11,7 @@ public class KeyHandler implements KeyListener {
     public boolean rightPressed;
     public boolean spacePressed;
     public boolean checkDrawTime = false;
+    public boolean shotKeyPressed;
 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
@@ -142,6 +143,10 @@ public class KeyHandler implements KeyListener {
             spacePressed = true;
         }
 
+        if (code == KeyEvent.VK_F) {
+            shotKeyPressed = true;
+        }
+
 
         // DEBUG
         if (code == KeyEvent.VK_T) {
@@ -215,6 +220,10 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_D) {
             rightPressed = false;
+        }
+
+        if (code == KeyEvent.VK_F) {
+            shotKeyPressed = false;
         }
     }
 }
