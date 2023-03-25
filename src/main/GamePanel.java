@@ -7,6 +7,7 @@ import tile_interactive.InteractiveTile;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -26,6 +27,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
 
+
+
     // FPS
     private final int FPS = 60;
 
@@ -33,6 +36,7 @@ public class GamePanel extends JPanel implements Runnable {
     public KeyHandler keyH = new KeyHandler(this);
     protected Sound soundEffect = new Sound();
     public Sound music = new Sound();
+    public Sound se = new Sound();
     private final CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
@@ -59,6 +63,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int pauseState = 2;
     public final int dialogueState = 3;
     public final int characterState = 4;
+    public final int optionsState = 5;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -75,6 +80,7 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setInteractiveTile();
 //        playMusic(music.BACKGROUND_MUSIC);
         gameState = titleState;
+
     }
 
     public void startGameThread() {
@@ -161,6 +167,7 @@ public class GamePanel extends JPanel implements Runnable {
             // NOTHING
         }
     }
+
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -252,6 +259,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
         g2.dispose();
     }
+
 
     public CollisionChecker getcChecker() {
         return cChecker;
