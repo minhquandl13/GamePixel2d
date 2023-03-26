@@ -169,7 +169,13 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_T) {
             checkDrawTime = !checkDrawTime;
         }
+        if (code == KeyEvent.VK_R){
+            switch (gp.currentMap) {
+                case 0: gp.tileM.loadMap("/Map/worldV3.txt", 0); break;
+                case 1: gp.tileM.loadMap("/Map/interior01.txt", 1); break;
+            }
 
+        }
     }
 
     public void pauseState(int code) {
