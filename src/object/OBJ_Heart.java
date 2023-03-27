@@ -19,7 +19,7 @@ public class OBJ_Heart extends Entity {
         image = setup("/Object/heart_full", gp.tileSize, gp.tileSize);
         image2 = setup("/Object/heart_half", gp.tileSize, gp.tileSize);
         image3 = setup("/Object/heart_blank", gp.tileSize, gp.tileSize);
-
+        price = 30;
     }
     public void use(Entity entity){
         gp.playSE(2);

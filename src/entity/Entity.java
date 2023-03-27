@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Entity {
@@ -82,11 +83,14 @@ public class Entity {
     public Projectile projectile;
 
     // ITEM ATTRIBUTES
+    public ArrayList<Entity> inventory = new ArrayList<>();
+    public final int maxIventorySize = 20;
     public int value;
     public int attackValue;
     public int defenseValue;
     public String description = "";
     public int useCost;
+    public int price;
 
     // TYPE
     public int type; // 0 = Player, 1 = NPC, 2 = Monster
@@ -120,18 +124,10 @@ public class Entity {
         dialogueIndex++;
 
         switch (gp.player.direction) {
-            case "up" -> {
-                direction = "down";
-            }
-            case "down" -> {
-                direction = "up";
-            }
-            case "left" -> {
-                direction = "right";
-            }
-            case "right" -> {
-                direction = "left";
-            }
+            case "up" : direction = "down"; break;
+            case "down": direction = "up"; break;
+            case "left": direction = "right";break;
+            case "right": direction = "left";break;
         }
     }
 
@@ -216,7 +212,7 @@ public class Entity {
 
         // image change in every 10 frames
         spritesCounter++;
-        if (spritesCounter > 12) {
+        if (spritesCounter > 24) {
             if (spriteNumber == 1) {
                 spriteNumber = 2;
             } else if (spriteNumber == 2) {

@@ -1,5 +1,6 @@
 package main;
 
+import entity.NPC_Merchant;
 import entity.NPC_OldMan;
 import monster.MON_GreenSlime;
 import object.*;
@@ -67,10 +68,12 @@ public class AssetSetter {
         gp.npc[mapNum][i] = new NPC_OldMan(gp);
         gp.npc[mapNum][i].worldX = gp.tileSize * 21;
         gp.npc[mapNum][i].worldY = gp.tileSize * 21;
+        i++;
 
         // MAP 1
         mapNum = 1;
-        gp.npc[mapNum][i] = new NPC_OldMan(gp);
+        i = 0;
+        gp.npc[mapNum][i] = new NPC_Merchant(gp);
         gp.npc[mapNum][i].worldX = gp.tileSize * 12;
         gp.npc[mapNum][i].worldY = gp.tileSize * 7;
         i++;
@@ -126,17 +129,17 @@ public class AssetSetter {
 
 
 
-        gp.iTile[mapNum][i] = new IT_DryTree(gp,10,40); i++;
-        gp.iTile[mapNum][i] = new IT_DryTree(gp,10,41); i++;
-        gp.iTile[mapNum][i] = new IT_DryTree(gp,11,41); i++;
-        gp.iTile[mapNum][i] = new IT_DryTree(gp,12,41); i++;
-        gp.iTile[mapNum][i] = new IT_DryTree(gp,13,41); i++;
-        gp.iTile[mapNum][i] = new IT_DryTree(gp,13,40); i++;
-        gp.iTile[mapNum][i] = new IT_DryTree(gp,14,40); i++;
-        gp.iTile[mapNum][i] = new IT_DryTree(gp,15,40); i++;
-        gp.iTile[mapNum][i] = new IT_DryTree(gp,16,40); i++;
-        gp.iTile[mapNum][i] = new IT_DryTree(gp,17,40); i++;
-        gp.iTile[mapNum][i] = new IT_DryTree(gp,18,40); i++;
+//        gp.iTile[mapNum][i] = new IT_DryTree(gp,10,40); i++;
+//        gp.iTile[mapNum][i] = new IT_DryTree(gp,10,41); i++;
+//        gp.iTile[mapNum][i] = new IT_DryTree(gp,11,41); i++;
+//        gp.iTile[mapNum][i] = new IT_DryTree(gp,12,41); i++;
+//        gp.iTile[mapNum][i] = new IT_DryTree(gp,13,41); i++;
+//        gp.iTile[mapNum][i] = new IT_DryTree(gp,13,40); i++;
+//        gp.iTile[mapNum][i] = new IT_DryTree(gp,14,40); i++;
+//        gp.iTile[mapNum][i] = new IT_DryTree(gp,15,40); i++;
+//        gp.iTile[mapNum][i] = new IT_DryTree(gp,16,40); i++;
+//        gp.iTile[mapNum][i] = new IT_DryTree(gp,17,40); i++;
+//        gp.iTile[mapNum][i] = new IT_DryTree(gp,18,40); i++;
 
 
 
