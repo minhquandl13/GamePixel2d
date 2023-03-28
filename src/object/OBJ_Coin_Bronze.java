@@ -12,7 +12,7 @@ public class OBJ_Coin_Bronze extends Entity {
         type = type_pickupOnly;
         name = "Bronze Coin";
         value = 1;
-        down1 = setup("/object/coin_bronze", gp.tileSize, gp.tileSize);
+        down1 = setup("/Object/coin_bronze", gp.tileSize, gp.tileSize);
     }
     public void use(Entity entity){
        gp.playSE(1);
