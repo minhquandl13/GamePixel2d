@@ -31,7 +31,7 @@ public class EventHandler {
                 col = 0;
                 row++;
 
-                if (row == gp.maxWorldRow){
+                if (row == gp.maxWorldRow) {
                     row = 0;
                     map++;
                 }
@@ -49,13 +49,19 @@ public class EventHandler {
 
         }
         if (canTouchEvent == true) {
-            if (hit(0,27, 16, "right" )== true) {damagePit(gp.dialogueState);}
-            else if (hit(0,23, 12, "up")== true) {healingPool(gp.dialogueState);}
-            else if (hit(0, 10, 39, "any" )== true) {teleport(1, 12, 13);}
-            else if (hit(1, 12, 13, "any" )== true) {teleport(0, 10, 39);}
-            else if (hit(1, 12, 9, "up") == true) {speak(gp.npc[1][0]);}
-             }
+            if (hit(0, 27, 16, "right") == true) {
+                damagePit(gp.dialogueState);
+            } else if (hit(0, 23, 12, "up") == true) {
+                healingPool(gp.dialogueState);
+            } else if (hit(0, 10, 39, "any") == true) {
+                teleport(1, 12, 13);
+            } else if (hit(1, 12, 13, "any") == true) {
+                teleport(0, 10, 39);
+            } else if (hit(1, 12, 9, "up") == true) {
+                speak(gp.npc[1][0]);
+            }
         }
+    }
 
       /*  if ( hit(24,13,"right")== true){
             teleport(gp.dialogueState);
@@ -75,7 +81,7 @@ public class EventHandler {
 
         boolean hit = false;
 
-        if (map == gp.currentMap){
+        if (map == gp.currentMap) {
             gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
             gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
             eventRect[map][col][row].x = col * gp.tileSize + eventRect[map][col][row].x;
@@ -85,7 +91,6 @@ public class EventHandler {
                     hit = true;
                     previousEventX = gp.player.worldX;
                     previousEventY = gp.player.worldY;
-
                 }
             }
             gp.player.solidArea.x = gp.player.solidAreaDefaultX;
@@ -109,6 +114,7 @@ public class EventHandler {
             gp.aSetter.setMonster();
         }
     }
+
     public void teleport(int map, int col, int row) {
 
         gp.gameState = gp.transitionState;
@@ -120,9 +126,9 @@ public class EventHandler {
         gp.playSE(13);
     }
 
-    public void speak(Entity entity){
+    public void speak(Entity entity) {
 
-        if (gp.keyH.enterPressed == true){
+        if (gp.keyH.enterPressed) {
             gp.gameState = gp.dialogueState;
             gp.player.attackCanceled = true;
             entity.speak();

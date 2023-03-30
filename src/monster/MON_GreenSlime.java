@@ -20,9 +20,9 @@ public class MON_GreenSlime extends Entity {
         name = "Green Slime";
         defaultSpeed = 1;
         speed = defaultSpeed;
-        maxLife = 10;
+        maxLife = 6;
         life = maxLife;
-        attack = 5;
+        attack = 2;
         defense = 0;
         exp = 2;
         projectile = new OBJ_Rock(gp);
@@ -51,49 +51,48 @@ public class MON_GreenSlime extends Entity {
         right2 = setup("/Monster/greenslime_down_2", gp.tileSize, gp.tileSize);
     }
 
-    public void update(){
+    public void update() {
         super.update();
 
         int xDistance = Math.abs(worldX - gp.player.worldX);
         int yDistance = Math.abs(worldY - gp.player.worldY);
-        int tileDistance = (xDistance + yDistance)/gp.tileSize;
+        int tileDistance = (xDistance + yDistance) / gp.tileSize;
 
-        if (onPath == false && tileDistance < 5){
-            int i = new Random().nextInt(100) +1;
-            if (i > 50){
+        if (!onPath && tileDistance < 5) {
+            int i = new Random().nextInt(100) + 1;
+            if (i > 50) {
                 onPath = true;
-
             }
         }
 //        if (onPath == true && tileDistance > 20){
 //            onPath = false;
 //        }
     }
+
     public void setAction() {
-        if (onPath == true){
+        if (onPath) {
 //
-            int goalCol = (gp.player.worldX + gp.player.solidArea.x)/gp.tileSize;
-            int goalRow = (gp.player.worldY + gp.player.solidArea.y)/gp.tileSize;
+            int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize;
+            int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize;
 
             searchPath(goalCol, goalRow);
-            int i = new Random().nextInt(100)+1;
-            if(i > 19 && projectile.alive == false && shotAvailableCounter == 30){
+            int i = new Random().nextInt(100) + 1;
+            if (i > 19 && !projectile.alive && shotAvailableCounter == 30) {
                 projectile.set(worldX, worldY, direction, true, this);
 //                gp.projectileList.add(projectile);
-                
+
                 // CHECK VACACY
                 for (int ii = 0; ii < gp.projectile[1].length; ii++) {
-					if(gp.projectile[gp.currentMap][ii] == null) {
-						gp.projectile[gp.currentMap][ii] = projectile;
-						break;
-					}
-				}
-                
+                    if (gp.projectile[gp.currentMap][ii] == null) {
+                        gp.projectile[gp.currentMap][ii] = projectile;
+                        break;
+                    }
+                }
+
                 shotAvailableCounter = 0;
 
             }
-        }
-        else {
+        } else {
             actionLockCounter++;
 
             if (actionLockCounter == 120) {
@@ -124,19 +123,19 @@ public class MON_GreenSlime extends Entity {
         onPath = true;
     }
 
-    public void checkDrop(){
+    public void checkDrop() {
 
         // CAST A DIE
-        int i = new Random().nextInt(100)+1;
+        int i = new Random().nextInt(100) + 1;
 
         // SET THE MONSTER DROP
-        if(i< 50){
+        if (i < 50) {
             dropItem(new OBJ_Coin_Bronze(gp));
         }
-        if(i >= 50 && i < 75){
+        if (i >= 50 && i < 75) {
             dropItem(new OBJ_Heart(gp));
         }
-        if(i >= 75 && i < 100){
+        if (i >= 75 && i < 100) {
             dropItem(new OBJ_ManaCrystal(gp));
         }
     }

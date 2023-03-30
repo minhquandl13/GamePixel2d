@@ -31,7 +31,6 @@ public class GamePanel extends JPanel implements Runnable {
     public int currentMap = 0;
 
 
-
     // FPS
     private final int FPS = 60;
 
@@ -94,7 +93,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
-    public void retry(){
+    public void retry() {
 
         player.setDefaultPositions();
         player.restoreLifeAndMan();
@@ -102,7 +101,7 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setMonster();
     }
 
-    public void restar(){
+    public void restar() {
 
         player.setDefaultValues();
         player.setDefaultPositions();
@@ -113,6 +112,7 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setMonster();
         aSetter.setInteractiveTile();
     }
+
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
@@ -170,10 +170,10 @@ public class GamePanel extends JPanel implements Runnable {
             for (int i = 0; i < projectile[1].length; i++) {
                 if (projectile[currentMap][i] != null) {
                     if (projectile[currentMap][i].alive == true) {
-                    	projectile[currentMap][i].update();
+                        projectile[currentMap][i].update();
                     }
                     if (projectile[currentMap][i].alive == false) {
-                    	projectile[currentMap][i] = null;
+                        projectile[currentMap][i] = null;
                     }
                 }
             }
@@ -187,8 +187,8 @@ public class GamePanel extends JPanel implements Runnable {
                     }
                 }
             }
-            for(int i = 0; i < iTile[1].length; i++){
-                if(iTile[currentMap][i] != null){
+            for (int i = 0; i < iTile[1].length; i++) {
+                if (iTile[currentMap][i] != null) {
                     iTile[currentMap][i].update();
                 }
             }
@@ -221,8 +221,8 @@ public class GamePanel extends JPanel implements Runnable {
             tileM.draw(g2);
 
             // INTERACTIVE TILE
-            for(int i = 0; i < iTile[1].length; i++){
-                if(iTile[currentMap][i] != null){
+            for (int i = 0; i < iTile[1].length; i++) {
+                if (iTile[currentMap][i] != null) {
                     iTile[currentMap][i].draw(g2);
                 }
             }
