@@ -59,7 +59,7 @@ public class Sound {
 
     public void checkVolume(){
         switch (volumeScale){
-            case 0: volume = 80f; break;
+            case 0: volume = -80f; break;
             case 1: volume = -20f; break;
             case 2: volume = -12f; break;
             case 3: volume = -5f; break;
