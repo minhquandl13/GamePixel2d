@@ -51,6 +51,7 @@ public class Entity {
     public boolean dying = false;
     boolean hpBarOn = false;
     public boolean onPath = false;
+    public boolean knockBack = false;
 
     // COUNTER
     public int spritesCounter = 0;
@@ -59,10 +60,12 @@ public class Entity {
     public int dyingCounter = 0;
     public int hpBarCounter = 0;
     public int shotAvailableCounter = 0;
+    int knockBackCounter = 0;
 
     // CHARACTER ATTRIBUTES
 
     public String name;
+    public int defaultSpeed;
     public int maxLife;
     public int life;
     public int maxMana;

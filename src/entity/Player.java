@@ -56,7 +56,8 @@ public class Player extends Entity {
 
         gp.currentMap = 0;
 
-        speed = 4;
+        defaultSpeed = 4;
+        speed = defaultSpeed;
         direction = "down";
         //Player status
         level = 1;
@@ -227,9 +228,14 @@ public class Player extends Entity {
 
             // SUBTRACT THE COST (MANA, AMMO ETC.)
             projectile.subtractResource(this);
-
-            // ADD IT TO THE LIST
-            gp.projectileList.add(projectile);
+            
+            // CHECK VACANCY
+            for (int i = 0; i < gp.projectile[1].length; i++) {
+				if(gp.projectile[gp.currentMap][i] == null) {
+					gp.projectile[gp.currentMap][i] = projectile;
+					break;
+				}
+			}
 
             shotAvailableCounter = 0;
 
@@ -295,6 +301,9 @@ public class Player extends Entity {
             int iTileIndex = gp.getcChecker().checkEntity(this, gp.iTile);
             damageInteractiveTile(iTileIndex);
 
+            int projectileIndex = gp.getcChecker().checkEntity(this, gp.projectile);
+            damageProjectile(projectileIndex);
+            
             // After checking collision, restore the original data
             worldX = currentWorldX;
             worldY = currentWorldY;
@@ -413,7 +422,14 @@ public class Player extends Entity {
 
         }
     }
-
+    public void damageProjectile(int i) {
+    	
+    	if(i != 999) {
+    		Entity projectile = gp.projectile[gp.currentMap][i];
+    		projectile.alive = false;
+    		generateParticle(projectile, projectile);
+    	}
+    }
     public void checkLevelUp() {
         if (exp >= nextLevelExp) {
 
