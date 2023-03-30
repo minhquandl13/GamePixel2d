@@ -30,7 +30,7 @@ public class Config {
 
     }
 
-    public void loadConfig(){
+    public void loadConfig() {
         try {
             BufferedReader br = new BufferedReader(new FileReader("config.txt"));
 

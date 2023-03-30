@@ -114,19 +114,25 @@ public class AssetSetter {
 
     }
 
-    public void setInteractiveTile(){
+    public void setInteractiveTile() {
 
         int mapNum = 0;
         int i = 0;
 
-        gp.iTile[mapNum][i] = new IT_DryTree(gp,27,12); i++;
-        gp.iTile[mapNum][i] = new IT_DryTree(gp,28,12); i++;
-        gp.iTile[mapNum][i] = new IT_DryTree(gp,29,12); i++;
-        gp.iTile[mapNum][i] = new IT_DryTree(gp,30,12); i++;
-        gp.iTile[mapNum][i] = new IT_DryTree(gp,31,12); i++;
-        gp.iTile[mapNum][i] = new IT_DryTree(gp,32,12); i++;
-        gp.iTile[mapNum][i] = new IT_DryTree(gp,33,12); i++;
-
+        gp.iTile[mapNum][i] = new IT_DryTree(gp, 27, 12);
+        i++;
+        gp.iTile[mapNum][i] = new IT_DryTree(gp, 28, 12);
+        i++;
+        gp.iTile[mapNum][i] = new IT_DryTree(gp, 29, 12);
+        i++;
+        gp.iTile[mapNum][i] = new IT_DryTree(gp, 30, 12);
+        i++;
+        gp.iTile[mapNum][i] = new IT_DryTree(gp, 31, 12);
+        i++;
+        gp.iTile[mapNum][i] = new IT_DryTree(gp, 32, 12);
+        i++;
+        gp.iTile[mapNum][i] = new IT_DryTree(gp, 33, 12);
+        i++;
 
 
 //        gp.iTile[mapNum][i] = new IT_DryTree(gp,10,40); i++;
@@ -140,10 +146,6 @@ public class AssetSetter {
 //        gp.iTile[mapNum][i] = new IT_DryTree(gp,16,40); i++;
 //        gp.iTile[mapNum][i] = new IT_DryTree(gp,17,40); i++;
 //        gp.iTile[mapNum][i] = new IT_DryTree(gp,18,40); i++;
-
-
-
-
 
 
 //        gp.iTile[mapNum][i] = new IT_DryTree(gp,30,20);i++;
