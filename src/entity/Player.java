@@ -296,7 +296,7 @@ public class Player extends Entity {
 
             // Check monster collision with the updated worldX, worldY and solidArea
             int monsterIndex = gp.getcChecker().checkEntity(this, gp.monster);
-            damageMonster(monsterIndex, attack);
+            damageMonster(monsterIndex, attack, knockBackPower);
 
             int iTileIndex = gp.getcChecker().checkEntity(this, gp.iTile);
             damageInteractiveTile(iTileIndex);
@@ -375,7 +375,7 @@ public class Player extends Entity {
         }
     }
 
-    public void damageMonster(int i, int attack) {
+    public void damageMonster(int i, int attack, int knockBackPower) {
         if (i != 999) {
             if (gp.monster[gp.currentMap][i].invincible == false) {     //FIXED
                 gp.playSE(5);
