@@ -320,6 +320,7 @@ public class Player extends Entity {
             // OBSTACLE
             else if(gp.obj[gp.currentMap][i].type == type_obstacle) {
             	if(keyH.enterPressed == true) {
+            		attackCanceled = true;
             		gp.obj[gp.currentMap][i].interact();
             	}
             }
