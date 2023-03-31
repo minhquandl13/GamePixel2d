@@ -459,8 +459,9 @@ public class Player extends Entity {
 
             }
             if (selectedItem.type == type_consumable) {
-                selectedItem.use(this);
-                inventory.remove(itemIndex);
+                if(selectedItem.use(this) == true) {
+                	inventory.remove(itemIndex);
+                }
             }
         }
     }
