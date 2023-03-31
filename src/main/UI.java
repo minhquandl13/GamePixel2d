@@ -492,7 +492,7 @@ public class UI {
             g2.drawImage(entity.inventory.get(i).down1, slotX, slotY, null);
             
             // DISPLAY AMOUNT
-            if(entity.inventory.get(i).amount > 1) {
+            if(entity == gp.player && entity.inventory.get(i).amount > 1) {
             	g2.setFont(g2.getFont().deriveFont(32f));
             	int amountX;
             	int amountY;
@@ -1009,7 +1009,12 @@ public class UI {
                     gp.gameState = gp.dialogueState;
                     currentDiaglog = "You annot sell equipped item !";
                 } else {
-                    gp.player.inventory.remove(itemIndex);
+                	if(gp.player.inventory.get(itemIndex).amount > 1) {
+                		gp.player.inventory.get(itemIndex).amount--;
+                	}
+                	else {
+                		gp.player.inventory.remove(itemIndex);
+                	}
                     gp.player.coin += price;
                 }
             }
