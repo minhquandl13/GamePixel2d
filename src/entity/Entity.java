@@ -135,7 +135,7 @@ public class Entity {
             case "right" -> direction = "left";
         }
     }
-
+    public void interact() {}
     public boolean use(Entity entity) { return false;
     }
 
