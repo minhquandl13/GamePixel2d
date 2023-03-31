@@ -47,6 +47,7 @@ public class OBJ_Chest extends Entity {
     		}
     		else {
     			sb.append("\n You abtain the " + loot.name + "!");
+    			gp.player.inventory.add(loot);
     			down1 = image2;
     			opened = true;
     		}
