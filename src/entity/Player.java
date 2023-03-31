@@ -466,6 +466,18 @@ public class Player extends Entity {
         }
     }
 
+    public int searchItemInInventory(String itemName) {
+    	
+    	int itemIndex = 999;
+    	
+    	for (int i = 0; i < inventory.size(); i++) {
+			if(inventory.get(i).name.equals(itemName)) {
+				itemIndex = i;
+				break;
+			}
+		}
+    	return itemIndex;
+    }
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
         int tempScreenX = screenX;
