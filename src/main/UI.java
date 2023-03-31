@@ -942,13 +942,16 @@ public class UI {
                     gp.gameState = gp.dialogueState;
                     currentDiaglog = "You need more coin to buy that !";
                     drawDialogueScreen();
-                } else if (gp.player.inventory.size() == gp.player.maxIventorySize) {
-                    subState = 0;
-                    gp.gameState = gp.dialogueState;
-                    currentDiaglog = "You cannot carry any more";
-                } else {
-                    gp.player.coin -= npc.inventory.get(itemIndex).price;
-                    gp.player.inventory.add(npc.inventory.get(itemIndex));
+                } 
+                else {
+                	if(gp.player.canObtainItem(npc.inventory.get(itemIndex)) == true) {
+                		gp.player.coin -= npc.inventory.get(itemIndex).price;
+                	}
+                	else {
+                		subState = 0;
+                		gp.gameState = gp.dialogueState;
+                		currentDiaglog = "You cannot carry and more!";
+                	}
                 }
             }
         }
