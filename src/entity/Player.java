@@ -6,7 +6,6 @@ import object.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public class Player extends Entity {
     public KeyHandler keyH;
@@ -319,21 +318,20 @@ public class Player extends Entity {
                 gp.obj[gp.currentMap][i] = null;                // FIXED
             }
             // OBSTACLE
-            else if(gp.obj[gp.currentMap][i].type == type_obstacle) {
-            	if(keyH.enterPressed == true) {
-            		attackCanceled = true;
-            		gp.obj[gp.currentMap][i].interact();
-            	}
+            else if (gp.obj[gp.currentMap][i].type == type_obstacle) {
+                if (keyH.enterPressed == true) {
+                    attackCanceled = true;
+                    gp.obj[gp.currentMap][i].interact();
+                }
             }
             // INVENTORY ITEMS
             else {
                 String text;
                 if (canObtainItem(gp.obj[gp.currentMap][i]) == true) {
                     gp.playSE(1);
-
                     text = " Got a" + gp.obj[gp.currentMap][i].name + "!";      //FIXED
                 } else {
-                    text = "You cannot carry any  more !";
+                    text = "You cannot carry anymore !";
                 }
                 gp.ui.AddMessage(text);
                 gp.obj[gp.currentMap][i] = null;            // FIXED DON'T FORGET THIS !!!
@@ -401,9 +399,9 @@ public class Player extends Entity {
     }
 
     public void damageInteractiveTile(int i) {
-
         if (i != 999 && gp.iTile[gp.currentMap][i].destructible &&     //FIXED
-                gp.iTile[gp.currentMap][i].isCorrectItem(this) && !gp.iTile[gp.currentMap][i].invincible) {     //FIXED
+                gp.iTile[gp.currentMap][i].isCorrectItem(this) &&
+                !gp.iTile[gp.currentMap][i].invincible) {     //FIXED
 
             gp.iTile[gp.currentMap][i].playSE();     //FIXED
             gp.iTile[gp.currentMap][i].life--;     //FIXED
@@ -438,7 +436,7 @@ public class Player extends Entity {
 
             gp.playSE(8);
             gp.gameState = gp.dialogueState;
-            gp.ui.currentDiaglog = "You are level " + level + "now!\n"
+            gp.ui.currentDialog = "You are level " + level + "now!\n"
                     + "You feel stronger!";
         }
     }
@@ -458,59 +456,55 @@ public class Player extends Entity {
 
             }
             if (selectedItem.type == type_consumable) {
-                if(selectedItem.use(this) == true) {
-                	if(selectedItem.amount > 1) {
-                		selectedItem.amount--;
-                	}
-                	else {
-                		inventory.remove(itemIndex);
-                	}
+                if (selectedItem.use(this) == true) {
+                    if (selectedItem.amount > 1) {
+                        selectedItem.amount--;
+                    } else {
+                        inventory.remove(itemIndex);
+                    }
                 }
             }
         }
     }
 
     public int searchItemInInventory(String itemName) {
-    	
-    	int itemIndex = 999;
-    	
-    	for (int i = 0; i < inventory.size(); i++) {
-			if(inventory.get(i).name.equals(itemName)) {
-				itemIndex = i;
-				break;
-			}
-		}
-    	return itemIndex;
+        int itemIndex = 999;
+
+        for (int i = 0; i < inventory.size(); i++) {
+            if (inventory.get(i).name.equals(itemName)) {
+                itemIndex = i;
+                break;
+            }
+        }
+        return itemIndex;
     }
-    
+
     public boolean canObtainItem(Entity item) {
-    	
-    	boolean canObtain = false;
-    	
-    	// CHECK IF STACKABLE
-    	if(item.stackable == true) {
-    		
-    		int index = searchItemInInventory(item.name);
-    		
-    		if(index != 999) {
-    			inventory.get(index).amount++;
-    			canObtain = true;
-    		}
-    		else { // New item so need to check vacancy
-    			if(inventory.size() != maxIventorySize) {
-    				inventory.add(item);
-    				canObtain = true;
-    			}
-    		}
-    	}
-    	else { // Not STACKABLE so check vacancy
-    		if(inventory.size() != maxIventorySize) {
-				inventory.add(item);
-				canObtain = true;
-    		}
-    	}
-    	return canObtain;
+        boolean canObtain = false;
+
+        // CHECK IF STACKABLE
+        if (item.stackable) {
+            int index = searchItemInInventory(item.name);
+
+            if (index != 999) {
+                inventory.get(index).amount++;
+                canObtain = true;
+            } else { // New item so need to check vacancy
+                if (inventory.size() != maxInventorySize) {
+                    inventory.add(item);
+                    canObtain = true;
+                }
+            }
+        } else { // Not STACKABLE so check vacancy
+            if (inventory.size() != maxInventorySize) {
+                inventory.add(item);
+                canObtain = true;
+            }
+        }
+
+        return canObtain;
     }
+
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
         int tempScreenX = screenX;

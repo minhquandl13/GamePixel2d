@@ -57,6 +57,16 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldX = gp.tileSize * 22;
         gp.obj[mapNum][i].worldY = gp.tileSize * 31;
         i++;
+
+        gp.obj[mapNum][i] = new OBJ_Chest(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize * 22;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 20;
+        i++;
+
+        gp.obj[mapNum][i] = new OBJ_Door(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize * 24;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 25;
+        i++;
     }
 
     public void setNPC() {
@@ -115,7 +125,6 @@ public class AssetSetter {
     }
 
     public void setInteractiveTile() {
-
         int mapNum = 0;
         int i = 0;
 

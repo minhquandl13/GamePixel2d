@@ -3,11 +3,7 @@ package object;
 import entity.Entity;
 import main.GamePanel;
 
-import javax.imageio.ImageIO;
-import java.io.IOException;
-
 public class OBJ_Door extends Entity {
-	
 	GamePanel gp;
 	
     public OBJ_Door(GamePanel gp) {
@@ -28,9 +24,8 @@ public class OBJ_Door extends Entity {
         price = 15;
     }
     public void interact() {
-    	
     	gp.gameState = gp.dialogueState;
-    	gp.ui.currentDiaglog = "You need a key to open this.";
+    	gp.ui.currentDialog = "You need a key to open this.";
     	
     }
 }

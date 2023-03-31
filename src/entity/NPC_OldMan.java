@@ -36,7 +36,7 @@ public class NPC_OldMan extends Entity {
 
     public void setAction() {
 
-        if (onPath == true) {
+        if (onPath) {
 //            int goalCol = 12;
 //            int goalRow = 9;
             int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize;
@@ -68,9 +68,7 @@ public class NPC_OldMan extends Entity {
     }
 
     public void speak() {
-
         super.speak();
-
         onPath = true;
     }
 }

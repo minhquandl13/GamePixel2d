@@ -15,19 +15,18 @@ public class OBJ_Key extends Entity {
         stackable = true;
     }
     public boolean use(Entity entity) {
-    	
     	gp.gameState = gp.dialogueState;
     	
     	int objIndex = getDetected(entity, gp.obj, "Door");
     	
     	if(objIndex != 999) {
-    		gp.ui.currentDiaglog = "You use the" + name + " and open the door";
+    		gp.ui.currentDialog = "You use the" + name + " and open the door";
     		gp.playSE(3);
     		gp.obj[gp.currentMap][objIndex] = null;
     		return true;
     	}
     	else {
-    		gp.ui.currentDiaglog = "What are you doing?";
+    		gp.ui.currentDialog = "What are you doing?";
     		return false;
     	}
     }

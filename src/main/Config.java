@@ -3,7 +3,6 @@ package main;
 import java.io.*;
 
 public class Config {
-
     GamePanel gp;
 
     public Config(GamePanel gp) {
@@ -27,7 +26,6 @@ public class Config {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public void loadConfig() {
