@@ -328,8 +328,7 @@ public class Player extends Entity {
             // INVENTORY ITEMS
             else {
                 String text;
-                if (inventory.size() != maxIventorySize) {
-                    inventory.add(gp.obj[gp.currentMap][i]);        // FIXED
+                if (canObtainItem(gp.obj[gp.currentMap][i]) == true) {
                     gp.playSE(1);
 
                     text = " Got a" + gp.obj[gp.currentMap][i].name + "!";      //FIXED
