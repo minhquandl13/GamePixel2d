@@ -478,6 +478,35 @@ public class Player extends Entity {
 		}
     	return itemIndex;
     }
+    
+    public boolean canObtainItem(Entity item) {
+    	
+    	boolean canObtain = false;
+    	
+    	// CHECK IF STACKABLE
+    	if(item.stackable == true) {
+    		
+    		int index = searchItemInInventory(item.name);
+    		
+    		if(index != 999) {
+    			inventory.get(index).amount++;
+    			canObtain = true;
+    		}
+    		else { // New item so need to check vacancy
+    			if(inventory.size() != maxIventorySize) {
+    				inventory.add(item);
+    				canObtain = true;
+    			}
+    		}
+    	}
+    	else { // Not STACKABLE so check vacancy
+    		if(inventory.size() != maxIventorySize) {
+				inventory.add(item);
+				canObtain = true;
+    		}
+    	}
+    	return canObtain;
+    }
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
         int tempScreenX = screenX;
