@@ -32,7 +32,7 @@ public class OBJ_Chest extends Entity {
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
     }
-    public void interac() {
+    public void interact() {
     	
     	gp.gameState = gp.dialogueState;
     	
