@@ -70,7 +70,7 @@ public class EventHandler {
     public void damagePit(int gameState) {
         gp.gameState = gameState;
         gp.playSE(6);
-        gp.ui.currentDiaglog = "You fall into a bit";
+        gp.ui.currentDialog = "You fall into a bit";
         gp.player.life -= 1;
         //  eventRect[col][row].eventDone= true;
         canTouchEvent = false;
@@ -78,7 +78,6 @@ public class EventHandler {
     }
 
     public boolean hit(int map, int col, int row, String reqDirection) {
-
         boolean hit = false;
 
         if (map == gp.currentMap) {
@@ -108,7 +107,7 @@ public class EventHandler {
             gp.gameState = gameState;
             gp.player.attackCanceled = true;
             gp.playSE(2);
-            gp.ui.currentDiaglog = "You drink Water \n You life and mana been recovered.";
+            gp.ui.currentDialog = "You drink Water \n You life and mana been recovered.";
             gp.player.life = gp.player.maxLife;
             gp.player.mana = gp.player.maxMana;
             gp.aSetter.setMonster();
@@ -116,7 +115,6 @@ public class EventHandler {
     }
 
     public void teleport(int map, int col, int row) {
-
         gp.gameState = gp.transitionState;
         tempMap = map;
         tempCol = col;

@@ -302,7 +302,7 @@ public class KeyHandler implements KeyListener {
                 gp.playMusic(0);
             } else if (gp.ui.commandNumber == 1) {
                 gp.gameState = gp.titleState;
-                gp.restar();
+                gp.restart();
             }
         }
     }

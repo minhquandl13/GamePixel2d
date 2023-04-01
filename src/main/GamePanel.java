@@ -8,7 +8,6 @@ import tile_interactive.InteractiveTile;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -52,7 +51,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player = new Player(this, keyH);
 
     // TODO: quan - range over Exception
-    public Entity obj[][] = new Entity[maxMap][20]; // 10 = slot object like items
+    public Entity obj[][] = new Entity[maxMap][30]; //30 = slot object like items
     public Entity npc[][] = new Entity[maxMap][10];
     public Entity monster[][] = new Entity[maxMap][20];
     public InteractiveTile iTile[][] = new InteractiveTile[maxMap][50];
@@ -101,8 +100,7 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setMonster();
     }
 
-    public void restar() {
-
+    public void restart() {
         player.setDefaultValues();
         player.setDefaultPositions();
         player.restoreLifeAndMan();
@@ -116,7 +114,6 @@ public class GamePanel extends JPanel implements Runnable {
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
-
     }
 
     @Override
@@ -197,7 +194,6 @@ public class GamePanel extends JPanel implements Runnable {
             // NOTHING
         }
     }
-
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

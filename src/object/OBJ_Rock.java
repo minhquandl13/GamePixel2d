@@ -7,7 +7,6 @@ import main.GamePanel;
 import java.awt.*;
 
 public class OBJ_Rock extends Projectile {
-
         GamePanel gp;
         public  OBJ_Rock(GamePanel gp) {
             super(gp);
