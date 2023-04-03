@@ -3,12 +3,12 @@ package main;
 import ai.PathFinder;
 import entity.Entity;
 import entity.Player;
+import environment.EnvironmentManager;
 import tile.TileManager;
 import tile_interactive.InteractiveTile;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -46,17 +46,18 @@ public class GamePanel extends JPanel implements Runnable {
     public EventHandler eHandler = new EventHandler(this);
     Config config = new Config(this);
     public PathFinder pFinder = new PathFinder(this);
+    EnvironmentManager eManager = new EnvironmentManager(this);
     protected Thread gameThread;
 
     // ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
 
     // TODO: quan - range over Exception
-    public Entity obj[][] = new Entity[maxMap][20]; // 10 = slot object like items
-    public Entity npc[][] = new Entity[maxMap][10];
-    public Entity monster[][] = new Entity[maxMap][20];
-    public InteractiveTile iTile[][] = new InteractiveTile[maxMap][50];
-    public Entity projectile[][] = new Entity[maxMap][20];
+    public Entity[][] obj = new Entity[maxMap][20]; // 10 = slot object like items
+    public Entity[][] npc = new Entity[maxMap][10];
+    public Entity[][] monster = new Entity[maxMap][20];
+    public InteractiveTile[][] iTile = new InteractiveTile[maxMap][50];
+    public Entity[][] projectile = new Entity[maxMap][20];
     ArrayList<Entity> entityList = new ArrayList<>();
 
     public ArrayList<Entity> particleList = new ArrayList<>();
@@ -88,6 +89,7 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setNPC();
         aSetter.setMonster();
         aSetter.setInteractiveTile();
+        eManager.setup();
 //        playMusic(music.BACKGROUND_MUSIC);
         gameState = titleState;
 
@@ -101,8 +103,7 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setMonster();
     }
 
-    public void restar() {
-
+    public void restart() {
         player.setDefaultValues();
         player.setDefaultPositions();
         player.restoreLifeAndMan();
@@ -192,12 +193,12 @@ public class GamePanel extends JPanel implements Runnable {
                     iTile[currentMap][i].update();
                 }
             }
+            eManager.update();
         }
         if (gameState == pauseState) {
             // NOTHING
         }
     }
-
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -261,7 +262,6 @@ public class GamePanel extends JPanel implements Runnable {
                 @Override
                 public int compare(Entity e1, Entity e2) {
                     int result = Integer.compare(e1.worldY, e2.worldY);
-
                     return result;
                 }
             });
@@ -273,11 +273,12 @@ public class GamePanel extends JPanel implements Runnable {
             // EMPTY ENTITY LIST
             entityList.clear();
 
+            // ENVIRONMENT
+            eManager.draw(g2);
 
             // UI
             ui.draw(g2);
         }
-
 
         // DEBUG
         if (keyH.checkDrawTime) {

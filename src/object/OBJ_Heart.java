@@ -21,10 +21,11 @@ public class OBJ_Heart extends Entity {
         image3 = setup("/Object/heart_blank", gp.tileSize, gp.tileSize);
         price = 30;
     }
-    public void use(Entity entity){
+    public boolean use(Entity entity){
         gp.playSE(2);
         gp.ui.AddMessage("Life" + value);
         entity.life += value;
+        return true;
     }
 }
 

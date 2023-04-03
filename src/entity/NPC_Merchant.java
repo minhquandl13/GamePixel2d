@@ -4,7 +4,6 @@ import main.GamePanel;
 import object.*;
 
 public class NPC_Merchant extends Entity {
-
     public NPC_Merchant(GamePanel gp) {
         super(gp);
 

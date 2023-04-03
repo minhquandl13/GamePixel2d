@@ -106,15 +106,10 @@ public class TileManager {
             int row = 0;
 
             while (col < gp.maxWorldCol && row < gp.maxWorldRow) {
-
                 String line = br.readLine();
-
                 while (col < gp.maxWorldCol) {
-
                     String[] numbers = line.split(" ");
-
                     int num = Integer.parseInt(numbers[col]);
-
                     mapTileNum[map][col][row] = num;
                     col++;
                 }
@@ -123,7 +118,6 @@ public class TileManager {
                     row++;
                 }
             }
-
             br.close();
         } catch (Exception e) {
 
@@ -135,7 +129,6 @@ public class TileManager {
         int worldRow = 0;
 
         while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
-
             int tileNum = mapTileNum[gp.currentMap][worldCol][worldRow];
 
             // Example tileNum = [0][0]
@@ -174,12 +167,10 @@ public class TileManager {
             g2.setColor(new Color(255, 0, 0, 70));
 
             for (int i = 0; i < gp.pFinder.pathList.size(); i++) {
-
                 int worldX = gp.pFinder.pathList.get(i).col * gp.tileSize;
                 int worldY = gp.pFinder.pathList.get(i).row * gp.tileSize;
                 int screenX = worldX - gp.player.worldX + gp.player.screenX;
                 int screenY = worldY - gp.player.worldY + gp.player.screenY;
-
                 g2.fillRect(screenX, screenY, gp.tileSize, gp.tileSize);
             }
         }
