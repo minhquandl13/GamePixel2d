@@ -16,9 +16,8 @@ public class Player extends Entity {
     private final int UNLOCK_MUSIC = 3;
     private final int FANFARE_MUSIC = 4;
 //    int standCounter = 0;
-
     public boolean attackCanceled = false;
-
+    public boolean lightUpdated = false;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
@@ -313,13 +312,12 @@ public class Player extends Entity {
 
             // PICKUP ONLY ITEMS
             if (gp.obj[gp.currentMap][i].type == type_pickupOnly) { // FIXED
-
                 gp.obj[gp.currentMap][i].use(this);        // FIXED
                 gp.obj[gp.currentMap][i] = null;                // FIXED
             }
             // OBSTACLE
             else if (gp.obj[gp.currentMap][i].type == type_obstacle) {
-                if (keyH.enterPressed == true) {
+                if (keyH.spacePressed == true) { // TODO: QUAN
                     attackCanceled = true;
                     gp.obj[gp.currentMap][i].interact();
                 }
@@ -453,7 +451,14 @@ public class Player extends Entity {
             if (selectedItem.type == type_shield) {
                 currentShield = selectedItem;
                 defense = getDefense();
-
+            }
+            if (selectedItem.type == type_light) {
+                if (currentLight == selectedItem) {
+                    currentLight = null;
+                } else {
+                    currentLight = selectedItem;
+                }
+                lightUpdated = true;
             }
             if (selectedItem.type == type_consumable) {
                 if (selectedItem.use(this) == true) {

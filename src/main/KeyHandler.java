@@ -302,13 +302,12 @@ public class KeyHandler implements KeyListener {
                 gp.playMusic(0);
             } else if (gp.ui.commandNumber == 1) {
                 gp.gameState = gp.titleState;
-                gp.restart();
+//                gp.restart();
             }
         }
     }
 
     public void tradeState(int code) {
-
         if (code == KeyEvent.VK_ENTER) {
             enterPressed = true;
         }

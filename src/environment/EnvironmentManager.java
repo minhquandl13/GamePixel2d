@@ -4,7 +4,6 @@ import java.awt.Graphics2D;
 import main.GamePanel;
 
 public class EnvironmentManager {
-
 	GamePanel gp;
 	Lighting lighting;
 	
@@ -13,12 +12,13 @@ public class EnvironmentManager {
 	}
 	
 	public void setup() {
-		
-		lighting = new Lighting(gp, 576);
+		lighting = new Lighting(gp);
 	}
-	
+
+	public void update() {
+		lighting.update();
+	}
 	public void draw(Graphics2D g2) {
-		
 		lighting.draw(g2);
 	}
 }

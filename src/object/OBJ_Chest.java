@@ -5,10 +5,10 @@ import main.GamePanel;
 
 public class OBJ_Chest extends Entity {
     GamePanel gp;
-    Entity loot;
+    public Entity loot;
     boolean opened = false;
 
-    public OBJ_Chest(GamePanel gp) {
+    public OBJ_Chest(GamePanel gp, Entity loot) {
         super(gp);
         this.gp = gp;
         this.loot = loot;
@@ -34,7 +34,6 @@ public class OBJ_Chest extends Entity {
 
         if (!opened) {
             gp.playSE(3);
-
             StringBuilder sb = new StringBuilder();
             sb.append("You open the chest and find a " + loot.name + "!");
 

@@ -63,7 +63,6 @@ public class Entity {
     public int knockBackCounter = 0;
 
     // CHARACTER ATTRIBUTES
-
     public String name;
     public int defaultSpeed;
     public int maxLife;
@@ -82,6 +81,7 @@ public class Entity {
     public int coin;
     public Entity currentWeapon;
     public Entity currentShield;
+    public Entity currentLight;
     public Projectile projectile;
 
     // ITEM ATTRIBUTES
@@ -96,6 +96,7 @@ public class Entity {
     public int knockBackPower = 0;
     public boolean stackable = false;
     public int amount = 1;
+    public int lightRadius;
 
     // TYPE
     public int type; // 0 = Player, 1 = NPC, 2 = Monster
@@ -108,7 +109,7 @@ public class Entity {
     public final int type_consumable = 6;
     public final int type_pickupOnly = 7;
     public final int type_obstacle = 8;
-
+    public final int type_light = 9;
 
     public Entity(GamePanel gp) {
         this.gp = gp;
@@ -517,7 +518,7 @@ public class Entity {
         }
     }
 
-    public int getDetected(Entity user, Entity target[][], String targetName) {
+    public int getDetected(Entity user, Entity[][] target, String targetName) {
         int index = 999;
 
         // Check the surrounding object
@@ -538,10 +539,8 @@ public class Entity {
                 if (target[gp.currentMap][i].getCol() == col &&
                         target[gp.currentMap][i].getRow() == row &&
                         target[gp.currentMap][i].name.equals(targetName)) {
-
                     index = i;
                     break;
-
                 }
             }
         }
