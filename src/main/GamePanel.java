@@ -78,9 +78,9 @@ public class GamePanel extends JPanel implements Runnable {
     public final int gameOverState = 6;
     public final int transitionState = 7;
     public final int tradeState = 8;
-    public final int sleepState=9;
+    public final int sleepState = 9;
 
-    public final int mapState=10;
+    public final int mapState = 10;
 
 
     public GamePanel() {
@@ -223,7 +223,7 @@ public class GamePanel extends JPanel implements Runnable {
             ui.draw(g2);
         }
         //Map
-        else if (gameState== mapState){
+        else if (gameState == mapState) {
             map.drawFullMapScreen(g2);
         }
 
@@ -286,8 +286,10 @@ public class GamePanel extends JPanel implements Runnable {
 
             // ENVIRONMENT
             eManager.draw(g2);
+
             //MINIMAP
-           map.drawMiniMap(g2);
+            map.drawMiniMap(g2);
+
             // UI
             ui.draw(g2);
         }
