@@ -15,7 +15,7 @@ public class UI {
     public int test;
     public GamePanel gp;
     public Graphics2D g2;
-    private final Font maruMonica;
+    public final Font maruMonica;
     private final Font purisaB;
     //    public int messageCounter = 0;
     public boolean messageOn = false;
@@ -122,7 +122,10 @@ public class UI {
         if (gp.gameState == gp.tradeState) {
             drawTradeScreen();
         }
-
+        // SLEEP STATE
+        if (gp.gameState == gp.sleepState) {
+            drawSleepScreen();
+        }
     }
 
     public void drawPlayerLife() {
@@ -998,7 +1001,27 @@ public class UI {
             }
         }
     }
+    public void drawSleepScreen() {
+        counter++;
+        if(counter<120){
+            gp.eManager.lighting.filterAlpha+= 0.01f;
+            if(gp.eManager.lighting.filterAlpha >1f){
+                gp.eManager.lighting.filterAlpha=1f;
 
+            }
+        }
+        if(counter>=120){
+            gp.eManager.lighting.filterAlpha-=0.01f;
+            if( gp.eManager.lighting.filterAlpha<0f){
+                gp.eManager.lighting.filterAlpha=0f;
+                counter=0;
+                gp.eManager.lighting.dayState=   gp.eManager.lighting.day;
+                gp.gameState= gp.playState;
+                gp.eManager.lighting.dayCounter=0;
+                gp.player.getPlayerImage();
+            }
+        }
+    }
     public void drawSubWindow(int x, int y, int width, int height) {
         Color rgb = new Color(0, 0, 0, 210);
         g2.setColor(rgb);

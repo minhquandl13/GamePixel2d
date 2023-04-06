@@ -66,6 +66,10 @@ public class KeyHandler implements KeyListener {
         else if (gp.gameState == gp.tradeState) {
             tradeState(code);
         }
+        // MAP STATE
+        else if (gp.gameState == gp.mapState) {
+            mapState(code);
+        }
     }
 
     public void titleState(int code) {
@@ -136,6 +140,11 @@ public class KeyHandler implements KeyListener {
         }
 
     }
+    public void mapState (int code){
+        if (code== KeyEvent.VK_M){
+            gp.gameState=gp.playState;
+        }
+    }
 
     public void playState(int code) {
 
@@ -168,22 +177,25 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_ESCAPE) {
             gp.gameState = gp.optionsState;
         }
-
-
+        if (code == KeyEvent.VK_M) {
+            gp.gameState = gp.mapState;
+        }
+        if (code == KeyEvent.VK_X) {
+            if (gp.map.miniMapOn = false) {
+                gp.map.miniMapOn = true;
+            } else {
+                gp.map.miniMapOn = false;
+            }
+        }
         // DEBUG
         if (code == KeyEvent.VK_T) {
             checkDrawTime = !checkDrawTime;
         }
         if (code == KeyEvent.VK_R) {
             switch (gp.currentMap) {
-                case 0:
-                    gp.tileM.loadMap("/Map/worldV3.txt", 0);
-                    break;
-                case 1:
-                    gp.tileM.loadMap("/Map/interior01.txt", 1);
-                    break;
+                case 0 -> gp.tileM.loadMap("/Map/worldV3.txt", 0);
+                case 1 -> gp.tileM.loadMap("/Map/interior01.txt", 1);
             }
-
         }
     }
 
@@ -191,14 +203,12 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_P) {
             gp.gameState = gp.playState;
         }
-
     }
 
     public void dialogueState(int code) {
         if (code == KeyEvent.VK_ENTER) {
             gp.gameState = gp.playState;
         }
-
     }
 
     public void characterState(int code) {
@@ -221,15 +231,11 @@ public class KeyHandler implements KeyListener {
             enterPressed = true;
         }
 
-        int maxCommandNum = 0;
-        switch (gp.ui.subState) {
-            case 0:
-                maxCommandNum = 4;
-                break;
-            case 3:
-                maxCommandNum = 1;
-                break;
-        }
+        int maxCommandNum = switch (gp.ui.subState) {
+            case 0 -> 4;
+            case 3 -> 1;
+            default -> 0;
+        };
 
         if (code == KeyEvent.VK_W) {
             gp.ui.commandNumber--;
@@ -267,12 +273,10 @@ public class KeyHandler implements KeyListener {
                     gp.music.volumeScale++;
                     gp.music.checkVolume();
                     gp.playSE(9);
-
                 }
                 if (gp.ui.commandNumber == 1 && gp.se.volumeScale < 5) {
                     gp.se.volumeScale++;
                     gp.playSE(9);
-
                 }
             }
         }
