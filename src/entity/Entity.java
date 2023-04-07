@@ -32,6 +32,10 @@ public class Entity {
     public BufferedImage image;
     public BufferedImage image2;
     public BufferedImage image3;
+    public BufferedImage guardUp;
+    public BufferedImage guardDown;
+    public BufferedImage guardLeft;
+    public BufferedImage guardRight;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
     public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
     public int solidAreaDefaultX;
@@ -55,6 +59,7 @@ public class Entity {
     public boolean onPath = false;
     public boolean knockBack = false;
     public String knockBackDirection;
+    public boolean guarding = false;
 
     // COUNTER
     public int spritesCounter = 0;

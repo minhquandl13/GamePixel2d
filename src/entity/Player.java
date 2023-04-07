@@ -40,8 +40,9 @@ public class Player extends Entity {
 //        attackArea.height = 36;
 
         setDefaultValues();
-        getPlayerImage();
-        getPlayerAttackImage();
+        getImage();
+        getAttackImage();
+        getGuardImage();
         setItems();
     }
 
@@ -99,8 +100,8 @@ public class Player extends Entity {
 
     private int getAttack() {
         attackArea = currentWeapon.attackArea;
-        motion1_duration= currentWeapon.motion1_duration;
-        motion2_duration= currentWeapon.motion2_duration;
+        motion1_duration = currentWeapon.motion1_duration;
+        motion2_duration = currentWeapon.motion2_duration;
         return attack = strength * currentWeapon.attackValue;
     }
 
@@ -109,7 +110,7 @@ public class Player extends Entity {
 
     }
 
-    public void getPlayerImage() {
+    public void getImage() {
         up1 = setup("/Player/Walking sprites/boy_up_1", gp.tileSize, gp.tileSize);
         up2 = setup("/Player/Walking sprites/boy_up_2", gp.tileSize, gp.tileSize);
 
@@ -134,7 +135,7 @@ public class Player extends Entity {
         right2 = image;
     }
 
-    public void getPlayerAttackImage() {
+    public void getAttackImage() {
         if (currentWeapon.type == type_sword) {
             attackUp1 = setup("/Player/Attacking sprites/boy_attack_up_1", gp.tileSize, gp.tileSize * 2);
             attackUp2 = setup("/Player/Attacking sprites/boy_attack_up_2", gp.tileSize, gp.tileSize * 2);
@@ -161,6 +162,13 @@ public class Player extends Entity {
             attackRight1 = setup("/Player/Attacking sprites/boy_axe_right_1", gp.tileSize * 2, gp.tileSize);
             attackRight2 = setup("/Player/Attacking sprites/boy_axe_right_2", gp.tileSize * 2, gp.tileSize);
         }
+    }
+
+    public void getGuardImage() {
+        guardUp = setup("/Player/Guarding sprites/boy_guard_up", gp.tileSize, gp.tileSize);
+        guardDown = setup("/Player/Guarding sprites/boy_guard_down", gp.tileSize, gp.tileSize);
+        guardLeft = setup("/Player/Guarding sprites/boy_guard_left", gp.tileSize, gp.tileSize);
+        guardRight = setup("/Player/Guarding sprites/boy_guard_right", gp.tileSize, gp.tileSize);
     }
 
     public void update() {
@@ -277,7 +285,6 @@ public class Player extends Entity {
             gp.playSE(12);
         }
     }
-
 
     public void pickUpObject(int i) {
         if (i != 999) {
@@ -415,7 +422,7 @@ public class Player extends Entity {
             if (selectedItem.type == type_sword || selectedItem.type == type_axe) {
                 currentWeapon = selectedItem;
                 attack = getAttack();
-                getPlayerAttackImage();
+                getAttackImage();
             }
             if (selectedItem.type == type_shield) {
                 currentShield = selectedItem;

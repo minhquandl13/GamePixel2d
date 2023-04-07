@@ -1018,7 +1018,7 @@ public class UI {
                 gp.eManager.lighting.dayState=   gp.eManager.lighting.day;
                 gp.gameState= gp.playState;
                 gp.eManager.lighting.dayCounter=0;
-                gp.player.getPlayerImage();
+                gp.player.getImage();
             }
         }
     }
