@@ -99,7 +99,8 @@ public class Player extends Entity {
 
     private int getAttack() {
         attackArea = currentWeapon.attackArea;
-
+        motion1_duration= currentWeapon.motion1_duration;
+        motion2_duration= currentWeapon.motion2_duration;
         return attack = strength * currentWeapon.attackValue;
     }
 
@@ -277,55 +278,6 @@ public class Player extends Entity {
         }
     }
 
-    public void attacking() {
-        spritesCounter++;
-
-        if (spritesCounter <= 5) {
-            spriteNumber = 1;
-        }
-        if (spritesCounter > 5 && spritesCounter <= 25) {
-            spriteNumber = 2;
-
-            // Save the current worldX, worldY, solidArea
-            int currentWorldX = worldX;
-            int currentWorldY = worldY;
-            int solidAreaWidth = solidArea.width;
-            int solidAreaHeight = solidArea.height;
-
-            // Adjust player's worldX/Y for the attackArea
-            switch (direction) {
-                case "up" -> worldY -= attackArea.height;
-                case "down" -> worldY += attackArea.height;
-                case "left" -> worldX -= attackArea.width;
-                case "right" -> worldX += attackArea.width;
-            }
-
-            // attackArea becomes solidArea
-            solidAreaWidth = attackArea.width;
-            solidAreaHeight = attackArea.height;
-
-            // Check monster collision with the updated worldX, worldY and solidArea
-            int monsterIndex = gp.getcChecker().checkEntity(this, gp.monster);
-            damageMonster(monsterIndex, this, attack, currentWeapon.knockBackPower);
-
-            int iTileIndex = gp.getcChecker().checkEntity(this, gp.iTile);
-            damageInteractiveTile(iTileIndex);
-
-            int projectileIndex = gp.getcChecker().checkEntity(this, gp.projectile);
-            damageProjectile(projectileIndex);
-
-            // After checking collision, restore the original data
-            worldX = currentWorldX;
-            worldY = currentWorldY;
-            solidArea.width = solidAreaWidth;
-            solidArea.height = solidAreaHeight;
-        }
-        if (spritesCounter > 25) {
-            spriteNumber = 1;
-            spritesCounter = 0;
-            attacking = false;
-        }
-    }
 
     public void pickUpObject(int i) {
         if (i != 999) {

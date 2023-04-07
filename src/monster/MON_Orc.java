@@ -34,6 +34,8 @@ public class MON_Orc extends Entity {
         solidAreaDefaultY = solidArea.y;
         attackArea.width = 40;
         attackArea.height = 40;
+        motion1_duration = 40;
+        motion2_duration=85;
 
         getImage();
         getAttackImage();
@@ -80,6 +82,11 @@ public class MON_Orc extends Entity {
 
             // Get a random direction
             getRandomDirection();
+        }
+        //check if it attack
+        if(attacking==false){
+            checkAttackOrNot(30,gp.tileSize*4,gp.tileSize);
+
         }
     }
 
