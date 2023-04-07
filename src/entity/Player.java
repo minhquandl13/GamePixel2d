@@ -15,7 +15,7 @@ public class Player extends Entity {
     private final int POWER_MUSIC = 2;
     private final int UNLOCK_MUSIC = 3;
     private final int FANFARE_MUSIC = 4;
-//    int standCounter = 0;
+    //    int standCounter = 0;
     public boolean attackCanceled = false;
     public boolean lightUpdated = false;
 
@@ -111,14 +111,18 @@ public class Player extends Entity {
     public void getPlayerImage() {
         up1 = setup("/Player/Walking sprites/boy_up_1", gp.tileSize, gp.tileSize);
         up2 = setup("/Player/Walking sprites/boy_up_2", gp.tileSize, gp.tileSize);
+
         down1 = setup("/Player/Walking sprites/boy_down_1", gp.tileSize, gp.tileSize);
         down2 = setup("/Player/Walking sprites/boy_down_2", gp.tileSize, gp.tileSize);
+
         left1 = setup("/Player/Walking sprites/boy_left_1", gp.tileSize, gp.tileSize);
         left2 = setup("/Player/Walking sprites/boy_left_2", gp.tileSize, gp.tileSize);
+
         right1 = setup("/Player/Walking sprites/boy_right_1", gp.tileSize, gp.tileSize);
         right2 = setup("/Player/Walking sprites/boy_right_2", gp.tileSize, gp.tileSize);
     }
-    public void getSleepingImage(BufferedImage image){
+
+    public void getSleepingImage(BufferedImage image) {
         up1 = image;
         up2 = image;
         down1 = image;
@@ -133,20 +137,26 @@ public class Player extends Entity {
         if (currentWeapon.type == type_sword) {
             attackUp1 = setup("/Player/Attacking sprites/boy_attack_up_1", gp.tileSize, gp.tileSize * 2);
             attackUp2 = setup("/Player/Attacking sprites/boy_attack_up_2", gp.tileSize, gp.tileSize * 2);
+
             attackDown1 = setup("/Player/Attacking sprites/boy_attack_down_1", gp.tileSize, gp.tileSize * 2);
             attackDown2 = setup("/Player/Attacking sprites/boy_attack_down_2", gp.tileSize, gp.tileSize * 2);
+
             attackLeft1 = setup("/Player/Attacking sprites/boy_attack_left_1", gp.tileSize * 2, gp.tileSize);
             attackLeft2 = setup("/Player/Attacking sprites/boy_attack_left_2", gp.tileSize * 2, gp.tileSize);
+
             attackRight1 = setup("/Player/Attacking sprites/boy_attack_right_1", gp.tileSize * 2, gp.tileSize);
             attackRight2 = setup("/Player/Attacking sprites/boy_attack_right_2", gp.tileSize * 2, gp.tileSize);
         }
         if (currentWeapon.type == type_axe) {
             attackUp1 = setup("/Player/Attacking sprites/boy_axe_up_1", gp.tileSize, gp.tileSize * 2);
             attackUp2 = setup("/Player/Attacking sprites/boy_axe_up_2", gp.tileSize, gp.tileSize * 2);
+
             attackDown1 = setup("/Player/Attacking sprites/boy_axe_down_1", gp.tileSize, gp.tileSize * 2);
             attackDown2 = setup("/Player/Attacking sprites/boy_axe_down_2", gp.tileSize, gp.tileSize * 2);
+
             attackLeft1 = setup("/Player/Attacking sprites/boy_axe_left_1", gp.tileSize * 2, gp.tileSize);
             attackLeft2 = setup("/Player/Attacking sprites/boy_axe_left_2", gp.tileSize * 2, gp.tileSize);
+
             attackRight1 = setup("/Player/Attacking sprites/boy_axe_right_1", gp.tileSize * 2, gp.tileSize);
             attackRight2 = setup("/Player/Attacking sprites/boy_axe_right_2", gp.tileSize * 2, gp.tileSize);
         }
@@ -296,7 +306,7 @@ public class Player extends Entity {
 
             // Check monster collision with the updated worldX, worldY and solidArea
             int monsterIndex = gp.getcChecker().checkEntity(this, gp.monster);
-            damageMonster(monsterIndex, attack, currentWeapon.knockBackPower);
+            damageMonster(monsterIndex, this, attack, currentWeapon.knockBackPower);
 
             int iTileIndex = gp.getcChecker().checkEntity(this, gp.iTile);
             damageInteractiveTile(iTileIndex);
@@ -341,7 +351,7 @@ public class Player extends Entity {
                 } else {
                     text = "You cannot carry anymore !";
                 }
-                gp.ui.AddMessage(text);
+                gp.ui.addMessage(text);
                 gp.obj[gp.currentMap][i] = null;            // FIXED DON'T FORGET THIS !!!
 
             }
@@ -373,37 +383,34 @@ public class Player extends Entity {
         }
     }
 
-    public void damageMonster(int i, int attack, int knockBackPower) {
+    public void damageMonster(int i, Entity attacker, int attack, int knockBackPower) {
         if (i != 999) {
             if (!gp.monster[gp.currentMap][i].invincible) {     //FIXED
                 gp.playSE(5);
+                if (knockBackPower > 0) {
+                    setKnockBack(gp.monster[gp.currentMap][i], attacker, knockBackPower);
+                }
+
                 int damage = attack - gp.monster[gp.currentMap][i].defense;     //FIXED
                 if (damage < 0) {
                     damage = 0;
                 }
 
-                knockBack(gp.monster[gp.currentMap][i]);
-
                 gp.monster[gp.currentMap][i].life -= damage;     //FIXED
-                gp.ui.AddMessage(damage + "damage!");
+                gp.ui.addMessage(damage + " damage!");
+
                 gp.monster[gp.currentMap][i].invincible = true;     //FIXED
                 gp.monster[gp.currentMap][i].damageReaction();     //FIXED
 
                 if (gp.monster[gp.currentMap][i].life <= 0) {     //FIXED
                     gp.monster[gp.currentMap][i].dying = true;     //FIXED
-                    gp.ui.AddMessage("Killed the " + gp.monster[gp.currentMap][i].name + "!");     //FIXED
-                    gp.ui.AddMessage("Exp + " + gp.monster[gp.currentMap][i].exp);     //FIXED
+                    gp.ui.addMessage("Killed the " + gp.monster[gp.currentMap][i].name + "!");     //FIXED
+                    gp.ui.addMessage("Exp + " + gp.monster[gp.currentMap][i].exp);     //FIXED
                     exp += gp.monster[gp.currentMap][i].exp;     //FIXED
                     checkLevelUp();
                 }
             }
         }
-    }
-
-    public void knockBack(Entity entity) {
-        entity.direction = direction;
-        entity.speed += 10;
-        entity.knockBack = true;
     }
 
     public void damageInteractiveTile(int i) {

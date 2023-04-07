@@ -31,14 +31,15 @@ public class Map extends TileManager {
                 int y = gp.tileSize * row;
                 g2.drawImage(tile[tileNum].image, x, y, null);
                 col++;
+
                 if (col == gp.maxWorldCol) {
                     col = 0;
                     row++;
-
                 }
+
+                g2.dispose();
             }
         }
-
     }
 
     public void drawFullMapScreen(Graphics2D g2) {

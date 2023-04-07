@@ -3,9 +3,6 @@ package object;
 import entity.Entity;
 import main.GamePanel;
 
-import javax.imageio.ImageIO;
-import java.io.IOException;
-
 public class OBJ_Heart extends Entity {
     GamePanel gp;
     public OBJ_Heart(GamePanel gp) {
@@ -23,7 +20,7 @@ public class OBJ_Heart extends Entity {
     }
     public boolean use(Entity entity){
         gp.playSE(2);
-        gp.ui.AddMessage("Life" + value);
+        gp.ui.addMessage("Life" + value);
         entity.life += value;
         return true;
     }

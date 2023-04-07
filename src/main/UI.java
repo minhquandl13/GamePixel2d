@@ -63,7 +63,7 @@ public class UI {
 
     }
 
-    public void AddMessage(String text) {
+    public void addMessage(String text) {
         message.add(text);
         messageCount.add(0);
 
