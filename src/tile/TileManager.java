@@ -163,8 +163,8 @@ public class TileManager {
                 worldRow++;
             }
         }
-        if (drawPath == true) {
-            g2.setColor(new Color(255, 0, 0, 70));
+        if (drawPath) {
+            g2.setColor(new Color(255, 0, 0, 70)); // TODO: color path finding
 
             for (int i = 0; i < gp.pFinder.pathList.size(); i++) {
                 int worldX = gp.pFinder.pathList.get(i).col * gp.tileSize;

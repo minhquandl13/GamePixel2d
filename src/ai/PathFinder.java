@@ -89,6 +89,7 @@ public class PathFinder {
                     node[itCol][itRow].solid = true;
                 }
             }
+
             // SET COST
             getCost(node[col][row]);
 
@@ -101,7 +102,6 @@ public class PathFinder {
     }
 
     public void getCost(Node node) {
-
         // G cost
         int xDistance = Math.abs(node.col - startNode.col);
         int yDistance = Math.abs(node.row - startNode.row);
@@ -181,7 +181,6 @@ public class PathFinder {
 
     public void openNode(Node node) {
         if (!node.open && !node.checked && !node.solid) {
-
             node.open = true;
             node.parent = currentNode;
             openList.add(node);

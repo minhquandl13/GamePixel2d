@@ -26,7 +26,6 @@ public class Particle extends Entity {
         int offset = (gp.tileSize / 2) - (size / 2);
         worldX = generator.worldX + offset;
         worldY = generator.worldY + offset;
-
     }
 
     public void update() {

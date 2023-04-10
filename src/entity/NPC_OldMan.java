@@ -35,7 +35,6 @@ public class NPC_OldMan extends Entity {
     }
 
     public void setAction() {
-
         if (onPath) {
 //            int goalCol = 12;
 //            int goalRow = 9;

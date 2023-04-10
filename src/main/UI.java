@@ -789,9 +789,10 @@ public class UI {
         g2.drawString(text, textX, textY);
         if (commandNumber == 0) {
             g2.drawString(">", textX - 25, textY);
-            if (gp.keyH.enterPressed == true) {
+            if (gp.keyH.enterPressed) {
                 subState = 0;
                 gp.gameState = gp.titleState;
+                gp.resetGame(true);
             }
         }
 

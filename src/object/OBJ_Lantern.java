@@ -1,6 +1,7 @@
-package main;
+package object;
 
 import entity.Entity;
+import main.GamePanel;
 
 public class OBJ_Lantern extends Entity {
     public OBJ_Lantern(GamePanel gp) {
