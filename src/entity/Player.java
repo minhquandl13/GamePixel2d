@@ -36,18 +36,12 @@ public class Player extends Entity {
         solidArea.width = 32;
         solidArea.height = 32;
 
-//        attackArea.width = 36;
-//        attackArea.height = 36;
-
         setDefaultValues();
     }
 
     public void setDefaultValues() {
         worldX = gp.tileSize * 23;
         worldY = gp.tileSize * 21;
-
-//        worldX = gp.tileSize * 12;
-//        worldY = gp.tileSize * 13;
 
         gp.currentMap = 0;
         defaultSpeed = 4;
@@ -80,6 +74,7 @@ public class Player extends Entity {
         getAttackImage();
         getGuardImage();
         setItems();
+        setDialogue();
     }
 
     public void setDefaultPositions() {
@@ -88,9 +83,15 @@ public class Player extends Entity {
         direction = "down";
     }
 
+    public void setDialogue() {
+        dialogues[0][0] = "You are level " + level + "now!\n"
+                + "You feel stronger!";
+    }
+
     public void restoreStatus() {
         life = maxLife;
         mana = maxMana;
+        speed = defaultSpeed;
         invincible = false;
         transparent = false;
         attacking = false;
@@ -126,6 +127,7 @@ public class Player extends Entity {
                 currentWeaponSlot = i;
             }
         }
+
         return currentWeaponSlot;
     }
 
@@ -359,6 +361,7 @@ public class Player extends Entity {
                 gp.obj[gp.currentMap][i].use(this);        // FIXED
                 gp.obj[gp.currentMap][i] = null;                // FIXED
             }
+
             // OBSTACLE
             else if (gp.obj[gp.currentMap][i].type == type_obstacle) {
                 if (keyH.spacePressed) {
@@ -382,10 +385,9 @@ public class Player extends Entity {
     }
 
     public void interactNPC(int i) {
-        if (gp.keyH.spacePressed) {
-            if (i != 999) {
+        if (i != 999) {
+            if (gp.keyH.spacePressed) {
                 attackCanceled = true;
-                gp.gameState = gp.dialogueState;
                 gp.npc[gp.currentMap][i].speak();     //FIXED
             }
         }
@@ -400,6 +402,7 @@ public class Player extends Entity {
                 if (damage < 1) {
                     damage = 1;
                 }
+
                 life -= damage;
                 invincible = true;
                 transparent = true;
@@ -479,8 +482,9 @@ public class Player extends Entity {
 
             gp.playSE(8);
             gp.gameState = gp.dialogueState;
-            gp.ui.currentDialog = "You are level " + level + "now!\n"
-                    + "You feel stronger!";
+
+            setDialogue();
+            startDialogue(this, 0);
         }
     }
 

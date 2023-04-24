@@ -51,6 +51,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Map map = new Map(this);
     protected Thread gameThread;
     private SaveAndLoad saveAndLoad = new SaveAndLoad(this);
+    public EntityGenerator entityGenerator = new EntityGenerator(this);
 
     // ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
@@ -99,6 +100,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void resetGame(boolean restart) {
         player.setDefaultPositions();
         player.restoreStatus();
+        player.resetCounter();
         aSetter.setNPC();
         aSetter.setMonster();
 

@@ -5,13 +5,13 @@ import main.GamePanel;
 
 public class OBJ_Chest extends Entity {
     GamePanel gp;
-
+    public static final String objName = "Chest";
     public OBJ_Chest(GamePanel gp) {
         super(gp);
         this.gp = gp;
 
         type = type_obstacle;
-        name = "Chest";
+        name = objName;
         image = setup("/Object/chest", gp.tileSize, gp.tileSize);
         image2 = setup("/Object/chest_opened", gp.tileSize, gp.tileSize);
         down1 = image;
@@ -28,27 +28,33 @@ public class OBJ_Chest extends Entity {
 
     public void setLoot(Entity loot) {
         this.loot = loot;
+
+        setDialogue();
+    }
+
+    public void setDialogue() {
+        dialogues[0][0] = "You open the chest and find a " + loot.name + "!\n...But you cannot catty any more!";
+        dialogues[1][0] = "You open the chest and find a " + loot.name + "!\n You obtain the " + loot.name + "!";
+        dialogues[2][0] = "It's empty";
     }
 
     public void interact() {
-        gp.gameState = gp.dialogueState;
+
 
         if (!opened) {
             gp.playSE(3);
-            StringBuilder sb = new StringBuilder();
-            sb.append("You open the chest and find a " + loot.name + "!");
 
             if (!gp.player.canObtainItem(loot)) {
-                sb.append("\n...But you cannot catty any more!");
+                startDialogue(this, 0);
             } else {
-                sb.append("\n You obtain the " + loot.name + "!");
+                startDialogue(this, 1);
+
                 gp.player.inventory.add(loot);
                 down1 = image2;
                 opened = true;
             }
-            gp.ui.currentDialog = sb.toString();
         } else {
-            gp.ui.currentDialog = "It's empty";
+            startDialogue(this, 2);
         }
     }
 }

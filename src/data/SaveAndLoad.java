@@ -13,26 +13,6 @@ public class SaveAndLoad {
         this.gp = gp;
     }
 
-    public Entity getObject(String itemName) {
-        Entity obj = null;
-
-        switch (itemName) {
-            case "Woodcutter's Axe" -> obj = new OBJ_Axe(gp);
-            case "Boots" -> obj = new OBJ_Boots(gp);
-            case "Key" -> obj = new OBJ_Key(gp);
-            case "Lantern" -> obj = new OBJ_Lantern(gp);
-            case "Red Potion" -> obj = new OBJ_Potion_Red(gp);
-            case "Blue Shield" -> obj = new OBJ_Shield_Blue(gp);
-            case "Wood Shield" -> obj = new OBJ_Shield_Wood(gp);
-            case "Normal Sword" -> obj = new OBJ_Sword_Normal(gp);
-            case "Tent" -> obj = new OBJ_Tent(gp);
-            case "Door" -> obj = new OBJ_Door(gp);
-            case "Chest" -> obj = new OBJ_Chest(gp);
-        }
-
-        return obj;
-    }
-
     public void save() {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("save.dat")));
@@ -114,7 +94,7 @@ public class SaveAndLoad {
             gp.player.inventory.clear();
 
             for (int i = 0; i < ds.itemNames.size(); i++) {
-                gp.player.inventory.add(getObject(ds.itemNames.get(i)));
+                gp.player.inventory.add(gp.entityGenerator.getObject(ds.itemNames.get(i)));
                 gp.player.inventory.get(i).amount = ds.itemAmounts.get(i);
             }
 
@@ -131,12 +111,12 @@ public class SaveAndLoad {
                     if (ds.mapObjectNames[mapNumber][i].equals("NA")) {
                         gp.obj[mapNumber][i] = null;
                     } else {
-                        gp.obj[mapNumber][i] = getObject(ds.mapObjectNames[mapNumber][i]);
+                        gp.obj[mapNumber][i] = gp.entityGenerator.getObject(ds.mapObjectNames[mapNumber][i]);
                         gp.obj[mapNumber][i].worldX = ds.mapObjectWorldX[mapNumber][i];
                         gp.obj[mapNumber][i].worldY = ds.mapObjectWorldY[mapNumber][i];
 
                         if (ds.mapObjectLootNames[mapNumber][i] != null) {
-                            gp.obj[mapNumber][i].loot = getObject(ds.mapObjectLootNames[mapNumber][i]);
+                            gp.obj[mapNumber][i].loot = gp.entityGenerator.getObject(ds.mapObjectLootNames[mapNumber][i]);
                         }
 
                         gp.obj[mapNumber][i].opened = ds.mapObjectOpened[mapNumber][i];

@@ -46,6 +46,7 @@ public class KeyHandler implements KeyListener {
         else if (gp.gameState == gp.dialogueState) {
             dialogueState(code);
         }
+
         // CHARACTER STATE
         else if (gp.gameState == gp.characterState) {
             characterState(code);
@@ -65,6 +66,7 @@ public class KeyHandler implements KeyListener {
         else if (gp.gameState == gp.tradeState) {
             tradeState(code);
         }
+
         // MAP STATE
         else if (gp.gameState == gp.mapState) {
             mapState(code);
@@ -187,8 +189,10 @@ public class KeyHandler implements KeyListener {
     }
 
     public void dialogueState(int code) {
-        if (code == KeyEvent.VK_ENTER) {
-            gp.gameState = gp.playState;
+
+
+        if (code == KeyEvent.VK_SPACE) {
+            spacePressed = true;
         }
     }
 
@@ -204,6 +208,7 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_ESCAPE) {
             gp.gameState = gp.playState;
         }
+
         if (code == KeyEvent.VK_ENTER) {
             enterPressed = true;
         }
