@@ -79,6 +79,13 @@ public class GamePanel extends JPanel implements Runnable {
     public final int tradeState = 8;
     public final int sleepState = 9;
     public final int mapState = 10;
+    //AREA
+    public int nextArea;
+    public int currentArea;
+    public final int  outside= 50;
+    public final int indoor =51;
+    public final int dungeon = 52;
+
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -93,6 +100,7 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setNPC();
         aSetter.setMonster();
         aSetter.setInteractiveTile();
+        currentArea =outside;
         eManager.setup();
         gameState = titleState;
     }
@@ -314,6 +322,23 @@ public class GamePanel extends JPanel implements Runnable {
     public void playSE(int i) {
         soundEffect.setFile(i);
         soundEffect.play();
+    }
+    public void changeArea(){
+    if(nextArea!= currentArea){
+        stopMusic();
+        if(nextArea==outside){
+            playMusic(0);
+        }
+        if(nextArea==indoor){
+            playMusic(19);
+        }
+        if(nextArea==dungeon){
+            playMusic(18);
+        }
+    }
+        currentArea=nextArea;
+        aSetter.setMonster();
+
     }
 
     public SaveAndLoad getSaveAndLoad() {

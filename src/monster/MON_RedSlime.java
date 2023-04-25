@@ -9,10 +9,10 @@ import object.OBJ_Rock;
 
 import java.util.Random;
 
-public class MON_GreenSlime extends Entity {
+public class MON_RedSlime extends Entity {
     GamePanel gp;
 
-    public MON_GreenSlime(GamePanel gp) {
+    public MON_RedSlime(GamePanel gp) {
         super(gp);
         this.gp = gp;
 
@@ -59,6 +59,9 @@ public class MON_GreenSlime extends Entity {
 
             // Search the direction to go
             searchPath(getGoalCol(gp.player), getGoalRow(gp.player));
+
+            // Check if it shoots a projecttile
+            checkShootOrNot(100, 30);
         } else {
             // Check if it starts chasing
             checkStartChasingOrNot(gp.player, 5, 100);
