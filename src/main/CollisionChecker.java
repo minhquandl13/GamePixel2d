@@ -125,14 +125,16 @@ public class CollisionChecker {
         }
 
         for (int i = 0; i < target[1].length; i++) { // FIXED
-
             if (target[gp.currentMap][i] != null) { // FIXED
                 // Get entity's solid area position
                 entity.solidArea.x = entity.worldX + entity.solidArea.x;
                 entity.solidArea.y = entity.worldY + entity.solidArea.y;
                 // Get the object's solid area position
-                target[gp.currentMap][i].solidArea.x = target[gp.currentMap][i].worldX + target[gp.currentMap][i].solidArea.x; // FIXED
-                target[gp.currentMap][i].solidArea.y = target[gp.currentMap][i].worldY + target[gp.currentMap][i].solidArea.y; // FIXED
+                target[gp.currentMap][i].solidArea.x = target[gp.currentMap][i].worldX +
+                        target[gp.currentMap][i].solidArea.x; // FIXED
+
+                target[gp.currentMap][i].solidArea.y = target[gp.currentMap][i].worldY +
+                        target[gp.currentMap][i].solidArea.y; // FIXED
 
                 switch (direction) {
                     case "up" -> entity.solidArea.y -= entity.speed;

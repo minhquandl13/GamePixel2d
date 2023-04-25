@@ -1,6 +1,7 @@
 package main;
 
 import ai.PathFinder;
+import data.SaveAndLoad;
 import entity.Entity;
 import entity.Player;
 import environment.EnvironmentManager;
@@ -26,11 +27,10 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenHeight = tileSize * maxScreenRow; // 672 pixels
 
     // WORLD SETTINGS
-    public final int maxWorldCol = 50;
-    public final int maxWorldRow = 50;
+    public int maxWorldCol;
+    public int maxWorldRow;
     public final int maxMap = 10;
     public int currentMap = 0;
-
 
     // FPS
     private final int FPS = 60;
@@ -41,17 +41,17 @@ public class GamePanel extends JPanel implements Runnable {
     protected Sound soundEffect = new Sound();
     public Sound music = new Sound();
     public Sound se = new Sound();
-    private final CollisionChecker cChecker = new CollisionChecker(this);
+    public final CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
     public EventHandler eHandler = new EventHandler(this);
     Config config = new Config(this);
     public PathFinder pFinder = new PathFinder(this);
-    EnvironmentManager eManager = new EnvironmentManager(this);
-    Map map = new Map(this);
-
+    public EnvironmentManager eManager = new EnvironmentManager(this);
+    public Map map = new Map(this);
     protected Thread gameThread;
-
+    private SaveAndLoad saveAndLoad = new SaveAndLoad(this);
+    public EntityGenerator entityGenerator = new EntityGenerator(this);
 
     // ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
@@ -65,7 +65,6 @@ public class GamePanel extends JPanel implements Runnable {
     ArrayList<Entity> entityList = new ArrayList<>();
 
     public ArrayList<Entity> particleList = new ArrayList<>();
-//    public ArrayList<Entity> projectileList = new ArrayList<>();
 
     // GAME STATE
     public int gameState;
@@ -79,8 +78,14 @@ public class GamePanel extends JPanel implements Runnable {
     public final int transitionState = 7;
     public final int tradeState = 8;
     public final int sleepState = 9;
-
     public final int mapState = 10;
+
+    //AREA
+    public int nextArea;
+    public int currentArea;
+    public final int outside = 50;
+    public final int indoor = 51;
+    public final int dungeon = 52;
 
 
     public GamePanel() {
@@ -96,29 +101,24 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setNPC();
         aSetter.setMonster();
         aSetter.setInteractiveTile();
+        currentArea = outside;
         eManager.setup();
-//        playMusic(music.BACKGROUND_MUSIC);
         gameState = titleState;
-
     }
 
-    public void retry() {
-
+    public void resetGame(boolean restart) {
         player.setDefaultPositions();
-        player.restoreLifeAndMan();
+        player.restoreStatus();
+        player.resetCounter();
         aSetter.setNPC();
         aSetter.setMonster();
-    }
 
-    public void restart() {
-        player.setDefaultValues();
-        player.setDefaultPositions();
-        player.restoreLifeAndMan();
-        player.setItems();
-        aSetter.setObject();
-        aSetter.setNPC();
-        aSetter.setMonster();
-        aSetter.setInteractiveTile();
+        if (restart) {
+            player.setDefaultValues();
+            aSetter.setObject();
+            aSetter.setInteractiveTile();
+            eManager.lighting.resetDay();
+        }
     }
 
     public void startGameThread() {
@@ -166,10 +166,10 @@ public class GamePanel extends JPanel implements Runnable {
             // MONSTER
             for (int i = 0; i < monster[1].length; i++) {
                 if (monster[currentMap][i] != null) {
-                    if (monster[currentMap][i].isAlive() == true && monster[currentMap][i].isDying() == false) {
+                    if (monster[currentMap][i].isAlive() && !monster[currentMap][i].isDying()) {
                         monster[currentMap][i].update();
                     }
-                    if (monster[currentMap][i].isAlive() == false) {
+                    if (!monster[currentMap][i].isAlive()) {
                         monster[currentMap][i].checkDrop();
                         monster[currentMap][i] = null;
                     }
@@ -177,20 +177,20 @@ public class GamePanel extends JPanel implements Runnable {
             }
             for (int i = 0; i < projectile[1].length; i++) {
                 if (projectile[currentMap][i] != null) {
-                    if (projectile[currentMap][i].alive == true) {
+                    if (projectile[currentMap][i].alive) {
                         projectile[currentMap][i].update();
                     }
-                    if (projectile[currentMap][i].alive == false) {
+                    if (!projectile[currentMap][i].alive) {
                         projectile[currentMap][i] = null;
                     }
                 }
             }
             for (int i = 0; i < particleList.size(); i++) {
                 if (particleList.get(i) != null) {
-                    if (particleList.get(i).alive == true) {
+                    if (particleList.get(i).alive) {
                         particleList.get(i).update();
                     }
-                    if (particleList.get(i).alive == false) {
+                    if (!particleList.get(i).alive) {
                         particleList.remove(i);
                     }
                 }
@@ -323,5 +323,27 @@ public class GamePanel extends JPanel implements Runnable {
     public void playSE(int i) {
         soundEffect.setFile(i);
         soundEffect.play();
+    }
+
+    public void changeArea() {
+        if (nextArea != currentArea) {
+            stopMusic();
+            if (nextArea == outside) {
+                playMusic(0);
+            }
+            if (nextArea == indoor) {
+                playMusic(19);
+            }
+            if (nextArea == dungeon) {
+                playMusic(18);
+            }
+        }
+
+        currentArea = nextArea;
+        aSetter.setMonster();
+    }
+
+    public SaveAndLoad getSaveAndLoad() {
+        return saveAndLoad;
     }
 }

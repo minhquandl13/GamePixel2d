@@ -32,8 +32,12 @@ public class Sound {
         soundURL[12] = getClass().getResource("/Sound/gameover.wav");
         soundURL[13] = getClass().getResource("/Sound/stairs.wav");
         soundURL[14] = getClass().getResource("/Sound/sleep.wav");
+        soundURL[15] = getClass().getResource("/Sound/blocked.wav");
+        soundURL[16] = getClass().getResource("/Sound/party.wav");
+        soundURL[17] = getClass().getResource("/Sound/speak.wav");
+        soundURL[18] = getClass().getResource("/Sound/Dungeon.wav");
+        soundURL[19] = getClass().getResource("/Sound/Merchant.wav");
     }
-
     public void setFile(int i) {
         try {
             AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
@@ -60,24 +64,12 @@ public class Sound {
 
     public void checkVolume() {
         switch (volumeScale) {
-            case 0:
-                volume = -80f;
-                break;
-            case 1:
-                volume = -20f;
-                break;
-            case 2:
-                volume = -12f;
-                break;
-            case 3:
-                volume = -5f;
-                break;
-            case 4:
-                volume = 1f;
-                break;
-            case 5:
-                volume = 6f;
-                break;
+            case 0 -> volume = -80f;
+            case 1 -> volume = -20f;
+            case 2 -> volume = -12f;
+            case 3 -> volume = -5f;
+            case 4 -> volume = 1f;
+            case 5 -> volume = 6f;
         }
         fc.setValue(volume);
     }

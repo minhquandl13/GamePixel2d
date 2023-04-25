@@ -4,11 +4,12 @@ import entity.Entity;
 import main.GamePanel;
 
 public class OBJ_Axe extends Entity {
+    public static final String objName = "Woodcutter's Axe";
     public OBJ_Axe(GamePanel gp) {
         super(gp);
 
         type = type_axe;
-        name = "Woodcutter's Axe";
+        name = objName;
         down1 = setup("/Object/axe", gp.tileSize, gp.tileSize);
         attackValue = 2;
         attackArea.width = 30;
@@ -16,5 +17,7 @@ public class OBJ_Axe extends Entity {
         description = "[ Woodcutter's Axe ]\nA bit  rusty but still\ncan cut some trees.";
         price = 75;
         knockBackPower = 10;
+        motion1_duration=20;
+        motion2_duration=40;
     }
 }

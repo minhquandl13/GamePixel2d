@@ -12,16 +12,17 @@ public class Lighting {
 
     GamePanel gp;
     BufferedImage darknessFilter;
-    // daycounter mean the time of a day 600 == 10 sec
-    public   int dayCounter;
-    // fillteralphe mean the time to change the night
-    public  float filterAlpha =0;
-    public final int day=0;
-    public final int dusk=1;
-    public final int night =2;
-    public final int dawn =3;
-    public int dayState =day;
 
+    // daycounter mean the time of a day 600 == 10 sec
+    public int dayCounter;
+
+    // fillteralphe mean the time to change the night
+    public float filterAlpha = 0;
+    public final int day = 0;
+    public final int dusk = 1;
+    public final int night = 2;
+    public final int dawn = 3;
+    public int dayState = day;
 
 
     public Lighting(GamePanel gp) {
@@ -82,10 +83,13 @@ public class Lighting {
 
         // Set a color (black) to draw the rectangle
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
-
         g2.setColor(new Color(0, 0, 0, 0.95f));
-
         g2.dispose();
+    }
+
+    public void resetDay() {
+        dayState = day;
+        filterAlpha = 0f;
     }
 
     public void update() {
@@ -93,15 +97,16 @@ public class Lighting {
             setLightSource();
             gp.player.lightUpdated = false;
         }
+
         // check the state of a day
         if (dayState == day) {
             dayCounter++;
             if (dayCounter > 600) {
                 dayState = dusk;
                 dayCounter = 0;
-
             }
         }
+
         if (dayState == dusk) {
             filterAlpha += 0.001f;
             if (filterAlpha > 1f) {
@@ -113,37 +118,40 @@ public class Lighting {
             dayCounter++;
             if (dayCounter > 600) {
                 dayState = dawn;
-                dayCounter=0;
-
+                dayCounter = 0;
             }
         }
-        if(dayState==dawn ){
-            filterAlpha-=0.001f;
-            if(filterAlpha<0f){
-                filterAlpha=0;
-                dayState=day;
 
+        if (dayState == dawn) {
+            filterAlpha -= 0.001f;
+            if (filterAlpha < 0f) {
+                filterAlpha = 0;
+                dayState = day;
             }
         }
     }
+
     public void draw(Graphics2D g2) {
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,filterAlpha));
-        g2.drawImage(darknessFilter, 0, 0, null);
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1f));
-        //debug
-        String situation ="";
-        switch (dayState){
-            case day: situation ="Day";
-            break;
-            case dusk: situation ="Dusk";
-                break;
-            case night: situation ="Night";
-                break;
-            case dawn: situation ="Dawn";
-                break;
+        if (gp.currentArea == gp.outside) {
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, filterAlpha));
         }
+        if (gp.currentArea == gp.outside || gp.currentArea == gp.dungeon) {
+            g2.drawImage(darknessFilter, 0, 0, null);
+        }
+
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+        // DEBUG
+        String situation = switch (dayState) {
+            case day -> "Day";
+            case dusk -> "Dusk";
+            case night -> "Night";
+            case dawn -> "Dawn";
+            default -> "";
+        };
+
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(50f));
-        g2.drawString(situation,800,500);
+        g2.drawString(situation, 800, 500);
     }
 }
