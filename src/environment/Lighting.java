@@ -12,8 +12,10 @@ public class Lighting {
 
     GamePanel gp;
     BufferedImage darknessFilter;
+
     // daycounter mean the time of a day 600 == 10 sec
     public int dayCounter;
+
     // fillteralphe mean the time to change the night
     public float filterAlpha = 0;
     public final int day = 0;
@@ -130,10 +132,10 @@ public class Lighting {
     }
 
     public void draw(Graphics2D g2) {
-        if(gp.currentArea==gp.outside){
+        if (gp.currentArea == gp.outside) {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, filterAlpha));
         }
-        if(gp.currentArea == gp.outside || gp.currentArea == gp.dungeon){
+        if (gp.currentArea == gp.outside || gp.currentArea == gp.dungeon) {
             g2.drawImage(darknessFilter, 0, 0, null);
         }
 

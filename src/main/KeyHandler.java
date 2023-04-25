@@ -175,8 +175,10 @@ public class KeyHandler implements KeyListener {
             case KeyEvent.VK_T -> checkDrawTime = !checkDrawTime;
             case KeyEvent.VK_R -> {
                 switch (gp.currentMap) {
-                    case 0 -> gp.tileM.loadMap("/Map/worldV3.txt", 0);
-                    case 1 -> gp.tileM.loadMap("/Map/interior01.txt", 1);
+                    case 0 -> gp.tileM.loadMap("/Map (Tile editor version)/worldmap.txt", 0);
+                    case 1 -> gp.tileM.loadMap("/Map (Tile editor version)/indoor01.txt", 1);
+                    case 2 -> gp.tileM.loadMap("/Map (Tile editor version)/dungeon01.txt", 2);
+                    case 3 -> gp.tileM.loadMap("/Map (Tile editor version)/dungeon02.xt", 3);
                 }
             }
         }
@@ -189,8 +191,6 @@ public class KeyHandler implements KeyListener {
     }
 
     public void dialogueState(int code) {
-
-
         if (code == KeyEvent.VK_SPACE) {
             spacePressed = true;
         }
