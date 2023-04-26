@@ -201,11 +201,14 @@ public class Entity {
     public void setAction() {
     }
 
-    public void damageReaction() {
-
+    public void move(String direction) {
     }
 
-    public void speak() {}
+    public void damageReaction() {
+    }
+
+    public void speak() {
+    }
 
     public void facePlayer() {
         switch (gp.player.direction) {
