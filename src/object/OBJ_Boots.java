@@ -1,16 +1,17 @@
 package object;
 
-import javax.imageio.ImageIO;
-import java.io.IOException;
+import entity.Entity;
+import main.GamePanel;
 
-public class OBJ_Boots extends SuperObject {
 
-    public OBJ_Boots() {
-        name = "Boots";
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("/Object/boots.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+public class OBJ_Boots extends Entity {
+    public static final String objName = "Boots";
+
+    public OBJ_Boots(GamePanel gp) {
+        super(gp);
+
+        name = objName;
+        down1 = setup("/Object/boots", gp.tileSize, gp.tileSize);
+        price = 50;
     }
 }
