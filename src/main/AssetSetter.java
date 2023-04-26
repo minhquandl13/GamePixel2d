@@ -74,6 +74,14 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldX = gp.tileSize * 12;
         gp.obj[mapNum][i].worldY = gp.tileSize * 12;
         i++;
+
+        mapNum = 2;
+        i = 0;
+        gp.obj[mapNum][i] = new OBJ_Chest(gp);
+        gp.obj[mapNum][i].setLoot(new OBJ_Pickaxe(gp));
+        gp.obj[mapNum][i].worldX = gp.tileSize * 40;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 41;
+        i++;
     }
 
     public void setNPC() {

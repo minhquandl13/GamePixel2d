@@ -23,6 +23,7 @@ public class EntityGenerator {
             case OBJ_Heart.objName -> obj = new OBJ_Heart(gp);
             case OBJ_Key.objName -> obj = new OBJ_Key(gp);
             case OBJ_Lantern.objName -> obj = new OBJ_Lantern(gp);
+            case OBJ_Pickaxe.objName -> obj = new OBJ_Pickaxe(gp);
             case OBJ_ManaCrystal.objName -> obj = new OBJ_ManaCrystal(gp);
             case OBJ_Potion_Red.objName -> obj = new OBJ_Potion_Red(gp);
             case OBJ_Rock.objName -> obj = new OBJ_Rock(gp);

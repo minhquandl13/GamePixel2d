@@ -3,19 +3,19 @@ package object;
 import entity.Entity;
 import main.GamePanel;
 
-public class OBJ_Axe extends Entity {
-    public static final String objName = "Woodcutter's Axe";
+public class OBJ_Pickaxe extends Entity {
+    public static final String objName = "Pickaxe";
 
-    public OBJ_Axe(GamePanel gp) {
+    public OBJ_Pickaxe(GamePanel gp) {
         super(gp);
 
-        type = type_axe;
+        type = type_pickAxe;
         name = objName;
-        down1 = setup("/Object/axe", gp.tileSize, gp.tileSize);
+        down1 = setup("/Object/pickaxe", gp.tileSize, gp.tileSize);
         attackValue = 2;
         attackArea.width = 30;
         attackArea.height = 30;
-        description = "[Woodcutter's Axe]\nA bit  rusty but still\ncan cut some trees.";
+        description = "[Pickaxe]\nYou will dig it!";
         price = 75;
         knockBackPower = 10;
         motion1_duration = 20;
