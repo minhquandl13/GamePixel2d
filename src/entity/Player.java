@@ -405,6 +405,8 @@ public class Player extends Entity {
                 attackCanceled = true;
                 gp.npc[gp.currentMap][i].speak();     //FIXED
             }
+
+            gp.npc[gp.currentMap][i].move(direction);
         }
     }
 

@@ -35,8 +35,8 @@ public class NPC_BigRock extends Entity {
         down2 = setup("/NPC/bigrock", gp.tileSize, gp.tileSize);
         left1 = setup("/NPC/bigrock", gp.tileSize, gp.tileSize);
         left2 = setup("/NPC/bigrock", gp.tileSize, gp.tileSize);
-        right1 = setup("/NPC/bigrockt", gp.tileSize, gp.tileSize);
-        right2 = setup("/NPC/bigrockt", gp.tileSize, gp.tileSize);
+        right1 = setup("/NPC/bigrock", gp.tileSize, gp.tileSize);
+        right2 = setup("/NPC/bigrock", gp.tileSize, gp.tileSize);
     }
 
     public void setDialogue() {
@@ -50,7 +50,17 @@ public class NPC_BigRock extends Entity {
     }
 
     public void move(String direction) {
+        this.direction = direction;
 
+        checkCollision();
+        if (!collisionOn) {
+            switch (direction) {
+                case "up" -> worldY -= speed;
+                case "down" -> worldY += speed;
+                case "left" -> worldX -= speed;
+                case "right" -> worldX += speed;
+            }
+        }
     }
 
     public void speak() {
