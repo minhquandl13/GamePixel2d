@@ -17,7 +17,7 @@ public class IT_DestructibleWall extends InteractiveTile {
 
         down1 = setup("/Tiles_Interactive/destructiblewall", gp.tileSize, gp.tileSize);
         destructible = true;
-        life = 3;
+        life = 1;
     }
 
     public boolean isCorrectItem(Entity entity) {
@@ -29,7 +29,7 @@ public class IT_DestructibleWall extends InteractiveTile {
     }
 
     public void playSE() {
-        gp.playSE(11);
+        gp.playSE(20);
     }
 
     public InteractiveTile getDestroyedForm() {
