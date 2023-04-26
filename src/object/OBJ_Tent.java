@@ -6,6 +6,7 @@ import main.GamePanel;
 public class OBJ_Tent extends Entity {
     GamePanel gp;
     public static final String objName = "Tent";
+
     public OBJ_Tent(GamePanel gp) {
         super(gp);
         this.gp = gp;
@@ -23,7 +24,7 @@ public class OBJ_Tent extends Entity {
         gp.player.life = gp.player.maxLife;
         gp.player.mana = gp.player.maxMana;
         gp.player.getSleepingImage(down1);
-        return true;
 
+        return true;
     }
 }

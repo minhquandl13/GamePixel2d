@@ -43,6 +43,7 @@ public class Entity {
     public boolean collision = false;
     public String[][] dialogues = new String[50][50];
     public Entity attacker;
+    public Entity linkedEntity;
 
     // STATE
     public int worldX;
@@ -127,6 +128,8 @@ public class Entity {
     public final int type_pickupOnly = 7;
     public final int type_obstacle = 8;
     public final int type_light = 9;
+    public final int type_pickAxe = 10;
+
 
     public Entity(GamePanel gp) {
         this.gp = gp;
@@ -199,11 +202,14 @@ public class Entity {
     public void setAction() {
     }
 
-    public void damageReaction() {
-
+    public void move(String direction) {
     }
 
-    public void speak() {}
+    public void damageReaction() {
+    }
+
+    public void speak() {
+    }
 
     public void facePlayer() {
         switch (gp.player.direction) {
@@ -437,9 +443,9 @@ public class Entity {
         }
     }
 
-    public void getRandomDirection() {
+    public void getRandomDirection(int interval) {
         actionLockCounter++;
-        if (actionLockCounter == 120) {
+        if (actionLockCounter == interval) {
             Random random = new Random();
             int i = random.nextInt(100) + 1; // pick up a number from 1 to 100
 

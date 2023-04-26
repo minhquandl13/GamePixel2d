@@ -5,6 +5,7 @@ import main.GamePanel;
 
 public class OBJ_Shield_Blue extends Entity {
     public static final String objName = "Blue Shield";
+
     public OBJ_Shield_Blue(GamePanel gp) {
         super(gp);
 
