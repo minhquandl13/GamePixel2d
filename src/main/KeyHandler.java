@@ -14,6 +14,7 @@ public class KeyHandler implements KeyListener {
     public boolean shotKeyPressed;
     public boolean enterPressed;
     public boolean guardPressed;
+    public boolean godModeOn = false;
 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
@@ -180,6 +181,9 @@ public class KeyHandler implements KeyListener {
                     case 2 -> gp.tileM.loadMap("/Map (Tile editor version)/dungeon01.txt", 2);
                     case 3 -> gp.tileM.loadMap("/Map (Tile editor version)/dungeon02.xt", 3);
                 }
+            }
+            case KeyEvent.VK_G -> {
+                godModeOn = !godModeOn;
             }
         }
     }

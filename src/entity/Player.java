@@ -361,11 +361,13 @@ public class Player extends Entity {
         }
 
         //TODO: @all- player don't die anymore
-        if (life <= 0) {
-            gp.gameState = gp.gameOverState;
-            gp.ui.commandNumber = -1;
-            gp.stopMusic();
-            gp.playSE(12);
+        if (!keyH.godModeOn) {
+            if (life <= 0) {
+                gp.gameState = gp.gameOverState;
+                gp.ui.commandNumber = -1;
+                gp.stopMusic();
+                gp.playSE(12);
+            }
         }
     }
 
