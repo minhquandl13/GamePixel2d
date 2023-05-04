@@ -44,34 +44,34 @@ public class MON_SkeletonLord extends Entity {
     }
 
     public void getImage() {
-        int sizeOfMonster = 5;
+        int size = 5;
 
         if (!inRage) {
-            up1 = setup("/Monster/skeletonlord_up_1", gp.tileSize * sizeOfMonster, gp.tileSize * sizeOfMonster);
-            up2 = setup("/Monster/skeletonlord_up_2", gp.tileSize * sizeOfMonster, gp.tileSize * sizeOfMonster);
+            up1 = setup("/Monster/skeletonlord_up_1", gp.tileSize * size, gp.tileSize * size);
+            up2 = setup("/Monster/skeletonlord_up_2", gp.tileSize * size, gp.tileSize * size);
 
-            down1 = setup("/Monster/skeletonlord_down_1", gp.tileSize * sizeOfMonster, gp.tileSize * sizeOfMonster);
-            down2 = setup("/Monster/skeletonlord_down_2", gp.tileSize * sizeOfMonster, gp.tileSize * sizeOfMonster);
+            down1 = setup("/Monster/skeletonlord_down_1", gp.tileSize * size, gp.tileSize * size);
+            down2 = setup("/Monster/skeletonlord_down_2", gp.tileSize * size, gp.tileSize * size);
 
-            left1 = setup("/Monster/skeletonlord_left_1", gp.tileSize * sizeOfMonster, gp.tileSize * sizeOfMonster);
-            left2 = setup("/Monster/skeletonlord_left_2", gp.tileSize * sizeOfMonster, gp.tileSize * sizeOfMonster);
+            left1 = setup("/Monster/skeletonlord_left_1", gp.tileSize * size, gp.tileSize * size);
+            left2 = setup("/Monster/skeletonlord_left_2", gp.tileSize * size, gp.tileSize * size);
 
-            right1 = setup("/Monster/skeletonlord_right_1", gp.tileSize * sizeOfMonster, gp.tileSize * sizeOfMonster);
-            right2 = setup("/Monster/skeletonlord_right_2", gp.tileSize * sizeOfMonster, gp.tileSize * sizeOfMonster);
+            right1 = setup("/Monster/skeletonlord_right_1", gp.tileSize * size, gp.tileSize * size);
+            right2 = setup("/Monster/skeletonlord_right_2", gp.tileSize * size, gp.tileSize * size);
         }
 
         if (inRage) {
-            up1 = setup("/Monster/skeletonlord_phase2_up_1", gp.tileSize * sizeOfMonster, gp.tileSize * sizeOfMonster);
-            up2 = setup("/Monster/skeletonlord_phase2_up_2", gp.tileSize * sizeOfMonster, gp.tileSize * sizeOfMonster);
+            up1 = setup("/Monster/skeletonlord_phase2_up_1", gp.tileSize * size, gp.tileSize * size);
+            up2 = setup("/Monster/skeletonlord_phase2_up_2", gp.tileSize * size, gp.tileSize * size);
 
-            down1 = setup("/Monster/skeletonlord_phase2_down_1", gp.tileSize * sizeOfMonster, gp.tileSize * sizeOfMonster);
-            down2 = setup("/Monster/skeletonlord_phase2_down_2", gp.tileSize * sizeOfMonster, gp.tileSize * sizeOfMonster);
+            down1 = setup("/Monster/skeletonlord_phase2_down_1", gp.tileSize * size, gp.tileSize * size);
+            down2 = setup("/Monster/skeletonlord_phase2_down_2", gp.tileSize * size, gp.tileSize * size);
 
-            left1 = setup("/Monster/skeletonlord_phase2_left_1", gp.tileSize * sizeOfMonster, gp.tileSize * sizeOfMonster);
-            left2 = setup("/Monster/skeletonlord_phase2_left_2", gp.tileSize * sizeOfMonster, gp.tileSize * sizeOfMonster);
+            left1 = setup("/Monster/skeletonlord_phase2_left_1", gp.tileSize * size, gp.tileSize * size);
+            left2 = setup("/Monster/skeletonlord_phase2_left_2", gp.tileSize * size, gp.tileSize * size);
 
-            right1 = setup("/Monster/skeletonlord_phase2_right_1", gp.tileSize * sizeOfMonster, gp.tileSize * sizeOfMonster);
-            right2 = setup("/Monster/skeletonlord_phase2_right_2", gp.tileSize * sizeOfMonster, gp.tileSize * sizeOfMonster);
+            right1 = setup("/Monster/skeletonlord_phase2_right_1", gp.tileSize * size, gp.tileSize * size);
+            right2 = setup("/Monster/skeletonlord_phase2_right_2", gp.tileSize * size, gp.tileSize * size);
         }
     }
 
