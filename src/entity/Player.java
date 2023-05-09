@@ -62,11 +62,12 @@ public class Player extends Entity {
         nextLevelExp = 5;
         coin = 500;
 //        currentWeapon = new OBJ_Sword_Normal(gp);
-        currentWeapon = new OBJ_Axe(gp);
+//        currentWeapon = new OBJ_Axe(gp);
+        currentWeapon = new OBJ_Pickaxe(gp);
         currentShield = new OBJ_Shield_Wood(gp);
         currentLight = null;
         projectile = new OBJ_Fireball(gp);
-//        projectile = new OBJ_Rock(gp);
+
         attack = getAttack(); // The total attack value is decided by strength and weapon
         defense = getDefense(); // The total defense value is decided by dexterity and shield
 
@@ -689,7 +690,10 @@ public class Player extends Entity {
         if (transparent) {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
         }
-        g2.drawImage(image, tempScreenX, tempScreenY, null);
+
+        if (drawing) {
+            g2.drawImage(image, tempScreenX, tempScreenY, null);
+        }
 
         // Reset Alpha
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));

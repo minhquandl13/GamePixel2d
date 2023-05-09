@@ -1,5 +1,6 @@
 package main;
 
+import data.Progress;
 import entity.NPC_BigRock;
 import entity.NPC_Merchant;
 import entity.NPC_OldMan;
@@ -103,9 +104,23 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldY = gp.tileSize * 15;
         i++;
 
-        gp.obj[mapNum][i] = new OBJ_Door_Iron(gp);
-        gp.obj[mapNum][i].worldX = gp.tileSize * 18;
-        gp.obj[mapNum][i].worldY = gp.tileSize * 23;
+//        gp.obj[mapNum][i] = new OBJ_Door_Iron(gp);
+//        gp.obj[mapNum][i].worldX = gp.tileSize * 18;
+//        gp.obj[mapNum][i].worldY = gp.tileSize * 23;
+//        i++;
+
+        mapNum = 3;
+        i = 0;
+        if (!Progress.skeletonLordDefeated) {
+            gp.monster[mapNum][i] = new OBJ_Door_Iron(gp);
+            gp.monster[mapNum][i].worldX = gp.tileSize * 25;
+            gp.monster[mapNum][i].worldY = gp.tileSize * 15;
+            i++;
+        }
+
+        gp.obj[mapNum][i] = new OBJ_BlueHeart(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize * 25;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 8;
         i++;
     }
 
@@ -196,23 +211,23 @@ public class AssetSetter {
         mapNum = 2;
         i = 0;
         gp.monster[mapNum][i] = new MON_Bat(gp);
-        gp.monster[mapNum][i].worldX = gp.tileSize * 34;
-        gp.monster[mapNum][i].worldY = gp.tileSize * 39;
+        gp.monster[mapNum][i].worldX = gp.tileSize * 35;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 40;
         i++;
 
         gp.monster[mapNum][i] = new MON_Bat(gp);
-        gp.monster[mapNum][i].worldX = gp.tileSize * 30;
-        gp.monster[mapNum][i].worldY = gp.tileSize * 25;
-        i++;
-
-        gp.monster[mapNum][i] = new MON_Bat(gp);
-        gp.monster[mapNum][i].worldX = gp.tileSize * 39;
+        gp.monster[mapNum][i].worldX = gp.tileSize * 31;
         gp.monster[mapNum][i].worldY = gp.tileSize * 26;
         i++;
 
         gp.monster[mapNum][i] = new MON_Bat(gp);
-        gp.monster[mapNum][i].worldX = gp.tileSize * 10;
-        gp.monster[mapNum][i].worldY = gp.tileSize * 19;
+        gp.monster[mapNum][i].worldX = gp.tileSize * 40;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 27;
+        i++;
+
+        gp.monster[mapNum][i] = new MON_Bat(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize * 11;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 20;
         i++;
 
         mapNum = 3;

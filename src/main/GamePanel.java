@@ -52,6 +52,7 @@ public class GamePanel extends JPanel implements Runnable {
     protected Thread gameThread;
     private SaveAndLoad saveAndLoad = new SaveAndLoad(this);
     public EntityGenerator entityGenerator = new EntityGenerator(this);
+    public CutsceneManager cutsceneManager = new CutsceneManager(this);
 
     // ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
@@ -79,6 +80,10 @@ public class GamePanel extends JPanel implements Runnable {
     public final int tradeState = 8;
     public final int sleepState = 9;
     public final int mapState = 10;
+    public final int cutsceneState = 11;
+
+    //OTHERS
+    public boolean bossBattleOn = false;
 
     //AREA
     public int nextArea;
@@ -107,7 +112,10 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void resetGame(boolean restart) {
+        stopMusic();
         currentArea = outside;
+        removeTempEntity();
+        bossBattleOn = false;
         player.setDefaultPositions();
         player.restoreStatus();
         player.resetCounter();
@@ -125,7 +133,6 @@ public class GamePanel extends JPanel implements Runnable {
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
-
     }
 
     @Override
@@ -259,18 +266,20 @@ public class GamePanel extends JPanel implements Runnable {
                     entityList.add(monster[currentMap][i]);
                 }
             }
+
             for (int i = 0; i < projectile[1].length; i++) {
                 if (projectile[currentMap][i] != null) {
                     entityList.add(projectile[currentMap][i]);
                 }
             }
+
             for (int i = 0; i < particleList.size(); i++) {
                 if (particleList.get(i) != null) {
                     entityList.add(particleList.get(i));
                 }
             }
             //SORT
-            Collections.sort(entityList, new Comparator<Entity>() {
+            entityList.sort(new Comparator<Entity>() {
                 @Override
                 public int compare(Entity e1, Entity e2) {
                     int result = Integer.compare(e1.worldY, e2.worldY);
@@ -290,6 +299,9 @@ public class GamePanel extends JPanel implements Runnable {
 
             //MINIMAP
             map.drawMiniMap(g2);
+
+            //CUTSCENE
+            cutsceneManager.draw(g2);
 
             // UI
             ui.draw(g2);
@@ -348,5 +360,14 @@ public class GamePanel extends JPanel implements Runnable {
 
     public SaveAndLoad getSaveAndLoad() {
         return saveAndLoad;
+    }
+    public void removeTempEntity() {
+        for (int mapnum = 0; mapnum < maxMap; mapnum++) {
+            for (int i = 0; i < obj[1].length; i++) {
+                if (obj[mapnum][i] != null && obj[mapnum][i].temp) {
+                    obj[mapnum][i] = null;
+                }
+            }
+        }
     }
 }
