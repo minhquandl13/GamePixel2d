@@ -90,7 +90,7 @@ public class MON_SkeletonLord extends Entity {
             attackDown2 = setup("/Monster/skeletonlord_attack_down_2", gp.tileSize * size, gp.tileSize * size * 2);
 
             attackLeft1 = setup("/Monster/skeletonlord_attack_left_1", gp.tileSize * size * 2, gp.tileSize * size);
-            attackLeft2 = setup("/Monster/skeletonlord_attack_left_2", gp.tileSize * size * 2, gp.tileSize);
+            attackLeft2 = setup("/Monster/skeletonlord_attack_left_2", gp.tileSize * size * 2, gp.tileSize * size);
 
             attackRight1 = setup("/Monster/skeletonlord_attack_right_1", gp.tileSize * size * 2, gp.tileSize * size);
             attackRight2 = setup("/Monster/skeletonlord_attack_right_2", gp.tileSize * size * 2, gp.tileSize * size);
@@ -104,7 +104,7 @@ public class MON_SkeletonLord extends Entity {
             attackDown2 = setup("/Monster/skeletonlord_phase2_attack_down_2", gp.tileSize * size, gp.tileSize * size * 2);
 
             attackLeft1 = setup("/Monster/skeletonlord_phase2_attack_left_1", gp.tileSize * size * 2, gp.tileSize * size);
-            attackLeft2 = setup("/Monster/skeletonlord_phase2_attack_left_2", gp.tileSize * size * 2, gp.tileSize);
+            attackLeft2 = setup("/Monster/skeletonlord_phase2_attack_left_2", gp.tileSize * size * 2, gp.tileSize * size);
 
             attackRight1 = setup("/Monster/skeletonlord_phase2_attack_right_1", gp.tileSize * size * 2, gp.tileSize * size);
             attackRight2 = setup("/Monster/skeletonlord_phase2_attack_right_2", gp.tileSize * size * 2, gp.tileSize * size);
@@ -149,7 +149,7 @@ public class MON_SkeletonLord extends Entity {
 
         // Restore the previous music
         gp.stopMusic();
-        gp.playSE(19);
+        gp.playMusic(19);
 
         // Remove the iron doors
         for (int i = 0; i < gp.obj[1].length; i++) {

@@ -137,19 +137,12 @@ public class UI {
         int x = gp.tileSize / 2;
         int y = gp.tileSize / 2;
         int i = 0;
-        int iconSize = 32;
-
 
         //Draw max life
         while (i < gp.player.maxLife / 2) {
             g2.drawImage(heart_blank, x, y, null);
             i++;
-            x += iconSize;
-
-            if (i % 8 == 0) {
-                x = gp.tileSize / 2;
-                y += iconSize;
-            }
+            x += gp.tileSize;
         }
 
         //Reset

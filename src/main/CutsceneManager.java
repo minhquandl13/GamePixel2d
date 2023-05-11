@@ -1,8 +1,10 @@
 package main;
 
+import entity.Entity;
 import entity.PlayerDummy;
 import monster.MON_SkeletonLord;
 import object.OBJ_BlueHeart;
+import object.OBJ_Boots;
 import object.OBJ_Door_Iron;
 
 import java.awt.*;
@@ -52,11 +54,11 @@ public class CutsceneManager {
 
             // Search a vacant slot for the dummy
             for (int i = 0; i < gp.npc[1].length; i++) {
-                if (gp.obj[gp.currentMap][i] == null) {
-                    gp.obj[gp.currentMap][i] = new PlayerDummy(gp);
-                    gp.obj[gp.currentMap][i].worldX = gp.player.worldX;
-                    gp.obj[gp.currentMap][i].worldY = gp.player.worldY;
-                    gp.obj[gp.currentMap][i].direction = gp.player.direction;
+                if (gp.npc[gp.currentMap][i] == null) {
+                    gp.npc[gp.currentMap][i] = new PlayerDummy(gp);
+                    gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
+                    gp.npc[gp.currentMap][i].worldY = gp.player.worldY;
+                    gp.npc[gp.currentMap][i].direction = gp.player.direction;
                     break;
                 }
             }
@@ -116,7 +118,7 @@ public class CutsceneManager {
 
             // Change the music
             gp.stopMusic();
-            gp.playSE(22);
+            gp.playMusic(22);
         }
     }
 
@@ -158,6 +160,25 @@ public class CutsceneManager {
                 scenePhase++;
             }
         }
+
+        if (scenePhase == 5) {
+            drawBlackBackground(1f);
+
+            alpha += 0.005f;
+            if (alpha > 1f) {
+                alpha = 1f;
+            }
+
+            String text = "After the fierce battle with the Skeleton Lord,\n"
+                    + "the Blue Boy finally found the legendary treasure.\n"
+                    + "But this is not the end of his journey.\n"
+                    + "The Blue Boy's adventure has just begun.";
+            drawString(alpha, 38f, 200, text, 70);
+
+            if (counterReached(600)) {
+                scenePhase++;
+            }
+        }
     }
 
     public boolean counterReached(int target) {
@@ -176,6 +197,19 @@ public class CutsceneManager {
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
         g2.setColor(Color.black);
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+    }
+
+    public void drawString(float alpha, float fontSize, int y, String text, int lineHeight) {
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(fontSize));
+
+        for (String line : text.split("\n")) {
+            int x = gp.ui.getXForCenteredText(line);
+            g2.drawString(line, x, y);
+            y += lineHeight;
+        }
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
     }
 }

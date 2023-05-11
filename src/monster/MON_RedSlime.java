@@ -51,7 +51,6 @@ public class MON_RedSlime extends Entity {
         right2 = setup("/Monster/redslime_down_2", gp.tileSize, gp.tileSize);
     }
 
-
     public void setAction() {
         if (onPath) {
             // Check if it stops chasing
@@ -73,7 +72,6 @@ public class MON_RedSlime extends Entity {
 
     public void damageReaction() {
         actionLockCounter = 0;
-//        direction = gp.player.direction;
         onPath = true;
     }
 

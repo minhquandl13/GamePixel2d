@@ -69,12 +69,10 @@ public class MON_Bat extends Entity {
 
     public void damageReaction() {
         actionLockCounter = 0;
-//        direction = gp.player.direction;
         onPath = true;
     }
 
     public void checkDrop() {
-
         // CAST A DIE
         int i = new Random().nextInt(100) + 1;
 
