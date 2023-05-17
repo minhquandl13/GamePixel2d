@@ -17,6 +17,7 @@ public class CutsceneManager {
     int counter = 0;
     float alpha = 0f;
     int y;
+    String endCredit;
 
     //Scene number
     public final int NA = 0;
@@ -25,6 +26,16 @@ public class CutsceneManager {
 
     public CutsceneManager(GamePanel gp) {
         this.gp = gp;
+
+        endCredit = "Bài tập Thiết Kế Hướng Đối Tượng\n"
+                + "\n\n\n\n\n\n\n\n\n\n\n\n\n"
+                + "Thành viên\n"
+                + "Đặng Minh Quân\n"
+                + "Thái Bình Thiên Quốc\n"
+                + "Đào Nhật Bảo\n"
+                + "Nguyễn Minh Phi\n"
+                + "Nguyễn Văn Tuấn\n\n\n\n\n\n"
+                + "Thank you for playing!";
     }
 
     public void draw(Graphics2D g2) {
@@ -176,8 +187,37 @@ public class CutsceneManager {
             drawString(alpha, 38f, 200, text, 70);
 
             if (counterReached(600)) {
+                gp.playMusic(23);
                 scenePhase++;
             }
+        }
+
+        if (scenePhase == 6) {
+            drawBlackBackground(1f);
+            y = gp.screenHeight / 2 ;
+            drawString(1f, 120f, y, "Blue Boy Adventure", 40);
+
+            if (counterReached(480)) {
+                scenePhase++;
+            }
+        }
+
+        if (scenePhase == 7) {
+            drawBlackBackground(1f);
+            y = gp.screenHeight / 2;
+            drawString(1f, 38f, y, endCredit,40);
+
+            if (counterReached(480)) {
+                scenePhase++;
+            }
+        }
+
+        if (scenePhase == 8) {
+            drawBlackBackground(1f);
+
+            // Scrolling the credit
+            y--;
+            drawString(1f, 38f, y, endCredit, 40);
         }
     }
 

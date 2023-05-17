@@ -40,6 +40,7 @@ public class Sound {
         soundURL[20] = getClass().getResource("/Sound/chipwall.wav");
         soundURL[21] = getClass().getResource("/Sound/dooropen.wav");
         soundURL[22] = getClass().getResource("/Sound/FinalBattle.wav");
+        soundURL[23] = getClass().getResource("/Sound/ending.wav");
     }
 
     public void setFile(int i) {
