@@ -1,4 +1,6 @@
-package controller;
+package controller.saveload;
+
+import controller.GamePanel;
 
 import java.io.*;
 

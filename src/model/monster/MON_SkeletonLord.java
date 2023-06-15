@@ -1,6 +1,6 @@
 package model.monster;
 
-import controller.Progress;
+import controller.saveload.Progress;
 import controller.Entity;
 import controller.GamePanel;
 import model.object.OBJ_Coin_Bronze;

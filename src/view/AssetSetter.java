@@ -1,7 +1,7 @@
 package view;
 
 import controller.GamePanel;
-import controller.Progress;
+import controller.saveload.Progress;
 import model.npc.NPC_BigRock;
 import model.npc.NPC_Merchant;
 import model.npc.NPC_OldMan;

@@ -1,9 +1,6 @@
 package controller;
 
-import controller.EventRect;
-import controller.GamePanel;
-import controller.Progress;
-import controller.Entity;
+import controller.saveload.Progress;
 
 public class EventHandler {
     public GamePanel gp;

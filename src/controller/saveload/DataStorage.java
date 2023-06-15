@@ -1,4 +1,4 @@
-package controller;
+package controller.saveload;
 
 import java.io.Serializable;
 import java.util.ArrayList;
