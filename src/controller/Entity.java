@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 
-public class Entity {
+public class Entity implements ObserverDraw {
     public GamePanel gp;
     public BufferedImage up1;
     public BufferedImage up2;
@@ -322,6 +322,7 @@ public class Entity {
         }
     }
 
+    @Override
     public void update() {
         if (!sleep) {
             if (knockBack) {
@@ -894,6 +895,18 @@ public class Entity {
             }
         }
         return index;
+    }
+
+    public void addObserver(Entity entity) {
+        entity.inventory.add(entity);
+    }
+
+    public void removeObserver(Entity entity) {
+        entity.inventory.remove(entity);
+    }
+
+    public void notifyObserver() {
+        update();
     }
 }
 

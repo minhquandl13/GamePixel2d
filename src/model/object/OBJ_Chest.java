@@ -40,8 +40,6 @@ public class OBJ_Chest extends Entity {
     }
 
     public void interact() {
-
-
         if (!opened) {
             gp.playSE(3);
 

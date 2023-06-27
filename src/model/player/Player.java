@@ -3,27 +3,22 @@ package model.player;
 import controller.Entity;
 import controller.GamePanel;
 import controller.KeyHandler;
+import controller.ObserverDraw;
 import model.object.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Player extends Entity {
+public class Player extends Entity implements ObserverDraw {
     public KeyHandler keyH;
     public final int screenX;
     public final int screenY;
-    private final int COIN_MUSIC = 1;
-    private final int POWER_MUSIC = 2;
-    private final int UNLOCK_MUSIC = 3;
-    private final int FANFARE_MUSIC = 4;
-    //    int standCounter = 0;
     public boolean attackCanceled = false;
     public boolean lightUpdated = false;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
         this.keyH = keyH;
-
 
         // Screen player position
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
@@ -220,6 +215,7 @@ public class Player extends Entity {
         guardRight = setup("/Player/Guarding sprites/boy_guard_right", gp.tileSize, gp.tileSize);
     }
 
+    @Override
     public void update() {
         if (knockBack) {
             // CHECK TILE COLLISION
@@ -586,6 +582,7 @@ public class Player extends Entity {
         return canObtain;
     }
 
+    @Override
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
         int tempScreenX = screenX;

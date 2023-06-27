@@ -1,6 +1,6 @@
 package controller;
 
-public class Projectile extends Entity {
+public class Projectile extends Entity implements ObserverDraw {
     public Entity user;
 
     public Projectile(GamePanel gp) {
@@ -16,6 +16,7 @@ public class Projectile extends Entity {
         this.life = this.maxLife;
     }
 
+    @Override
     public void update() {
         if (user == gp.player) {
             int monsterIndex = gp.getcChecker().checkEntity(this, gp.monster);
