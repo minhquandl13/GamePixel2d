@@ -1,6 +1,7 @@
 package controller;
 
 import controller.saveload.SaveAndLoad;
+import model.map.TileManager;
 import model.player.Player;
 import view.*;
 import model.interactiveTile.InteractiveTile;

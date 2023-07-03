@@ -1,6 +1,7 @@
 package view;
 
 import controller.GamePanel;
+import model.map.TileManager;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

@@ -898,11 +898,11 @@ public class Entity implements ObserverDraw {
     }
 
     public void addObserver(Entity entity) {
-        entity.inventory.add(entity);
+        entity.image.getHeight();
     }
 
     public void removeObserver(Entity entity) {
-        entity.inventory.remove(entity);
+        entity.image.getWidth();
     }
 
     public void notifyObserver() {

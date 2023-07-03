@@ -1,6 +1,8 @@
-package view;
+package model.map;
 
 import controller.GamePanel;
+import view.Tile;
+import view.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

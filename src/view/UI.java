@@ -18,10 +18,6 @@ public class UI {
     public Graphics2D g2;
     public final Font maruMonica;
     public final Font purisaB;
-    //    public int messageCounter = 0;
-    public boolean messageOn = false;
-    public boolean gameFinished = false;
-    //    public String message = "";
     public ArrayList<String> message = new ArrayList<>();
     public ArrayList<Integer> messageCount = new ArrayList<>();
     public String currentDialog = "";
@@ -68,7 +64,6 @@ public class UI {
     public void addMessage(String text) {
         message.add(text);
         messageCount.add(0);
-
     }
 
     public void draw(Graphics2D g2) {
@@ -616,7 +611,6 @@ public class UI {
             int dFrameHeight = gp.tileSize * 3;
 
             // DRAW DESCRIPTION TEXT
-
             int textX = dFrameX + 20;
             int textY = dFrameY + gp.tileSize;
             g2.setFont(g2.getFont().deriveFont(28F));
