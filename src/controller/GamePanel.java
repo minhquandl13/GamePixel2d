@@ -25,7 +25,8 @@ public class GamePanel extends JPanel implements Runnable {
     // WORLD SETTINGS
     public int maxWorldCol;
     public int maxWorldRow;
-    public final int maxMap = 10;
+    public MaxMap maxMap1 = MaxMap.getInstance();
+    public final int maxMap = maxMap1.getMaxMap();
     public int currentMap = 0;
 
     // FPS
@@ -34,6 +35,7 @@ public class GamePanel extends JPanel implements Runnable {
     // SYSTEM
     public TileManager tileM = new TileManager(this);
     public KeyHandler keyH = new KeyHandler(this);
+//    public SoundManager sM = SoundManager.getInstance();
     public Sound soundEffect = new Sound();
     public Sound music = new Sound();
     public Sound se = new Sound();
