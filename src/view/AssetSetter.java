@@ -101,10 +101,10 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldY = gp.tileSize * 15;
         i++;
 
-        gp.obj[mapNum][i] = new OBJ_Door_Iron(gp);
-        gp.obj[mapNum][i].worldX = gp.tileSize * 18;
-        gp.obj[mapNum][i].worldY = gp.tileSize * 23;
-        i++;
+//        gp.obj[mapNum][i] = new OBJ_Door_Iron(gp);
+//        gp.obj[mapNum][i].worldX = gp.tileSize * 18;
+//        gp.obj[mapNum][i].worldY = gp.tileSize * 23;
+//        i++;
 
         mapNum = 3;
         i = 0;
@@ -200,10 +200,10 @@ public class AssetSetter {
         i++;
 
         // MON_ORC
-        gp.monster[mapNum][i] = new MON_Orc(gp);
-        gp.monster[mapNum][i].worldX = gp.tileSize * 12;
-        gp.monster[mapNum][i].worldY = gp.tileSize * 33;
-        i++;
+//        gp.monster[mapNum][i] = new MON_Orc(gp);
+//        gp.monster[mapNum][i].worldX = gp.tileSize * 12;
+//        gp.monster[mapNum][i].worldY = gp.tileSize * 33;
+//        i++;
 
         mapNum = 2;
         i = 0;

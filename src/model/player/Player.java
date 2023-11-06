@@ -115,7 +115,6 @@ public class Player extends Entity implements ObserverDraw {
 
     public int getDefense() {
         return defense = dexterity * currentShield.defenseValue;
-
     }
 
     public int getCurrentWeaponSlot() {
